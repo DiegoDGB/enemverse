@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ENEM-2023-TESTE-001",
+    "ano": 2023,
+    "materia": "Ciências da Natureza e suas Tecnologias",
+    "subtopico": "Biologia",
+    "texto_apoio": "<p>A introdução de espécies exóticas em ecossistemas nativos pode causar desequilíbrios ecológicos severos, competindo por recursos e alterando nichos ecológicos.</p>",
+    "enunciado": "O principal impacto imediato decorrente da introdução de uma espécie exótica predadora em uma ilha isolada é:",
+    "alternativas": [
+      "O aumento imediato da biodiversidade local.",
+      "A redução populacional ou extinção de presas nativas.",
+      "A alteração da radiação solar incidente na vegetação.",
+      "O surgimento espontâneo de novas barreiras geográficas.",
+      "O aumento na taxa de mutações benéficas das plantas locais."
+    ],
+    "correta": 1,
+    "explicacao": "A alternativa B está correta porque predadores exóticos dizimam as populações nativas que não possuem defesas evolutivas contra eles."
+  },
+  {
+    "id": "ENEM-2023-TESTE-002",
+    "ano": 2023,
+    "materia": "Matemática e suas Tecnologias",
+    "subtopico": "Álgebra",
+    "texto_apoio": "<p>Uma empresa de transporte cobra uma taxa fixa de R$ 5,00 mais um valor variável de R$ 2,00 por quilômetro rodado.</p>",
+    "enunciado": "A função matemática que representa o custo total (C) em relação aos quilômetros rodados (x) é dada por:",
+    "alternativas": [
+      "C(x) = 5x + 2",
+      "C(x) = 2x + 5",
+      "C(x) = 7x",
+      "C(x) = 2x - 5",
+      "C(x) = 5x - 2"
+    ],
+    "correta": 1,
+    "explicacao": "A alternativa B está correta pois 5 é o termo constante (fixo) e 2 é o coeficiente angular que depende da variável x."
+  }
+]

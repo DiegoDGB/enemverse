@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnemVerse - Simulado Interativo</title>
+    <!-- Vínculos dos arquivos CSS Externos -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="simulado.css">
+</head>
+<body>
+
+    <!-- Topo da Área de Treinamento -->
+    <div class="simulado-nav">
+        <div class="nav-container">
+            <!-- Bloco de Perfil do Usuário (Canto Superior Esquerdo) -->
+            <div class="user-profile-block">
+                <div class="user-avatar-wrapper">
+                    <div class="user-avatar">
+                        <span class="avatar-placeholder">👤</span>
+                    </div>
+                </div>
+                <div class="user-stats-stacked">
+                    <span class="user-name">Estudante</span>
+                    <div class="stat-item-row">🔥 <span id="navStreak">0 dias seguidos</span></div>
+                    <div class="stat-item-row">⚡ <span id="navXP">0 XP total</span></div>
+                </div>
+            </div>
+
+            <!-- Botão de Voltar (Canto Superior Direito) -->
+            <a href="dashboard.html" class="btn-back">Voltar ao Painel ←</a>
+        </div>
+    </div>
+
+    <div class="container-simulado">
+        <!-- Barra de Progresso e Meta Diária -->
+        <div class="progress-section">
+            <div class="progress-info">
+                <span>Progresso Diário</span>
+                <span id="progressText">0 / 0 Questões</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Painel de Filtros Acadêmicos Automatizado (Renderizado via JS) -->
+        <div class="filters-container">
+            <span class="filters-title">📚 Passe o mouse para filtrar por Área ou Disciplina:</span>
+            
+            <!-- Contêiner essencial para a injeção do Menu do db.js / matriz_enem.json -->
+            <div class="macro-areas-group" id="macroAreasGroup">
+                <!-- Injetado dinamicamente pelo JavaScript -->
+            </div>
+
+            <!-- Caixa informativa de Incidência -->
+            <div class="subareas-display-box" id="subareasBox" style="display: none;"></div>
+        </div>
+
+        <!-- Bloco Principal da Questão -->
+        <main class="question-container">
+            <!-- Metadados da Questão + Cronômetro Embutido -->
+            <div class="question-meta">
+                <span class="badge-tag label-year">ENEM --</span>
+                <span class="badge-tag label-materia">Carregando...</span>
+                
+                <!-- Aqui está o espaço do Cronômetro Regressivo -->
+                <div class="timer-wrapper">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="countdownTimer">03:00</span>
+                </div>
+            </div>
+
+            <!-- Texto de Apoio e Enunciado -->
+            <div class="question-text">
+                <p class="texto-apoio">Carregando textos do banco de dados...</p>
+                <p class="enunciado">Por favor, aguarde.</p>
+            </div>
+
+            <!-- Alternativas -->
+            <div class="alternatives-list"></div>
+
+            <!-- Rodapé de Feedback e Confirmação -->
+            <div class="action-footer">
+                <div class="feedback-message hidden" id="feedbackBox">
+                    <span class="feedback-icon"></span>
+                    <span class="feedback-text"></span>
+                </div>
+               <!-- Mude a linha do botão para ficar assim, sem o "disabled" -->
+                <button class="submit-btn" id="btnVerify">Verificar Resposta</button>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Vínculo do Banco de Dados Real primeiro, depois a lógica do simulado -->
+    <script src="db.js"></script>
+    <script src="simulado.js"></script>
+</body>
+</html>

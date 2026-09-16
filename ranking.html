@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnemVerse - Ranking Geral</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ranking.css">
+</head>
+<body>
+
+    <!-- Topo de Navegação do Ranking -->
+    <div class="ranking-nav">
+        <div class="nav-container">
+            <a href="dashboard.html" class="btn-back">← Voltar ao Painel</a>
+            <h2 class="nav-title">🏆 Leaderboard Estadual</h2>
+            <a href="simulado.html" class="btn-action-simulado">Ir para o Simulado</a>
+        </div>
+    </div>
+
+    <div class="container-ranking">
+        
+        <!-- 🥇 PODIO DINÂMICO DOS LÍDERES (Top 3 Real) -->
+        <section class="podium-section" id="podiumContainer">
+            <!-- Injetado dinamicamente pelo JS -->
+        </section>
+
+        <!-- 📊 TABELA DO RANKING GERAL -->
+        <main class="leaderboard-container">
+            <div class="table-header">
+                <span>Posição</span>
+                <span class="header-student">Estudante</span>
+                <span>Ofensiva</span>
+                <span>Questões</span>
+                <span class="header-xp">Total XP</span>
+            </div>
+
+            <!-- Lista de contas reais injetadas pelo JS -->
+            <div class="leaderboard-list" id="leaderboardList">
+                <!-- Injetado dinamicamente pelo JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Vínculo com o banco de dados e script do ranking -->
+    <script src="db.js"></script>
+    <script src="ranking.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnemVerse - Inteligência em Questões</title>
+    <!-- Vínculo do arquivo CSS Externo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <header>
+        <p class="header-subtitle"><span class="subtitle-icon">📈</span>Inteligência em questões</p>
+        <h1>EnemVerse</h1>
+        <p>A plataforma definitiva de estudos baseada em dados e gamificação</p>
+        <div class="header-buttons">
+            <!-- Direciona para a nova página de login no modo cadastro -->
+            <button class="btn-hero primary" onclick="window.location.href='login.html?action=cadastro'">Começar agora -></button>
+            <!-- Direciona para a nova página de login no modo entrar -->
+            <button class="btn-hero secondary" onclick="window.location.href='login.html?action=login'">Acessar conta</button>
+        </div>
+    </header>
+
+
+
+    <!-- Adicionado o container para alinhar o conteúdo perfeitamente -->
+    <div class="container">
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <h2>Por que estudar resolvendo questões?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card active-learning">
+                    <div class="card-header">
+                        <span class="feature-icon">💡</span>
+                        <h3>Estudo Ativo</h3>
+                    </div>
+                    <p>Diferente de apenas assistir aulas, resolver problemas força o cérebro a recuperar informações, consolidando o aprendizado de forma muito mais profunda.</p>
+                </div>
+                
+                <div class="feature-card reverse-engineering">
+                    <div class="card-header">
+                        <span class="feature-icon">🎯</span>
+                        <h3>Engenharia Reversa</h3>
+                    </div>
+                    <p>Você entende exatamente as armadilhas, o padrão de escrita e os conteúdos que a banca do ENEM mais gosta de cobrar ao longo dos anos.</p>
+                </div>
+                
+                <div class="feature-card precision-diagnosis">
+                    <div class="card-header">
+                        <span class="feature-icon">📊</span>
+                        <h3>Diagnóstico Preciso</h3>
+                    </div>
+                    <p>Descubra em tempo real quais matérias precisam de reforço e pare de perder tempo revisando tópicos que você já domina.</p>
+                </div>
+            </div>
+
+            <div class="gamification-preview">
+                <div class="gamification-header">
+                    <!-- O Badge foi movido para cima do título -->
+                    <div class="gamification-badge">🏆 SISTEMA DE RANKING</div>
+                    <h3>Estude Jogando, Conquiste sua Vaga</h3>
+                </div>
+                <p>No EnemVerse, cada questão respondida gera pontos de experiência (XP). Mantenha sua meta diária ativa para subir no ranking geral e competir de forma saudável com estudantes de todo o Brasil!</p>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>

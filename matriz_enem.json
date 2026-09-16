@@ -1,0 +1,24 @@
+{
+  "macroareas": [
+    {
+      "nome": "Ciências da Natureza e suas Tecnologias",
+      "topicos_incidencia": ["Ecologia", "Mecânica", "Estequiometria", "Evolução"],
+      "subareas": ["Biologia", "Física", "Química"]
+    },
+    {
+      "nome": "Matemática e suas Tecnologias",
+      "topicos_incidencia": ["Funções", "Geometria Espacial", "Estatística", "Porcentagem"],
+      "subareas": ["Álgebra", "Geometria"]
+    },
+    {
+      "nome": "Ciências Humanas e suas Tecnologias",
+      "topicos_incidencia": ["Brasil Colônia", "Globalização", "Cidadania", "Cartografia"],
+      "subareas": ["História", "Geografia", "Filosofia"]
+    },
+    {
+      "nome": "Linguagens, Códigos e suas Tecnologias",
+      "topicos_incidencia": ["Funções da Linguagem", "Modernismo", "Variação Linguística"],
+      "subareas": ["Gramática", "Literatura"]
+    }
+  ]
+}

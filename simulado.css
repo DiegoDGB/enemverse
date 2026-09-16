@@ -1,0 +1,427 @@
+/* ==========================================
+   ENEMVerse - Estilos Avançados do Simulado
+   ========================================== */
+
+.simulado-nav {
+    background-color: var(--surface, #ffffff);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 20px 40px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.user-profile-block {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    border: 2px solid #7c3aed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.15);
+}
+
+.avatar-placeholder {
+    font-size: 1.8rem;
+    color: #64748b;
+}
+
+.user-stats-stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.stat-item-row {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.btn-back {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    color: #2563eb;
+    border-color: #2563eb;
+    background-color: #eff6ff;
+}
+
+.container-simulado {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.progress-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    border: 1px solid #e2e8f0;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.progress-bar-bg {
+    background-color: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+/* ==========================================
+   Menu Dropdown (Hover Dinâmico Organizado)
+   ========================================== */
+.filters-container {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+}
+
+.filters-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+}
+
+.macro-areas-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.macro-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.macro-btn:hover {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+.macro-btn.active, .sub-filter-btn.active-sub {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    z-index: 150;
+    top: calc(100% + 4px);
+    left: 0;
+}
+
+.sub-filter-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.sub-filter-btn:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    padding-left: 18px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.subareas-display-box {
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1px solid #e2e8f0;
+    margin-top: 16px;
+}
+
+.panel-content h4 {
+    font-size: 0.95rem;
+    color: #7c3aed;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.panel-incidencia {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.panel-incidencia strong {
+    color: #f43f5e;
+}
+
+/* ==========================================
+   Área da Questão + Cronômetro
+   ========================================== */
+.question-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    z-index: 10;
+}
+
+.question-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.badge-tag {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+.label-year { background-color: #eff6ff; color: #2563eb; }
+.label-materia { background-color: #f5f3ff; color: #7c3aed; }
+
+/* Cronômetro Visual */
+.timer-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f1f5f9;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    margin-left: auto;
+    transition: all 0.3s ease;
+}
+
+/* Estado Alerta do Cronômetro */
+.timer-wrapper.timer-alert {
+    background-color: #fef2f2;
+    border-color: #fca5a5;
+    color: #ef4444;
+    animation: timerPulse 1s ease-in-out infinite;
+}
+
+#countdownTimer {
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes timerPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+.texto-apoio {
+    color: #64748b;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.enunciado {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.alternatives-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.alternative-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    color: #0f172a;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.alternative-btn:hover:not(:disabled) {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+}
+
+.alternative-btn .letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #64748b;
+    flex-shrink: 0;
+}
+
+.alternative-btn.selected {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+}
+.alternative-btn.selected .letter {
+    background-color: #2563eb;
+    color: white;
+}
+
+.alternative-btn.correct {
+    border-color: #10b981;
+    background-color: #ecfdf5;
+}
+.alternative-btn.correct .letter {
+    background-color: #10b981;
+    color: white;
+}
+
+.alternative-btn.wrong {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+.alternative-btn.wrong .letter {
+    background-color: #ef4444;
+    color: white;
+}
+
+.action-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 24px;
+}
+
+.action-footer .submit-btn {
+    width: auto;
+    padding: 14px 36px;
+}
+
+.action-footer .submit-btn:disabled {
+    background-color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.feedback-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-grow: 1;
+}
+.feedback-message.success-text { color: #10b981; }
+.feedback-message.error-text { color: #ef4444; }
+
+@media (max-width: 600px) {
+    .nav-container { flex-direction: column; gap: 16px; }
+    .btn-back { width: 100%; text-align: center; }
+}
+.alternative-btn .alt-text {
+    flex-grow: 1;
+    line-height: 1.5;
+    font-weight: 500;
+}

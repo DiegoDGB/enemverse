@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnemVerse - Acessar o Universo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div class="login-universe-bg">
+        <main class="auth-card" id="authSidebar">
+            <div class="auth-brand" onclick="window.location.href='index.html'">🌌 EnemVerse</div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="tabLogin">Acessar Conta</button>
+                <button class="tab-btn" id="tabCadastro">Cadastrar</button>
+            </div>
+            
+            <form id="authForm">
+                <div class="form-group hidden" id="groupNome">
+                    <label for="nome">NOME COMPLETO</label>
+                    <input type="text" id="nome" placeholder="Seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-MAIL</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">SENHA</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                 <!-- Espaço dinâmico para mensagens de erro no formulário -->
+                <div id="authErrorDisplay" class="auth-error-message hidden"></div>
+                <button type="submit" class="submit-btn" id="btnSubmit">Entrar no Universo</button>
+            </form>
+            
+            <a href="index.html" class="back-home-link">← Voltar para a vitrine</a>
+        </main>
+    </div>
+     <!-- Vínculo do Banco de Dados Real primeiro, depois o controlador da tela -->
+    <script src="db.js"></script>
+    <!-- Vincula o script de controle -->
+    <script src="script.js"></script>
+</body>
+</html>
