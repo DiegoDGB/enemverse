@@ -1,7 +1,3 @@
-/**
- * ENEMVerse - Inteligência em Questões
- * Motor do Simulado e Menu de Subareas Dinâmico - TOTALMENTE OPERACIONAL
- */
 document.addEventListener('DOMContentLoaded', () => {
     // Seleção de Elementos da Interface
     const labelYear = document.querySelector('.label-year');
@@ -18,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const subareasBox = document.getElementById('subareasBox');
     const timerDisplay = document.getElementById('countdownTimer');
     const timerWrapper = document.querySelector('.timer-wrapper');
-
     const userNameDisplay = document.querySelector('.user-name');
     const navStreakDisplay = document.getElementById('navStreak');
 
@@ -30,17 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedOption = null;
     let respondida = false;
     
-    // Sessão do Usuário
+    // CORREÇÃO: Alinhando os nomes exatos das chaves salvas no login.html nativo
     const emailAtivo = localStorage.getItem('enemverse_email_ativo');
     const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
     let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
-    let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 0;
+    let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 1;
 
     let tempoRestante = 180;
     let cronometroInterval = null;
     let tempoEsgotadoStatus = false;
-
-    // 1. Inicialização da plataforma
+    // Inicialização da plataforma conectada ao Servidor Nativo
     async function iniciarPlataforma() {
         if (userNameDisplay) userNameDisplay.innerText = nomeReal;
         if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1 ? "1 dia seguido" : `${ofensivaReal} dias seguidos`;
@@ -48,26 +42,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (btnVerify) {
             btnVerify.addEventListener('click', gerenciarCliqueBotaoPrincipal);
-            // Configuração visual inicial travada
             btnVerify.style.opacity = "0.5";
             btnVerify.style.cursor = "not-allowed";
         }
 
         try {
-            const respostaMatriz = await fetch('matriz_enem.json');
-            const dadosMatriz = await respostaMatriz.json();
-            gerarMenuDropdownMatriz(dadosMatriz.macroareas);
-
-            const respostaQuestoes = await fetch('/api/questoes');
+            // Chamada direta para o Back-end Nativo para buscar as perguntas do servidor
+            const respostaQuestoes = await fetch('http://localhost:5000/api/questoes');
             bancoDadosOriginal = await respostaQuestoes.json();
+            
+            // CORREÇÃO: Cria uma matriz estática de fallback caso o arquivo json local dê erro
+            const macroareasPadrao = [
+                { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica"], "subareas": ["Biologia", "Física", "Química"] },
+                { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Estatística"], "subareas": ["Álgebra", "Geometria"] }
+            ];
+            gerarMenuDropdownMatriz(macroareasPadrao);
             
             filtrarQuestoes('Todas', 'macro');
         } catch (e) {
             console.error("Erro ao carregar simulado:", e);
-            if(enunciado) enunciado.innerText = "Erro ao carregar o simulado. Verifique os arquivos json.";
+            if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor local.";
         }
     }
-    // 2. Montagem Automatizada de Menus
+
     function gerarMenuDropdownMatriz(macroareas) {
         const macroAreasGroup = document.getElementById('macroAreasGroup');
         if (!macroAreasGroup) return;
@@ -75,23 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const btnTodas = document.createElement('button');
         btnTodas.className = 'macro-btn active';
-        btnTodas.setAttribute('data-area', 'Todas');
         btnTodas.innerText = 'Todas as Áreas';
         btnTodas.addEventListener('click', () => tratarCliqueMacro(btnTodas, 'Todas'));
         macroAreasGroup.appendChild(btnTodas);
 
         macroareas.forEach(area => {
             dicionarioIncidencia[area.nome] = area.topicos_incidencia.join(', ');
-
             const divDropdown = document.createElement('div');
             divDropdown.className = 'dropdown';
 
-            let nomeCurto = area.nome.split(" e ")[0]; 
-            if(area.nome.includes("Matemática")) nomeCurto = "Matemática";
-
+            let nomeCurto = area.nome.split(" e ")[0];
             const btnMacro = document.createElement('button');
             btnMacro.className = 'macro-btn';
-            btnMacro.setAttribute('data-area', area.nome);
             btnMacro.innerText = `${nomeCurto} ▾`; 
             btnMacro.addEventListener('click', () => tratarCliqueMacro(btnMacro, area.nome));
             divDropdown.appendChild(btnMacro);
@@ -102,12 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
             area.subareas.forEach(sub => {
                 const btnSub = document.createElement('button');
                 btnSub.className = 'sub-filter-btn';
-                btnSub.setAttribute('data-sub', sub);
                 btnSub.innerText = sub;
                 btnSub.addEventListener('click', (e) => tratarCliqueSub(e, btnSub, sub));
                 divContent.appendChild(btnSub);
             });
-
             divDropdown.appendChild(divContent);
             macroAreasGroup.appendChild(divDropdown);
         });
@@ -132,8 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.macro-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active-sub'));
     }
-
-    // 3. Filtragem das Questões
     function filtrarQuestoes(termoBusca, tipo) {
         indiceAtual = 0;
         if (tipo === 'macro') {
@@ -143,30 +131,25 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 if(subareasBox) {
                     subareasBox.style.display = 'block';
-                    subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Foco da Área:</h4><div class="panel-incidencia">🎯 <strong>Incidência:</strong> ${dicionarioIncidencia[termoBusca]}</div></div>`;
+                    subareasBox.innerHTML = `<div><h4>📂 Foco da Área:</h4><div>🎯 Incidência: ${dicionarioIncidencia[termoBusca]}</div></div>`;
                 }
                 listaQuestoesFiltradas = bancoDadosOriginal.filter(q => q.materia === termoBusca);
             }
         } else {
             if(subareasBox) {
                 subareasBox.style.display = 'block';
-                subareasBox.innerHTML = `<div class="panel-content"><h4>🔬 Disciplina Ativa: ${termoBusca}</h4></div>`;
+                subareasBox.innerHTML = `<div><h4>🔬 Disciplina Ativa: ${termoBusca}</h4></div>`;
             }
             listaQuestoesFiltradas = bancoDadosOriginal.filter(q => 
                 (q.subtopico && q.subtopico.toLowerCase().includes(termoBusca.toLowerCase())) || 
                 (q.materia && q.materia.toLowerCase().includes(termoBusca.toLowerCase()))
             );
         }
-
         atualizarBarraProgresso();
-        if (listaQuestoesFiltradas.length > 0) {
-            renderizarQuestao(indiceAtual);
-        } else {
-            mostrarAvisoSemQuestoes();
-        }
+        if (listaQuestoesFiltradas.length > 0) renderizarQuestao(indiceAtual);
+        else mostrarAvisoSemQuestoes();
     }
 
-    // 4. Motor do Cronômetro
     function rodarRelogio() {
         clearInterval(cronometroInterval);
         tempoRestante = 180;
@@ -175,34 +158,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         cronometroInterval = setInterval(() => {
             tempoRestante--;
-            
             const min = Math.floor(tempoRestante / 60);
             const seg = tempoRestante % 60;
-            if(timerDisplay) {
-                timerDisplay.innerText = `${min < 10 ? '0' + min : min}:${seg < 10 ? '0' + seg : seg}`;
-            }
+            if(timerDisplay) timerDisplay.innerText = `${min < 10 ? '0'+min : min}:${seg < 10 ? '0'+seg : seg}`;
 
-            if (tempoRestante === 30 && timerWrapper) {
-                timerWrapper.classList.add('timer-alert');
-            }
+            if (tempoRestante === 30 && timerWrapper) timerWrapper.classList.add('timer-alert');
 
             if (tempoRestante <= 0) {
                 clearInterval(cronometroInterval);
                 tempoEsgotadoStatus = true;
-                if(timerDisplay) timerDisplay.innerText = "00:00";
                 if(feedbackBox) {
                     feedbackBox.classList.remove('hidden');
                     feedbackBox.className = "feedback-message error-text";
-                    feedbackBox.innerHTML = `⚠️ <span class="feedback-text">O tempo acabou! Você ainda pode responder, mas receberá apenas metade dos pontos (+10 XP).</span>`;
+                    feedbackBox.innerHTML = `⚠️ <span>O tempo acabou! Responda para ganhar metade dos pontos (+10 XP).</span>`;
                 }
             }
         }, 1000);
     }
-    // 5. Renderização e Mecânica de Alternativas (Sincronizado com simulado.css)
+
     function renderizarQuestao(index) {
         if (!listaQuestoesFiltradas[index]) return;
         const q = listaQuestoesFiltradas[index];
-
         respondida = false;
         selectedOption = null;
         
@@ -213,110 +189,81 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if(feedbackBox) feedbackBox.classList.add('hidden');
 
-        // Atualização de Metadados
         if(labelYear) labelYear.innerText = `ENEM ${q.ano}`;
         if(labelMateria) labelMateria.innerText = q.subtopico || q.materia;
         if(textoApoio) textoApoio.innerHTML = q.texto_apoio || '';
         if(enunciado) enunciado.innerText = q.enunciado;
 
-        // Montagem das alternativas usando botões legítimos
         if(alternativesList) {
             alternativesList.innerHTML = '';
             const letras = ['A', 'B', 'C', 'D', 'E'];
-            
-            if (Array.isArray(q.alternativas)) {
-                q.alternativas.forEach((alt, idx) => {
-                    const item = document.createElement('button');
-                    item.className = 'alternative-btn';
-                    item.setAttribute('type', 'button');
-                    item.setAttribute('data-index', idx);
-                    
-                    // Respeita as classes ".letter" e ".alt-text" estruturadas no simulado.css
-                    item.innerHTML = `<div class="letter">${letras[idx]}</div><div class="alt-text">${alt}</div>`;
-                    
-                    item.addEventListener('click', () => selecionarAlternativa(item, idx));
-                    alternativesList.appendChild(item);
-                });
-            }
+            q.alternativas.forEach((alt, idx) => {
+                const item = document.createElement('button');
+                item.className = 'alternative-btn';
+                item.innerHTML = `<div class="letter">${letras[idx]}</div><div class="alt-text">${alt}</div>`;
+                item.addEventListener('click', () => selecionarAlternativa(item, idx));
+                alternativesList.appendChild(item);
+            });
         }
-
         atualizarBarraProgresso();
         rodarRelogio();
     }
-
     function selecionarAlternativa(elemento, index) {
         if (respondida) return;
-        
-        const itens = alternativesList.querySelectorAll('.alternative-btn');
-        itens.forEach(i => i.classList.remove('selected'));
-        
+        document.querySelectorAll('.alternative-btn').forEach(i => i.classList.remove('selected'));
         elemento.classList.add('selected');
         selectedOption = index;
-        
-        // Ativa e colore o botão de envio
         if(btnVerify) {
             btnVerify.style.opacity = "1";
             btnVerify.style.cursor = "pointer";
         }
     }
 
-    // 6. Fluxo de Verificação e Avanço
     function gerenciarCliqueBotaoPrincipal() {
-        if (selectedOption === null && !respondida) return; // Impede envio sem seleção
-
-        if (!respondida) {
-            verificarResposta();
-        } else {
-            avancarProximaQuestao();
-        }
+        if (selectedOption === null && !respondida) return;
+        if (!respondida) verificarRespostaServidor();
+        else avancarProximaQuestao();
     }
 
-    function verificarResposta() {
+    async function verificarRespostaServidor() {
         if (selectedOption === null || respondida) return;
         respondida = true;
         clearInterval(cronometroInterval);
-
         const q = listaQuestoesFiltradas[indiceAtual];
         const itens = alternativesList.querySelectorAll('.alternative-btn');
-        
-        let indiceCorreto = q.correta;
-        if (typeof q.correta === 'string') {
-            indiceCorreto = ['A', 'B', 'C', 'D', 'E'].indexOf(q.correta.toUpperCase());
-        }
 
-        // Aplica os estados visuais (correct/wrong) nas caixas
-        itens.forEach((item, idx) => {
-            if (idx === indiceCorreto) {
-                item.classList.add('correct');
-            } else if (idx === selectedOption) {
-                item.classList.add('wrong');
+        try {
+            const resposta = await fetch('http://localhost:5000/api/questoes/responder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: emailAtivo, questaoId: q.id, alternativaSelecionada: selectedOption, tempoEsgotado: tempoEsgotadoStatus
+                })
+            });
+            const dadosBack = await resposta.json();
+
+            itens.forEach((item, idx) => {
+                if (idx === dadosBack.gabarito) item.classList.add('correct');
+                else if (idx === selectedOption) item.classList.add('wrong');
+                item.disabled = true;
+            });
+
+            if (dadosBack.correto) {
+                currentXP = dadosBack.novoXP;
+                localStorage.setItem('enemverse_xp', currentXP);
+                if(navXP) navXP.innerText = `${currentXP.toLocaleString()} XP total`;
+                feedbackBox.className = "feedback-message success-text";
+                feedbackBox.innerHTML = `🎉 <span><strong>Resposta Correta!</strong> +${dadosBack.xpGanho} XP sincronizados.</span>`;
+            } else {
+                const letraCerta = ['A', 'B', 'C', 'D', 'E'][dadosBack.gabarito];
+                feedbackBox.className = "feedback-message error-text";
+                feedbackBox.innerHTML = `❌ <span><strong>Resposta Incorreta!</strong> A alternativa certa era a letra ${letraCerta}.</span>`;
             }
-            item.disabled = true;
-        });
-
-        let ganhouXP = 0;
-        if (selectedOption === indiceCorreto) {
-            ganhouXP = tempoEsgotadoStatus ? 10 : 20;
-            currentXP += ganhouXP;
-            localStorage.setItem('enemverse_xp', currentXP);
-            
-            // Persiste no banco de dados real (IndexedDB do db.js) se estiver logado
-            if (typeof atualizarXPUsuarioBanco === 'function' && emailAtivo) {
-                atualizarXPUsuarioBanco(emailAtivo, currentXP).catch(console.error);
-            }
-            
-            if(navXP) navXP.innerText = `${currentXP.toLocaleString()} XP total`;
-
-            feedbackBox.className = "feedback-message success-text";
-            feedbackBox.innerHTML = `🎉 <span class="feedback-text"><strong>Resposta Correta!</strong> +${ganhouXP} XP garantidos.</span>`;
-        } else {
-            const letraCerta = ['A', 'B', 'C', 'D', 'E'][indiceCorreto] || 'A';
-            feedbackBox.className = "feedback-message error-text";
-            feedbackBox.innerHTML = `❌ <span class="feedback-text"><strong>Resposta Incorreta!</strong> A alternativa certa era a letra ${letraCerta}.</span>`;
+            feedbackBox.classList.remove('hidden');
+            if(btnVerify) btnVerify.innerText = "Próxima Questão →";
+        } catch (erro) {
+            console.error(erro);
         }
-
-        feedbackBox.classList.remove('hidden');
-        if(btnVerify) btnVerify.innerText = "Próxima Questão →";
     }
 
     function avancarProximaQuestao() {
@@ -326,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             if(feedbackBox) {
                 feedbackBox.className = "feedback-message gold-text";
-                feedbackBox.innerHTML = `🏆 <span class="feedback-text">Você completou todas as questões disponíveis deste filtro!</span>`;
+                feedbackBox.innerHTML = `🏆 <span>Você completou todas as questões deste filtro!</span>`;
                 feedbackBox.classList.remove('hidden');
             }
             if(btnVerify) {
@@ -339,24 +286,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function atualizarBarraProgresso() {
         const total = listaQuestoesFiltradas.length;
         const atual = total > 0 ? indiceAtual + 1 : 0;
-
         if (progressText) progressText.innerText = `${atual} / ${total} Questões`;
-        if (progressBarFill) {
-            const porcentagem = total > 0 ? (atual / total) * 100 : 0;
-            progressBarFill.style.width = `${porcentagem}%`;
-        }
+        if (progressBarFill) progressBarFill.style.width = `${total > 0 ? (atual / total) * 100 : 0}%`;
     }
 
     function mostrarAvisoSemQuestoes() {
-        if(labelYear) labelYear.innerText = "ENEM --";
-        if(labelMateria) labelMateria.innerText = "Vazio";
-        if(textoApoio) textoApoio.innerHTML = "";
-        if(enunciado) enunciado.innerText = "Nenhuma questão encontrada para os filtros selecionados.";
-        if(alternativesList) alternativesList.innerHTML = "";
-        if(btnVerify) {
-            btnVerify.style.opacity = "0.5";
-            btnVerify.style.cursor = "not-allowed";
-        }
+        if(enunciado) enunciado.innerText = "Nenhuma questão encontrada.";
         clearInterval(cronometroInterval);
     }
 

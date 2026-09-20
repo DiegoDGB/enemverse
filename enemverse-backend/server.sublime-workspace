@@ -1,0 +1,222 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"hi",
+				"height"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install package control",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Bookmarks: Clear All"
+			],
+			[
+				"install",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/server.js",
+		"/C/Users/diego.goncalves/Desktop/enem/questoes.json",
+		"/C/Users/diego.goncalves/Desktop/enem/simulado.js",
+		"/C/Users/diego.goncalves/Desktop/enem/dashboard.html",
+		"/C/Users/diego.goncalves/Desktop/enem/dashboard.js",
+		"/C/Users/diego.goncalves/Desktop/enem/login.js",
+		"/C/Users/diego.goncalves/Desktop/enem/login.html",
+		"/C/Users/diego.goncalves/Desktop/enem/login.js.js",
+		"/C/Users/diego.goncalves/Desktop/enem/ranking.html",
+		"/C/Users/diego.goncalves/Desktop/enem/ranking.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/package.json",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/controllers/rankController.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/controllers/authController.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/models/questao.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/models/usuario.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/config/db.js",
+		"/C/Users/diego.goncalves/Desktop/enem/enemverse-backend/serve.js",
+		"/C/Users/diego.goncalves/Desktop/enem/api/questoes.py",
+		"/C/Users/diego.goncalves/Desktop/enem/gerador.py",
+		"/C/Users/diego.goncalves/Desktop/enem/pyproject.toml",
+		"/C/Users/diego.goncalves/Desktop/enem/api/obter_questoes.py",
+		"/C/Users/diego.goncalves/Desktop/enem/main.py",
+		"/C/Users/diego.goncalves/Desktop/enem/vercel.json",
+		"/C/Users/diego.goncalves/Desktop/enem/requirements.txt",
+		"/C/Users/diego.goncalves/Desktop/enem/simulado.html",
+		"/C/Users/diego.goncalves/Desktop/sublime tex/enem/vercel.json",
+		"/C/Users/diego.goncalves/Desktop/enem/simulado.css",
+		"/C/Users/diego.goncalves/Desktop/enem/matriz_enem.json",
+		"/C/Users/diego.goncalves/Desktop/enem/index.html",
+		"/C/Users/diego.goncalves/Desktop/enem/gerar_questoes.py",
+		"/C/Users/diego.goncalves/Desktop/enem/ranking.css",
+		"/C/Users/diego.goncalves/Desktop/enem/db.js",
+		"/C/Users/diego.goncalves/Desktop/enem/login.css",
+		"/C/Users/diego.goncalves/Desktop/enem/script.js",
+		"/C/Users/diego.goncalves/Desktop/enem/dashboard.css",
+		"/C/Users/diego.goncalves/Desktop/enem/style.css",
+		"/C/Users/diego.goncalves/Desktop/enem/index.html.html"
+	],
+	"find":
+	{
+		"height": 29.3333333333
+	},
+	"find_in_files":
+	{
+		"height": 108.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.3333333333
+	},
+	"input":
+	{
+		"height": 39.3333333333
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"pinned_build_system": "",
+	"project": "server.sublime-project",
+	"replace":
+	{
+		"height": 54.6666666667
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

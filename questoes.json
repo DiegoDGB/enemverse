@@ -1,6 +1,6 @@
 [
   {
-    "id": "ENEM-2023-TESTE-001",
+    "id": "ENEM-2023-BIO-001",
     "ano": 2023,
     "materia": "Ciências da Natureza e suas Tecnologias",
     "subtopico": "Biologia",
@@ -17,7 +17,7 @@
     "explicacao": "A alternativa B está correta porque predadores exóticos dizimam as populações nativas que não possuem defesas evolutivas contra eles."
   },
   {
-    "id": "ENEM-2023-TESTE-002",
+    "id": "ENEM-2023-MAT-002",
     "ano": 2023,
     "materia": "Matemática e suas Tecnologias",
     "subtopico": "Álgebra",
@@ -32,5 +32,73 @@
     ],
     "correta": 1,
     "explicacao": "A alternativa B está correta pois 5 é o termo constante (fixo) e 2 é o coeficiente angular que depende da variável x."
+  },
+  {
+    "id": "ENEM-2022-HIS-003",
+    "ano": 2022,
+    "materia": "Ciências Humanas e suas Tecnologias",
+    "subtopico": "História",
+    "texto_apoio": "<p>O patrimônio cultural imaterial é transmitido de geração em geração e constantemente recriado pelas comunidades e grupos em função de seu ambiente, de sua interação com a natureza e de sua história.</p>",
+    "enunciado": "A salvaguarda do patrimônio imaterial descrita no texto visa garantir a:",
+    "alternativas": [
+      "Congelamento de práticas tradicionais ancestrais.",
+      "Continuidade da identidade e diversidade cultural.",
+      "Comercialização exclusiva de produtos artesanais.",
+      "Restrição do acesso a rituais para pessoas de fora.",
+      "Substituição de manifestações locais por globais."
+    ],
+    "correta": 1,
+    "explicacao": "A alternativa B está correta porque os bens imateriais conferem um sentimento de identidade e continuidade cultural às comunidades."
+  },
+  {
+    "id": "ENEM-2022-FIS-004",
+    "ano": 2022,
+    "materia": "Ciências da Natureza e suas Tecnologias",
+    "subtopico": "Física",
+    "texto_apoio": "<p>Em um dia de sol, um carro estacionado com os vidros fechados funciona como uma estufa. A luz visível atravessa o vidro, é absorvida pelo interior e reemitida como radiação infravermelha, que não consegue atravessar o vidro de volta.</p>",
+    "enunciado": "O aprisionamento da radiação térmica no interior do veículo ocorre principalmente devido ao fenômeno da:",
+    "alternativas": [
+      "Condução térmica das portas.",
+      "Reflexão total da luz visível.",
+      "Convecção do ar interno.",
+      "Absorção seletiva do vidro.",
+      "Difração das ondas sonoras."
+    ],
+    "correta": 3,
+    "explicacao": "A alternativa D está correta porque o vidro é transparente à luz visível, mas opaco à radiação infravermelha (calor), retendo-a no interior."
+  },
+  {
+    "id": "ENEM-2021-QUI-005",
+    "ano": 2021,
+    "materia": "Ciências da Natureza e suas Tecnologias",
+    "subtopico": "Química",
+    "texto_apoio": "<p>O processo de destilação fracionada do petróleo separa seus hidrocarbonetos com base nas diferenças entre seus pontos de ebulição, que dependem diretamente do tamanho da cadeia carbônica.</p>",
+    "enunciado": "Entre as frações obtidas, a que apresenta o menor ponto de ebulição e, portanto, é coletada no topo da torre de destilação é o:",
+    "alternativas": [
+      "Asfalto residual.",
+      "Óleo lubrificante.",
+      "Óleo diesel.",
+      "Querosene.",
+      "Gás liquefeito de petróleo (GLP)."
+    ],
+    "correta": 4,
+    "explicacao": "A alternativa E está correta porque as moléculas menores e mais leves de gás possuem as forças intermoleculares mais fracas e os menores pontos de ebulição."
+  },
+  {
+    "id": "ENEM-2021-GEO-006",
+    "ano": 2021,
+    "materia": "Ciências Humanas e suas Tecnologias",
+    "subtopico": "Geografia",
+    "texto_apoio": "<p>A forte concentração das chuvas em curtos períodos, associada à impermeabilização do solo urbano pelo asfalto e concreto, impede a infiltração da água no lençol freático.</p>",
+    "enunciado": "Nas grandes cidades, a combinação desses fatores socioambientais resulta frequentemente em problemas ecológicos graves conhecidos como:",
+    "alternativas": [
+      "Inversões térmicas de inverno.",
+      "Enchentes e alagamentos rápidos.",
+      "Formação de voçorocas rurais.",
+      "Desertificação do solo urbano.",
+      "Compactação natural de sedimentos."
+    ],
+    "correta": 1,
+    "explicacao": "A alternativa B está correta porque a falta de escoamento e de infiltração satura as redes de bueiros, gerando inundações urbanas."
   }
 ]
