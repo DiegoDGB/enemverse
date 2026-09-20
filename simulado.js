@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Chamada direta para o Back-end Nativo para buscar as perguntas do servidor
-            const respostaQuestoes = await fetch('http://localhost:5000/api/questoes');
+            const respostaQuestoes = await fetch('https://webcontainer.io');
+
             bancoDadosOriginal = await respostaQuestoes.json();
             
             // CORREÇÃO: Cria uma matriz estática de fallback caso o arquivo json local dê erro

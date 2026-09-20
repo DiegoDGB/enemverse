@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. FUNÇÃO AUXILIAR: Puxa os dados reais em tempo real direto do Servidor Nativo
     async function buscarDadosUsuarioBanco(email) {
         // Consultamos a lista consolidada de usuários cadastrados no back-end
-        const resposta = await fetch('http://localhost:5000/api/ranking');
+        const resposta = await fetch('https://webcontainer.io');
+
         const listaUsuarios = await resposta.json();
         return listaUsuarios.find(u => u.email === email);
     }
