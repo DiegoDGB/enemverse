@@ -47,17 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // URL Oficial Corrigida da sua API no Render
-            const respostaQuestoes = await fetch('https://enemverse-api.onrender.com');
+            // SINCRO: Puxando as questões direto da sua API oficial do Render
+            const respostaQuestoes = await fetch('https://onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
-            const macroareasPadrao = [
-                { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica"], "subareas": ["Biologia", "Física", "Química"] },
-                { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Estatística"], "subareas": ["Álgebra", "Geometria"] }
+            // Matriz Completa do ENEM atualizada conforme o seu arquivo JSON
+            const matrizOficialENEM = [
+                { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica", "Estequiometria", "Evolução"], "subareas": ["Biologia", "Física", "Química"] },
+                { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Geometria Espacial", "Estatística", "Porcentagem"], "subareas": ["Álgebra", "Geometria"] },
+                { "nome": "Ciências Humanas e suas Tecnologias", "topicos_incidencia": ["Brasil Colônia", "Globalização", "Cidadania", "Cartografia"], "subareas": ["História", "Geografia", "Filosofia"] },
+                { "nome": "Linguagens, Códigos e suas Tecnologias", "topicos_incidencia": ["Funções da Linguagem", "Modernismo", "Variação Linguística"], "subareas": ["Gramática", "Literatura"] }
             ];
-            gerarMenuDropdownMatriz(macroareasPadrao);
             
+            gerarMenuDropdownMatriz(matrizOficialENEM);
             filtrarQuestoes('Todas', 'macro');
+            
         } catch (e) {
             console.error("Erro ao carregar simulado:", e);
             if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor de produção.";
@@ -69,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!macroAreasGroup) return;
         macroAreasGroup.innerHTML = '';
 
+        // Botão padrão para carregar todas as questões
         const btnTodas = document.createElement('button');
         btnTodas.className = 'macro-btn active';
         btnTodas.innerText = 'Todas as Áreas';
@@ -77,10 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         macroareas.forEach(area => {
             dicionarioIncidencia[area.nome] = area.topicos_incidencia.join(', ');
+            
             const divDropdown = document.createElement('div');
             divDropdown.className = 'dropdown';
 
-            let nomeCurto = area.nome.split(" e ");
+            // Encurta visualmente o nome da área para caber no layout flexível
+            let nomeCurto = area.nome.split(" e ")[0]; 
             const btnMacro = document.createElement('button');
             btnMacro.className = 'macro-btn';
             btnMacro.innerText = `${nomeCurto} ▾`; 
@@ -97,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnSub.addEventListener('click', (e) => tratarCliqueSub(e, btnSub, sub));
                 divContent.appendChild(btnSub);
             });
+            
             divDropdown.appendChild(divContent);
             macroAreasGroup.appendChild(divDropdown);
         });
@@ -130,14 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 if(subareasBox) {
                     subareasBox.style.display = 'block';
-                    subareasBox.innerHTML = `<div><h4>📂 Foco da Área:</h4><div>🎯 Incidência: ${dicionarioIncidencia[termoBusca]}</div></div>`;
+                    subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Foco da Área: ${termoBusca}</h4><p class="panel-incidencia">🎯 <strong>Mais cobrados:</strong> ${dicionarioIncidencia[termoBusca]}</p></div>`;
                 }
                 listaQuestoesFiltradas = bancoDadosOriginal.filter(q => q.materia === termoBusca);
             }
         } else {
             if(subareasBox) {
                 subareasBox.style.display = 'block';
-                subareasBox.innerHTML = `<div><h4>🔬 Disciplina Ativa: ${termoBusca}</h4></div>`;
+                subareasBox.innerHTML = `<div class="panel-content"><h4>🔬 Disciplina Ativa: ${termoBusca}</h4><p class="panel-incidencia">Buscando questões do banco de dados na nuvem...</p></div>`;
             }
             listaQuestoesFiltradas = bancoDadosOriginal.filter(q => 
                 (q.subtopico && q.subtopico.toLowerCase().includes(termoBusca.toLowerCase())) || 
@@ -233,8 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
         try {
-            // URL Oficial Corrigida para envio de respostas no Render
-            const resposta = await fetch('https://enemverse-api.onrender.com', {
+            const resposta = await fetch('https://onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -292,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function mostrarAvisoSemQuestoes() {
-        if(enunciado) enunciado.innerText = "Nenhuma questão encontrada.";
+        if(enunciado) enunciado.innerText = "Nenhuma questão encontrada para os critérios selecionados.";
         clearInterval(cronometroInterval);
     }
 
