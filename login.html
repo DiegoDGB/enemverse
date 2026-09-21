@@ -69,6 +69,7 @@
     <!-- MOTOR DE CONTROLE INJETADO DIRETO NO HTML  -->
     <!-- ========================================== -->
        <!-- Substitua inteiramente a tag <script> do final do seu login.html por esta: -->
+        <!-- Substitua inteiramente a tag <script> do final do seu login.html por esta: -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const formLogin = document.getElementById('formLogin');
@@ -79,7 +80,7 @@
         const errorBoxLogin = document.getElementById('errorBoxLogin');
         const errorBoxCadastro = document.getElementById('errorBoxCadastro');
 
-        // 🌟 CORREÇÃO CRUCIAL: Apontando para o SEU servidor gerado no StackBlitz
+        // 🌟 LINK CORRIGIDO: Apontando para o seu WebContainer ativo
         const API_URL = 'https://webcontainer.io';
 
         if (btnIrParaCadastro) {
@@ -126,7 +127,6 @@
                 const senha = document.getElementById('regSenha').value;
 
                 try {
-                    // Dispara a requisição para a sua rota real da nuvem
                     const resposta = await fetch(`${API_URL}/cadastrar`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -187,7 +187,6 @@
         }
     });
     </script>
-
 
 </body>
 </html>
