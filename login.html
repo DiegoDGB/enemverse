@@ -9,47 +9,51 @@
 <body class="login-universe-bg">
 
     <div class="auth-card">
-        <div class="auth-brand" onclick="window.location.href='index.html'">🌌 EnemVerse</div>
-
-        <div class="auth-tabs">
-            <button type="button" class="tab-btn active" id="btnIrParaLogin">Acessar Conta</button>
-            <button type="button" class="tab-btn" id="btnIrParaCadastro">Cadastrar</button>
-        </div>
-
-        <!-- FORMULÁRIO DE LOGIN -->
-        <form id="formLogin">
-            <div class="auth-error-message hidden" id="errorBoxLogin"></div>
-            <div class="form-group">
-                <label for="loginEmail">E-MAIL</label>
-                <input type="email" id="loginEmail" placeholder="seuemail@provedor.com" required>
-            </div>
-            <div class="form-group">
-                <label for="loginSenha">SENHA</label>
-                <input type="password" id="loginSenha" placeholder="Digite sua senha" required>
-            </div>
-            <button type="submit" class="submit-btn">Entrar no Universo</button>
-        </form>
-
-        <!-- FORMULÁRIO DE CADASTRO -->
-        <form id="formCadastro" class="hidden">
-            <div class="auth-error-message hidden" id="errorBoxCadastro"></div>
-            <div class="form-group">
-                <label for="regNome">NOME COMPLETO</label>
-                <input type="text" id="regNome" placeholder="Seu nome completo" required>
-            </div>
-            <div class="form-group">
-                <label for="regEmail">E-MAIL</label>
-                <input type="email" id="regEmail" placeholder="seuemail@provedor.com" required>
-            </div>
-            <div class="form-group">
-                <label for="regSenha">SENHA</label>
-                <input type="password" id="regSenha" placeholder="Crie uma senha forte" required>
-            </div>
-            <button type="submit" class="submit-btn">Criar Minha Conta</button>
-        </form>
-
-        <a href="index.html" class="back-home-link">← Voltar para a vitrine</a>
+    <div class="auth-brand">🌌 EnemVerse</div>
+    
+    <!-- Abas de Alternância -->
+    <div class="auth-tabs">
+        <button id="tabLogin" class="tab-btn active">Acessar Conta</button>
+        <button id="tabCadastro" class="tab-btn">Cadastrar</button>
     </div>
+
+    <!-- Mensagens de Erro Ocultas por Padrão -->
+    <div id="loginErro" class="auth-error-message hidden"></div>
+    <div id="cadErro" class="auth-error-message hidden"></div>
+
+    <!-- 1. FORMULÁRIO DE LOGIN -->
+    <form id="formLogin">
+        <div class="form-group">
+            <label for="loginEmail">E-MAIL</label>
+            <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+            <label for="loginSenha">SENHA</label>
+            <input type="password" id="loginSenha" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="submit-btn">Entrar no Universo</button>
+    </form>
+
+    <!-- 2. FORMULÁRIO DE CADASTRO (Inicia oculto com a classe 'hidden') -->
+    <form id="formCadastro" class="hidden">
+        <div class="form-group">
+            <label for="cadNome">NOME COMPLETO</label>
+            <input type="text" id="cadNome" placeholder="Seu Nome" required>
+        </div>
+        <div class="form-group">
+            <label for="cadEmail">E-MAIL</label>
+            <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+            <label for="cadSenha">SENHA</label>
+            <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
+        </div>
+        <button type="submit" class="submit-btn">Criar My Conta</button>
+    </form>
+
+    <a href="index.html" class="back-home-link">← Voltar para a vitrine</a>
+</div>
+
 
    <script>
 document.addEventListener('DOMContentLoaded', () => {
