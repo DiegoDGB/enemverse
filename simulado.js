@@ -231,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
         try {
-            // CORREÇÃO: Rota de envio de gabarito sincronizada com a API online no StackBlitz
-            const resposta = await fetch('https://webcontainer.io', {
+            // CORREÇÃO: Rota de envio de gabarito sincronizada com a API online no render
+           const resposta = await fetch('https://onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
