@@ -38,7 +38,7 @@
         </form>
 
         <!-- ========================================== -->
-        <!-- FORMULÁRIO DE CADASTRO (Escondido por padrão) -->
+        <!-- FORMULÁRIO DE CADASTRO                     -->
         <!-- ========================================== -->
         <form id="formCadastro" class="hidden">
             <div class="auth-error-message hidden" id="errorBoxCadastro"></div>
@@ -66,7 +66,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- MOTOR DE CONTROLE INJETADO DIRETO NO HTML  -->
+    <!-- MOTOR DE CONTROLE                          -->
     <!-- ========================================== -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -78,7 +78,6 @@
         const errorBoxLogin = document.getElementById('errorBoxLogin');
         const errorBoxCadastro = document.getElementById('errorBoxCadastro');
 
-        // 🌟 LINK CORRIGIDO DA SUA API DO STACKBLITZ (Sem o webcontainer institucional)
         const API_URL = 'https://webcontainer.io';
 
         if (btnIrParaCadastro) {
@@ -125,7 +124,7 @@
                 const senha = document.getElementById('regSenha').value;
 
                 try {
-                    const API_URL = 'https://webcontainer.io'; {
+                    const resposta = await fetch(`${API_URL}/cadastrar`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nome, email, senha })
