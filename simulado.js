@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedOption = null;
     let respondida = false;
     
-    // Alinhando os nomes exatos das chaves salvas no login.html nativo
+    // Captura de Sessão do LocalStorage
     const emailAtivo = localStorage.getItem('enemverse_email_ativo');
     const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
     let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let tempoRestante = 180;
     let cronometroInterval = null;
     let tempoEsgotadoStatus = false;
+
     async function iniciarPlataforma() {
         if (userNameDisplay) userNameDisplay.innerText = nomeReal;
         if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1 ? "1 dia seguido" : `${ofensivaReal} dias seguidos`;
@@ -46,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // CORREÇÃO: Rota ajustada para puxar as questões da API online no Render
-            const respostaQuestoes = await fetch('https://enemverse-api.onrender.com');
+            // SINCRO: Puxando as questões direto da sua API oficial do Render
+            const respostaQuestoes = await fetch('https://onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
             const macroareasPadrao = [
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filtrarQuestoes('Todas', 'macro');
         } catch (e) {
             console.error("Erro ao carregar simulado:", e);
-            if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor local.";
+            if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor de produção.";
         }
     }
 
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const divDropdown = document.createElement('div');
             divDropdown.className = 'dropdown';
 
-            let nomeCurto = area.nome.split(" e ")[0];
+            let nomeCurto = area.nome.split(" e ");
             const btnMacro = document.createElement('button');
             btnMacro.className = 'macro-btn';
             btnMacro.innerText = `${nomeCurto} ▾`; 
@@ -163,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tempoRestante === 30 && timerWrapper) timerWrapper.classList.add('timer-alert');
 
             if (tempoRestante <= 0) {
+                clearInterval(croncomplex);
                 clearInterval(cronometroInterval);
                 tempoEsgotadoStatus = true;
                 if(feedbackBox) {
@@ -206,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarBarraProgresso();
         rodarRelogio();
     }
+
     function selecionarAlternativa(elemento, index) {
         if (respondida) return;
         document.querySelectorAll('.alternative-btn').forEach(i => i.classList.remove('selected'));
@@ -231,8 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
         try {
-            // CORREÇÃO: Rota de envio de gabarito sincronizada com a API online no render
-           const resposta = await fetch('https://enemverse-api.onrender.com', {
+            // SINCRO: Enviando a resposta para validação na API real do Render
+            const resposta = await fetch('https://onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
