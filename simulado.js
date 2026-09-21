@@ -164,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tempoRestante === 30 && timerWrapper) timerWrapper.classList.add('timer-alert');
 
             if (tempoRestante <= 0) {
-                clearInterval(croncomplex);
                 clearInterval(cronometroInterval);
                 tempoEsgotadoStatus = true;
                 if(feedbackBox) {
