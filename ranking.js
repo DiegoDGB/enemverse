@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function buscarTodosUsuarios() {
        // Altere para a URL nova do Render:
-        const resposta = await fetch('https://onrender.com');
+        const resposta = await fetch('https://enemverse-api.onrender.com');
         return await resposta.json();
     }
 
