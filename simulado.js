@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // SINCRO: Puxando as questões direto da sua API oficial do Render
-            const respostaQuestoes = await fetch('https://onrender.com');
+            const respostaQuestoes = await fetch('https://enemverse-api.onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
             const macroareasPadrao = [
