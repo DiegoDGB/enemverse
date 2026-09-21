@@ -7,30 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorBoxLogin = document.getElementById('errorBoxLogin');
     const errorBoxCadastro = document.getElementById('errorBoxCadastro');
 
-    const API_URL = 'http://localhost:5000/api/auth';
+    // 🌟 CORREÇÃO: Endpoint apontando diretamente para a sua API real na nuvem
+    const API_URL = 'https://webcontainer.io';
 
-    // Alternar para a aba de Cadastro
     if (btnIrParaCadastro) {
         btnIrParaCadastro.addEventListener('click', (e) => {
             e.preventDefault();
             formLogin.classList.add('hidden');
             formCadastro.classList.remove('hidden');
-            
-            // Gerencia os estilos das abas do CSS
             btnIrParaCadastro.classList.add('active');
             btnIrParaLogin.classList.remove('active');
             limparMensagensErro();
         });
     }
 
-    // Alternar para a aba de Login
     if (btnIrParaLogin) {
         btnIrParaLogin.addEventListener('click', (e) => {
             e.preventDefault();
             formCadastro.classList.add('hidden');
             formLogin.classList.remove('hidden');
-            
-            // Gerencia os estilos das abas do CSS
             btnIrParaLogin.classList.add('active');
             btnIrParaCadastro.classList.remove('active');
             limparMensagensErro();
@@ -49,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elementoBox.classList.remove('hidden');
     }
 
-    // Envio do Formulário de CADASTRO
     if (formCadastro) {
         formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -78,12 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (erro) {
                 console.error(erro);
-                exibirErro(errorBoxCadastro, 'Não foi possível conectar ao servidor.');
+                exibirErro(errorBoxCadastro, 'Não foi possível conectar ao servidor da nuvem.');
             }
         });
     }
 
-    // Envio do Formulário de LOGIN
     if (formLogin) {
         formLogin.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -99,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ email, senha })
                 });
 
-                const dados = await resposta.json();
+                const dados = await reply || await resposta.json();
 
                 if (!resposta.ok) {
                     exibirErro(errorBoxLogin, dados.erro || 'E-mail ou senha incorretos.');
@@ -115,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (erro) {
                 console.error(erro);
-                exibirErro(errorBoxLogin, 'Não foi possível conectar ao servidor.');
+                exibirErro(errorBoxLogin, 'Não foi possível conectar ao servidor da nuvem.');
             }
         });
     }
