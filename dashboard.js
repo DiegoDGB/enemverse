@@ -1,25 +1,20 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Captura o e-mail do usuário ativo guardado no login
     const emailAtivo = localStorage.getItem('enemverse_email_ativo');
 
-    // 1. BARREIRA DE SEGURANÇA: Se não houver sessão ativa, expulsa para a tela de login
     if (!emailAtivo) {
         window.location.href = 'login.html';
         return;
     }
 
-    // 2. FUNÇÃO AUXILIAR: Puxa os dados reais em tempo real direto do Servidor Nativo
     async function buscarDadosUsuarioBanco(email) {
-        // Consultamos a lista consolidada de usuários cadastrados no back-end
+        // CORREÇÃO: Endpoint correto apontando para a sua API no StackBlitz
         const resposta = await fetch('https://webcontainer.io');
-
         const listaUsuarios = await resposta.json();
         return listaUsuarios.find(u => u.email === email);
     }
 
-    // 3. FUNÇÃO AUXILIAR: Calcula dinamicamente a patente do usuário com base no XP total
     function calcularPatenteUsuario(xpTotal) {
-        const nivelCalculado = Math.floor(xpTotal / 300) + 1; // Cada 300 XP avança 1 nível
+        const nivelCalculado = Math.floor(xpTotal / 300) + 1;
         let rankNome = "Aspirante";
 
         if (nivelCalculado >= 10) rankNome = "Mestre Supremo";
@@ -31,7 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        // 4. EXTRAÇÃO E RENDERIZAÇÃO DOS DADOS DO SERVIDOR
         const usuario = await buscarDadosUsuarioBanco(emailAtivo);
 
         if (!usuario) {
@@ -41,7 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        // Atualiza elementos textuais da interface do usuário do painel
         const topNavWelcome = document.getElementById('topNavWelcome');
         const sidebarNome = document.getElementById('sidebarNome');
         const dashStreak = document.getElementById('dashStreak');
@@ -52,11 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (sidebarNome) sidebarNome.innerText = usuario.nome;
         if (dashStreak) dashStreak.innerText = `${usuario.ofensiva} ${usuario.ofensiva === 1 ? 'Dia' : 'Dias'}`;
         if (dashXP) dashXP.innerText = usuario.xp.toLocaleString();
-        
-        // Atualiza o nível
         if (userTier) userTier.innerText = calcularPatenteUsuario(usuario.xp);
 
-        // 5. CÁLCULO E RENDERIZAÇÃO DA META DIÁRIA (Conversão de 20XP por questão)
         const questoesRespondidasTotais = Math.floor(usuario.xp / 20);
         let questoesConcluidasHoje = questoesRespondidasTotais % 10;
         
@@ -80,7 +70,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (sidebarNome) sidebarNome.innerText = "Erro ao carregar dados";
     }
 
-    // 6. SISTEMA DE DIRECIONAMENTO DOS CARDS
     const cardSimulado = document.getElementById('cardSimulado');
     const cardRanking = document.getElementById('cardRanking');
 
@@ -96,7 +85,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // 7. MECANISMO DE LOGOUT
     const btnLogout = document.getElementById('btnLogout');
     if (btnLogout) {
         btnLogout.addEventListener('click', (e) => {

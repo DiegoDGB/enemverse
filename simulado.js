@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedOption = null;
     let respondida = false;
     
-    // CORREÇÃO: Alinhando os nomes exatos das chaves salvas no login.html nativo
+    // Alinhando os nomes exatos das chaves salvas no login.html nativo
     const emailAtivo = localStorage.getItem('enemverse_email_ativo');
     const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
     let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let tempoRestante = 180;
     let cronometroInterval = null;
     let tempoEsgotadoStatus = false;
-    // Inicialização da plataforma conectada ao Servidor Nativo
     async function iniciarPlataforma() {
         if (userNameDisplay) userNameDisplay.innerText = nomeReal;
         if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1 ? "1 dia seguido" : `${ofensivaReal} dias seguidos`;
@@ -47,12 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Chamada direta para o Back-end Nativo para buscar as perguntas do servidor
+            // CORREÇÃO: Rota ajustada para puxar as questões da API online no StackBlitz
             const respostaQuestoes = await fetch('https://webcontainer.io');
-
             bancoDadosOriginal = await respostaQuestoes.json();
             
-            // CORREÇÃO: Cria uma matriz estática de fallback caso o arquivo json local dê erro
             const macroareasPadrao = [
                 { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica"], "subareas": ["Biologia", "Física", "Química"] },
                 { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Estatística"], "subareas": ["Álgebra", "Geometria"] }
@@ -234,7 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
         try {
-            const resposta = await fetch('http://localhost:5000/api/questoes/responder', {
+            // CORREÇÃO: Rota de envio de gabarito sincronizada com a API online no StackBlitz
+            const resposta = await fetch('https://webcontainer.io', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

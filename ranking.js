@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emailLogado = localStorage.getItem('enemverse_email_ativo');
 
     async function buscarTodosUsuarios() {
-        const resposta = await fetch('http://localhost:5000/api/ranking');
+        // CORREÇÃO: URL alterada para consumir a API de produção online do StackBlitz
+        const resposta = await fetch('https://webcontainer.io');
         return await resposta.json();
     }
 
