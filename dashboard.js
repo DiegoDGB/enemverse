@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function buscarDadosUsuarioBanco(email) {
-        // URL nova do Render:
+        // CONEXÃO CORRETA COM O RENDER
         const resposta = await fetch('https://enemverse-api.onrender.com');
         const listaUsuarios = await resposta.json();
         return listaUsuarios.find(u => u.email === email);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const usuario = await buscarDadosUsuarioBanco(emailAtivo);
 
         if (!usuario) {
-            alert('Erro de sincronização. Por favor, refaça o login.');
+            alert('Erro de Sincronização de conta. Redirecionando para autenticação...');
             localStorage.clear();
             window.location.href = 'login.html';
             return;
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (btnLogout) {
         btnLogout.addEventListener('click', (e) => {
             e.preventDefault();
-            localStorage.removeItem('enemverse_email_ativo');
+            localStorage.clear();
             window.location.href = 'login.html';
         });
     }
