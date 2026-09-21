@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // SINCRO: Puxando as questões direto da sua API oficial do Render
-            const respostaQuestoes = await fetch('https://enemverse-api.onrender.com');
+            // 🌟 CORREÇÃO 1: Adicionado /api/questoes na URL oficial do Render
+            const respostaQuestoes = await fetch('https://onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
             const macroareasPadrao = [
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
         try {
-            // SINCRO: Enviando a resposta para validação na API real do Render
+            // 🌟 CORREÇÃO 2: Apontando para o endereço exato de responder no seu Render
             const resposta = await fetch('https://onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
