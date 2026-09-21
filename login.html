@@ -9,76 +9,59 @@
 <body class="login-universe-bg">
 
     <div class="auth-card">
-        <!-- Logotipo da Marca -->
         <div class="auth-brand" onclick="window.location.href='index.html'">🌌 EnemVerse</div>
 
-        <!-- Abas de Alternância -->
         <div class="auth-tabs">
             <button type="button" class="tab-btn active" id="btnIrParaLogin">Acessar Conta</button>
             <button type="button" class="tab-btn" id="btnIrParaCadastro">Cadastrar</button>
         </div>
 
-        <!-- ========================================== -->
-        <!-- FORMULÁRIO DE LOGIN                        -->
-        <!-- ========================================== -->
+        <!-- FORMULÁRIO DE LOGIN -->
         <form id="formLogin">
             <div class="auth-error-message hidden" id="errorBoxLogin"></div>
-
             <div class="form-group">
                 <label for="loginEmail">E-MAIL</label>
                 <input type="email" id="loginEmail" placeholder="seuemail@provedor.com" required>
             </div>
-
             <div class="form-group">
                 <label for="loginSenha">SENHA</label>
                 <input type="password" id="loginSenha" placeholder="Digite sua senha" required>
             </div>
-
             <button type="submit" class="submit-btn">Entrar no Universo</button>
         </form>
 
-        <!-- ========================================== -->
-        <!-- FORMULÁRIO DE CADASTRO                     -->
-        <!-- ========================================== -->
+        <!-- FORMULÁRIO DE CADASTRO -->
         <form id="formCadastro" class="hidden">
             <div class="auth-error-message hidden" id="errorBoxCadastro"></div>
-
             <div class="form-group">
                 <label for="regNome">NOME COMPLETO</label>
                 <input type="text" id="regNome" placeholder="Seu nome completo" required>
             </div>
-
             <div class="form-group">
                 <label for="regEmail">E-MAIL</label>
                 <input type="email" id="regEmail" placeholder="seuemail@provedor.com" required>
             </div>
-
             <div class="form-group">
                 <label for="regSenha">SENHA</label>
                 <input type="password" id="regSenha" placeholder="Crie uma senha forte" required>
             </div>
-
             <button type="submit" class="submit-btn">Criar Minha Conta</button>
         </form>
 
-        <!-- Link Auxiliar de Retorno -->
         <a href="index.html" class="back-home-link">← Voltar para a vitrine</a>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MOTOR DE CONTROLE                          -->
-    <!-- ========================================== -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const formLogin = document.getElementById('formLogin');
         const formCadastro = document.getElementById('formCadastro');
         const btnIrParaCadastro = document.getElementById('btnIrParaCadastro');
         const btnIrParaLogin = document.getElementById('btnIrParaLogin');
-        
         const errorBoxLogin = document.getElementById('errorBoxLogin');
         const errorBoxCadastro = document.getElementById('errorBoxCadastro');
 
-        const API_URL = 'https://webcontainer.io';
+        // URL Base Limpa do StackBlitz
+        const API_BASE = 'https://webcontainer.io';
 
         if (btnIrParaCadastro) {
             btnIrParaCadastro.addEventListener('click', (e) => {
@@ -124,7 +107,8 @@
                 const senha = document.getElementById('regSenha').value;
 
                 try {
-                    const resposta = await fetch(`${API_URL}/cadastrar`, {
+                    // Sincronização exata com o req.url.startsWith do Node.js
+                    const resposta = await fetch(`${API_BASE}/api/auth/cadastrar`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nome, email, senha })
@@ -156,7 +140,8 @@
                 const senha = document.getElementById('loginSenha').value;
 
                 try {
-                    const resposta = await fetch(`${API_URL}/login`, {
+                    // Sincronização exata com o req.url.startsWith do Node.js
+                    const resposta = await fetch(`${API_BASE}/api/auth/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, senha })
