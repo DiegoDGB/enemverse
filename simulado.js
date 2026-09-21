@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // CORREÇÃO: Rota ajustada para puxar as questões da API online no StackBlitz
-            const respostaQuestoes = await fetch('https://webcontainer.io');
+            // CORREÇÃO: Rota ajustada para puxar as questões da API online no Render
+            const respostaQuestoes = await fetch('https://onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
             const macroareasPadrao = [
