@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emailLogado = localStorage.getItem('enemverse_email_ativo');
 
     async function buscarTodosUsuarios() {
-       // Altere para a URL nova do Render:
+        // CONEXÃO CORRETA COM O RENDER
         const resposta = await fetch('https://enemverse-api.onrender.com');
         return await resposta.json();
     }
@@ -23,16 +23,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             podiumContainer.innerHTML = '';
             const ordemPodio = [
                 { pos: 2, classe: 'second-place', dados: top3[1], emoji: '👩‍💻' },
-                { pos: 1, classe: 'first-place', dados: top3[0], emoji: '👨‍🚀' },
+                { pos: 1, classe: 'first-place', dados: top3[0], emoji: '👑' },
                 { pos: 3, classe: 'third-place', dados: top3[2], emoji: '👩‍🎨' }
             ];
 
             ordemPodio.forEach(degrau => {
                 if (degrau.dados) {
-                    const coroa = degrau.pos === 1 ? '👑' : '';
                     podiumContainer.innerHTML += `
                         <div class="podium-card ${degrau.classe}">
-                            <div>${coroa}</div>
                             <div class="avatar-circle">${degrau.emoji}</div>
                             <h3>${degrau.dados.nome}</h3>
                             <span>${degrau.dados.xp.toLocaleString()} XP</span>
