@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emailLogado = localStorage.getItem('enemverse_email_ativo');
 
     async function buscarTodosUsuarios() {
-        // CORREÇÃO: URL alterada para consumir a API de produção online do StackBlitz
-        const resposta = await fetch('https://webcontainer.io');
+       // Altere para a URL nova do Render:
+        const resposta = await fetch('https://onrender.com');
         return await resposta.json();
     }
 
