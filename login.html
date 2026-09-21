@@ -125,7 +125,7 @@
                 const senha = document.getElementById('regSenha').value;
 
                 try {
-                    const resposta = await fetch(`${API_URL}/cadastrar`, {
+                    const API_URL = 'https://webcontainer.io'; {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nome, email, senha })
