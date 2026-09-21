@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function buscarDadosUsuarioBanco(email) {
-        // CORREÇÃO: Endpoint correto apontando para a sua API no StackBlitz
-        const resposta = await fetch('https://webcontainer.io');
+        // URL nova do Render:
+        const resposta = await fetch('https://onrender.com');
         const listaUsuarios = await resposta.json();
         return listaUsuarios.find(u => u.email === email);
     }
