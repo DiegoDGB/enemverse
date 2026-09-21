@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // CORREÇÃO: Rota ajustada para puxar as questões da API online no Render
-            const respostaQuestoes = await fetch('https://onrender.com');
+            const respostaQuestoes = await fetch('https://enemverse-api.onrender.com');
             bancoDadosOriginal = await respostaQuestoes.json();
             
             const macroareasPadrao = [
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // CORREÇÃO: Rota de envio de gabarito sincronizada com a API online no render
-           const resposta = await fetch('https://onrender.com', {
+           const resposta = await fetch('https://enemverse-api.onrender.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
