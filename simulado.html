@@ -4,97 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnemVerse - Simulado Interativo</title>
-    <!-- Vínculos dos arquivos CSS Externos -->
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="simulado.css">
 </head>
 <body>
 
-    <!-- Topo da Área de Treinamento -->
-    <div class="simulado-nav">
+    <!-- BARRA DE NAVEGAÇÃO DO ESTUDANTE -->
+    <nav class="simulado-nav">
         <div class="nav-container">
-            <!-- Bloco de Perfil do Usuário (Canto Superior Esquerdo) -->
             <div class="user-profile-block">
-                <div class="user-avatar-wrapper">
-                    <div class="user-avatar">
-                        <span class="avatar-placeholder">👤</span>
-                    </div>
+                <div class="user-avatar">
+                    <span class="avatar-placeholder">👤</span>
                 </div>
                 <div class="user-stats-stacked">
-                    <span class="user-name">Estudante</span>
-                    <div class="stat-item-row">🔥 <span id="navStreak">0 dias seguidos</span></div>
-                    <div class="stat-item-row">⚡ <span id="navXP">0 XP total</span></div>
+                    <span class="user-name">Carregando Estudante...</span>
+                    <div class="stat-item-row">
+                        <span id="navStreak">🔥 0 dias</span> • 
+                        <span id="navXP">⚡ 0 XP</span>
+                    </div>
                 </div>
             </div>
-
-            <!-- Botão de Voltar (Canto Superior Direito) -->
             <a href="dashboard.html" class="btn-back">Voltar ao Painel ←</a>
         </div>
-    </div>
+    </nav>
 
-    <div class="container-simulado">
-        <!-- Barra de Progresso e Meta Diária -->
-        <div class="progress-section">
+    <!-- ÁREA PRINCIPAL DO SIMULADO -->
+    <main class="container-simulado">
+        
+        <!-- SEÇÃO DE PROGRESSO DIÁRIO -->
+        <section class="progress-section">
             <div class="progress-info">
-                <span>Progresso Diário</span>
+                <span>Progresso no Filtro</span>
                 <span id="progressText">0 / 0 Questões</span>
             </div>
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: 0%;"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- Painel de Filtros Acadêmicos Automatizado (Renderizado via JS) -->
-        <div class="filters-container">
-            <span class="filters-title">📚 Passe o mouse para filtrar por Área ou Disciplina:</span>
-            
-            <!-- Contêiner essencial para a injeção do Menu do db.js / matriz_enem.json -->
+        <!-- SEÇÃO DE FILTROS DINÂMICOS (MATRIZ DO ENEM) -->
+        <section class="filters-container">
+            <span class="filters-title">📚 Filtrar por Área ou Disciplina:</span>
             <div class="macro-areas-group" id="macroAreasGroup">
-                <!-- Injetado dinamicamente pelo JavaScript -->
+                <!-- Os botões de áreas e disciplinas serão injetados aqui via JavaScript -->
+                <button class="macro-btn active">Todas as Áreas</button>
             </div>
+            
+            <!-- Painel Informativo sobre Subáreas e Incidência -->
+            <div class="subareas-display-box" id="subareasBox" style="display: none;">
+                <div class="panel-content">
+                    <h4 id="subareaTitle">Foco da Área</h4>
+                    <p class="panel-incidencia" id="subareaDesc">🎯 Tópicos mais recorrentes...</p>
+                </div>
+            </div>
+        </section>
 
-            <!-- Caixa informativa de Incidência -->
-            <div class="subareas-display-box" id="subareasBox" style="display: none;"></div>
-        </div>
-
-        <!-- Bloco Principal da Questão -->
-        <main class="question-container">
-            <!-- Metadados da Questão + Cronômetro Embutido -->
+        <!-- CARTÃO DA QUESTÃO ATIVA -->
+        <section class="question-container">
             <div class="question-meta">
                 <span class="badge-tag label-year">ENEM --</span>
                 <span class="badge-tag label-materia">Carregando...</span>
                 
-                <!-- Aqui está o espaço do Cronômetro Regressivo -->
+                <!-- Cronômetro Visual -->
                 <div class="timer-wrapper">
-                    <span class="timer-icon">⏱️</span>
+                    <span>⏱</span>
                     <span id="countdownTimer">03:00</span>
                 </div>
             </div>
 
-            <!-- Texto de Apoio e Enunciado -->
-            <div class="question-text">
-                <p class="texto-apoio">Carregando textos do banco de dados...</p>
-                <p class="enunciado">Por favor, aguarde.</p>
+            <!-- Textos da Pergunta -->
+            <div class="texto-apoio">Carregando textos do banco de dados...</div>
+            <h2 class="enunciado">Por favor, aguarde o carregamento dos servidores na nuvem.</h2>
+
+            <!-- Lista de Alternativas (A, B, C, D, E) -->
+            <div class="alternatives-list">
+                <!-- Injetadas dinamicamente -->
             </div>
 
-            <!-- Alternativas -->
-            <div class="alternatives-list"></div>
-
-            <!-- Rodapé de Feedback e Confirmação -->
+            <!-- RODAPÉ DE AÇÃO E FEEDBACK -->
             <div class="action-footer">
-                <div class="feedback-message hidden" id="feedbackBox">
-                    <span class="feedback-icon"></span>
-                    <span class="feedback-text"></span>
-                </div>
-               <!-- Mude a linha do botão para ficar assim, sem o "disabled" -->
-                <button class="submit-btn" id="btnVerify">Verificar Resposta</button>
-
+                <div class="feedback-message hidden" id="feedbackBox"></div>
+                <button type="button" class="submit-btn" id="btnVerify" disabled>Verificar Resposta</button>
             </div>
-        </main>
-    </div>
+        </section>
 
-    <!-- Vínculo do Banco de Dados Real primeiro, depois a lógica do simulado -->
-    <script src="db.js"></script>
+    </main>
+
+    <!-- Chamada do motor lógico -->
     <script src="simulado.js"></script>
 </body>
 </html>
