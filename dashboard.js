@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function buscarDadosUsuarioBanco(email) {
         // URL nova do Render:
-        const resposta = await fetch('https://onrender.com');
+        const resposta = await fetch('https://enemverse-api.onrender.com');
         const listaUsuarios = await resposta.json();
         return listaUsuarios.find(u => u.email === email);
     }
