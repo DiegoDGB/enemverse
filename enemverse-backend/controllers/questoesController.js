@@ -8,7 +8,7 @@ const path = require('path');
 // Lista todas as questões disponíveis para o simulado
 router.get('/', async (req, res) => {
     try {
-        const questoes = await Questao.find().sort({ id: 1 });
+        const questoes = await Questao.find().select('-correta -explicacao').sort({ id: 1 }).lean();
         res.json(questoes);
     } catch (err) {
         console.error('Erro ao extrair questões:', err);
