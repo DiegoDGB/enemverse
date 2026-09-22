@@ -73,14 +73,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         console.log('Usuário carregado com sucesso:', usuario);
 
-        // Elementos do HTML
-        const topNavWelcome = document.getElementById('topNavWelcome');
-        const sidebarNome = document.getElementById('sidebarNome');
-        const dashStreak = document.getElementById('dashStreak');
-        const dashXP = document.getElementById('dashXP');
-        const userTier = document.getElementById('userTier');
+        // ========================================================
+        // CAPTURA DOS ELEMENTOS CORRIGIDOS DO HTML (Alinhados com a árvore de nós)
+        // ========================================================
+        const topNavWelcome = document.getElementById('topNavWelcome'); // Boas-vindas na barra do topo
+        const sidebarNome = document.getElementById('sidebarNome') || document.querySelector('.auth-card h3') || document.querySelector('h3'); // Nome no Bloco de Perfil
+        const dashStreak = document.getElementById('dashStreak') || document.querySelector('.auth-card p:nth-of-type(1)'); // Ofensiva
+        const dashXP = document.getElementById('dashXP') || document.querySelector('.auth-card p:nth-of-type(2)'); // XP Total
+        const userTier = document.getElementById('userTier') || document.querySelector('.auth-card h3 + p') || document.querySelector('p'); // Nível / Patente
 
-        // Injeção do Nome
+        // Elementos de Meta do HTML
+        const goalPercent = document.getElementById('goalPercent') || document.querySelector('.meta-diaria span'); // Porcentagem de Texto
+        const goalCounter = document.getElementById('goalCounter') || document.querySelector('.meta-diaria p:last-of-type'); // Texto descritivo de progresso
+        const goalBarFill = document.getElementById('goalBarFill') || document.querySelector('.progress-bar-fill') || document.querySelector('.meta-diaria div div'); // Barra visual
+
+        // ========================================================
+        // INJEÇÃO SEGURA DOS DADOS DENTRO DAS TAGS
+        // ========================================================
+        
+        // Nome do Estudante
         if (topNavWelcome) {
             topNavWelcome.innerText = usuario.nome || 'Estudante';
         }
@@ -88,24 +99,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             sidebarNome.innerText = usuario.nome || 'Estudante';
         }
 
-        // Injeção da Ofensiva
+        // Ofensiva formatada (Exemplo: "5 Dias Ofensiva" ou "5 Dias")
         const ofensiva = Number(usuario.ofensiva || 0);
         if (dashStreak) {
-            dashStreak.innerText = `${ofensiva} ${ofensiva === 1 ? 'Dia' : 'Dias'}`;
+            dashStreak.innerText = `🔥 ${ofensiva} ${ofensiva === 1 ? 'Dia Ofensiva' : 'Dias Ofensiva'}`;
         }
 
-        // Injeção do XP
+        // Pontuação de XP formatada com pontos (Exemplo: "1.240 XP Total")
         const xp = Number(usuario.xp || 0);
         if (dashXP) {
-            dashXP.innerText = xp.toLocaleString('pt-BR');
+            dashXP.innerText = `⚡ ${xp.toLocaleString('pt-BR')} XP Total`;
         }
 
-        // Injeção do Nível / Patente
+        // Patente e Nível calculados
         if (userTier) {
             userTier.innerText = calcularPatenteUsuario(xp);
         }
 
-        // Cálculo da Meta Diária (15 XP por questão)
+        // Cálculo dinâmico da Meta Diária (Baseado na média de 15 XP por questão respondida)
         const totalQuestoesRespondidas = Math.floor(xp / 15);
         let questoesConcluidasHoje = totalQuestoesRespondidas % 10;
 
@@ -113,14 +124,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             questoesConcluidasHoje = 10;
         }
 
-        // Porcentagem da Meta
+        // Porcentagem exata da meta concluída hoje
         const porcentagemMeta = Math.min((questoesConcluidasHoje / 10) * 100, 100);
 
-        // Elementos de Meta do HTML
-        const goalPercent = document.getElementById('goalPercent');
-        const goalCounter = document.getElementById('goalCounter');
-        const goalBarFill = document.getElementById('goalBarFill');
-
+        // Injeção visual na barra e contadores da Meta Diária
         if (goalPercent) {
             goalPercent.innerText = `${Math.floor(porcentagemMeta)}%`;
         }
@@ -140,29 +147,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ============================================================
-    // 5. CARD DO SIMULADO (Redirecionamento)
+    // 5. REDIRECIONAMENTO DE CLIQUE: SIMULADO
     // ============================================================
-    const cardSimulado = document.getElementById('cardSimulado');
+    const cardSimulado = document.getElementById('cardSimulado') || document.querySelector('.atividades-grid div:nth-child(1)');
     if (cardSimulado) {
+        cardSimulado.style.cursor = 'pointer';
         cardSimulado.addEventListener('click', () => {
             window.location.href = 'simulado.html';
         });
     }
 
     // ============================================================
-    // 6. CARD DO RANKING (Redirecionamento)
+    // 6. REDIRECIONAMENTO DE CLIQUE: RANKING (LEADERBOARD)
     // ============================================================
-    const cardRanking = document.getElementById('cardRanking');
+    const cardRanking = document.getElementById('cardRanking') || document.querySelector('.atividades-grid div:nth-child(2)');
     if (cardRanking) {
+        cardRanking.style.cursor = 'pointer';
         cardRanking.addEventListener('click', () => {
             window.location.href = 'ranking.html';
         });
     }
 
     // ============================================================
-    // 7. LOGOUT (Limpeza da Sessão)
+    // 7. LOGOUT (Limpeza segura da sessão)
     // ============================================================
-    const btnLogout = document.getElementById('btnLogout');
+    const btnLogout = document.getElementById('btnLogout') || document.querySelector('a[href="login.html"]') || document.querySelector('.logout-btn');
     if (btnLogout) {
         btnLogout.addEventListener('click', (e) => {
             e.preventDefault();
