@@ -53,6 +53,7 @@ router.post('/importar-iniciais', async (req, res) => {
         const normalizadas = dados.questoes.map(q => ({
             id: Number(q.id),
             ano: q.ano != null ? Number(q.ano) : undefined,
+            area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
@@ -114,6 +115,7 @@ function normalizarQuestao(q) {
     return {
         id: Number(q.id),
         ano: q.ano !== undefined && q.ano !== null && q.ano !== '' ? Number(q.ano) : undefined,
+        area_enem: String(q.area_enem || '').trim() || undefined,
         materia: String(q.materia || '').trim(),
         subtopico: String(q.subtopico || '').trim(),
         texto_apoio: String(q.texto_apoio || '').trim(),
@@ -136,13 +138,15 @@ router.get('/admin/listar', async (req, res) => {
     try {
         const busca = String(req.query.busca || '').trim();
         const materia = String(req.query.materia || '').trim();
+        const area = String(req.query.area || '').trim();
         const filtro = {};
         if (materia) filtro.materia = materia;
+        if (area) filtro.area_enem = area;
         if (busca) {
             const regex = new RegExp(busca, 'i');
             const numero = Number(busca);
             filtro.$or = [
-                { enunciado: regex }, { subtopico: regex }, { materia: regex },
+                { enunciado: regex }, { subtopico: regex }, { materia: regex }, { area_enem: regex },
                 ...(Number.isInteger(numero) ? [{ id: numero }] : [])
             ];
         }
@@ -221,6 +225,7 @@ router.post('/importar', async (req, res) => {
         const normalizadas = questoes.map((q, indice) => ({
             id: Number(q.id),
             ano: q.ano !== undefined && q.ano !== null ? Number(q.ano) : undefined,
+            area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
