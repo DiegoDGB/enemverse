@@ -4,10 +4,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario'); 
 
-// ===================================================================
-// 1. ROTA DE CADASTRO (A rota deve ser apenas '/' ou '/cadastrar')
-// Como o 'server.js' já injeta '/api/auth', aqui fica apenas o final!
-// ===================================================================
+// ==========================================
+// 1. ROTA DE CADASTRO
+// Deve conter APENAS '/cadastrar' (O Express já injeta o prefixo /api/auth automaticamente)
+// ==========================================
 router.post('/cadastrar', async (req, res) => {
     const { nome, email, senha } = req.body;
     try {
@@ -27,9 +27,10 @@ router.post('/cadastrar', async (req, res) => {
     }
 });
 
-// ===================================================================
-// 2. ROTA DE LOGIN (A rota deve ser apenas '/login')
-// ===================================================================
+// ==========================================
+// 2. ROTA DE LOGIN
+// Deve conter APENAS '/login'
+// ==========================================
 router.post('/login', async (req, res) => {
     const { email, senha } = req.body;
     try {
@@ -78,9 +79,10 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ===================================================================
-// 3. ROTA DE PERFIL (A rota deve ser apenas '/perfil')
-// ===================================================================
+// ==========================================
+// 3. ROTA DE PERFIL SEGURO
+// Deve conter APENAS '/perfil'
+// ==========================================
 router.get('/perfil', async (req, res) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     const emailFiltro = req.query.email;
