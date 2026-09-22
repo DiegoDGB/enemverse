@@ -10,6 +10,13 @@ const QuestaoSchema = new mongoose.Schema({
     ano: {
         type: Number
     },
+    numero_enem: { type: Number },
+    dia: { type: Number, enum: [1, 2] },
+    caderno: { type: String },
+    aplicacao: { type: String, default: 'Regular' },
+    lingua_estrangeira: { type: String, enum: ['Inglês', 'Espanhol', 'Não se aplica'], default: 'Não se aplica' },
+    fonte: { type: String },
+    fonte_url: { type: String },
     area_enem: {
         type: String,
         enum: [
