@@ -10,6 +10,15 @@ const QuestaoSchema = new mongoose.Schema({
     ano: {
         type: Number
     },
+    area_enem: {
+        type: String,
+        enum: [
+            'Ciências da Natureza e suas Tecnologias',
+            'Matemática e suas Tecnologias',
+            'Ciências Humanas e suas Tecnologias',
+            'Linguagens, Códigos e suas Tecnologias'
+        ]
+    },
     materia: {
         type: String
     },
