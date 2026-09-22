@@ -40,6 +40,12 @@ const QuestaoSchema = new mongoose.Schema({
     texto_apoio: {
         type: String
     },
+    midias: [{
+        tipo: { type: String, enum: ['imagem'], default: 'imagem' },
+        url: { type: String, required: true },
+        legenda: { type: String, default: '' },
+        alt: { type: String, default: '' }
+    }],
     enunciado: {
         type: String,
         required: true
