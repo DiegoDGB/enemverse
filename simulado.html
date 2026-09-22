@@ -133,13 +133,28 @@
             try {
                 // ROTA INTEGRADA DA API DO RENDER
                 const respostaQuestoes = await fetch('https://enemverse-api.onrender.com/api/questoes');
-                bancoDadosOriginal = await respostaQuestoes.json();
+
+                if (!respostaQuestoes.ok) {
+                    let detalhe = '';
+                    try {
+                        const erroApi = await respostaQuestoes.json();
+                        detalhe = erroApi.erro ? ': ' + erroApi.erro : '';
+                    } catch (_) {}
+                    throw new Error('Falha ao carregar questões (HTTP ' + respostaQuestoes.status + ')' + detalhe);
+                }
+
+                const dadosQuestoes = await respostaQuestoes.json();
+                if (!Array.isArray(dadosQuestoes)) {
+                    throw new Error('A API de questões retornou um formato inválido.');
+                }
+
+                bancoDadosOriginal = dadosQuestoes;
                 
                 const matrizOficialENEM = [
-                    { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica", "Estequiometria", "Evolução"], "subareas": ["Biologia", "Física", "Química"] },
-                    { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Geometria Espacial", "Estatística", "Porcentagem"], "subareas": ["Álgebra", "Geometria"] },
-                    { "nome": "Ciências Humanas e suas Tecnologias", "topicos_incidencia": ["Brasil Colônia", "Globalização", "Cidadania", "Cartografia"], "subareas": ["História", "Geografia", "Filosofia"] },
-                    { "nome": "Linguagens, Códigos e suas Tecnologias", "topicos_incidencia": ["Funções da Linguagem", "Modernismo", "Variação Linguística"], "subareas": ["Gramática", "Literatura"] }
+                    { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Genética", "Cinemática", "Eletricidade", "pH"], "subareas": ["Biologia", "Física", "Química"] },
+                    { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Estatística", "Porcentagem"], "subareas": ["Matemática"] },
+                    { "nome": "Ciências Humanas e suas Tecnologias", "topicos_incidencia": ["Brasil República", "Urbanização", "Cidadania", "Cartografia", "Ética"], "subareas": ["História", "Geografia", "Sociologia", "Filosofia"] },
+                    { "nome": "Linguagens, Códigos e suas Tecnologias", "topicos_incidencia": ["Interpretação", "Variação linguística"], "subareas": ["Linguagens"] }
                 ];
                 
                 gerarMenuDropdownMatriz(matrizOficialENEM);
@@ -210,6 +225,13 @@
             document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active-sub'));
         }
 
+        const macroareasPorMateria = {
+            "Ciências da Natureza e suas Tecnologias": ["Biologia", "Física", "Química"],
+            "Matemática e suas Tecnologias": ["Matemática"],
+            "Ciências Humanas e suas Tecnologias": ["História", "Geografia", "Sociologia", "Filosofia"],
+            "Linguagens, Códigos e suas Tecnologias": ["Linguagens"]
+        };
+
         function filtrarQuestoes(termoBusca, tipo) {
             indiceAtual = 0;
             if (tipo === 'macro') {
@@ -221,7 +243,8 @@
                         subareasBox.style.display = 'block';
                         subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Foco da Área: ${termoBusca}</h4><p class="panel-incidencia">🎯 <strong>Mais cobrados:</strong> ${dicionarioIncidencia[termoBusca]}</p></div>`;
                     }
-                    listaQuestoesFiltradas = bancoDadosOriginal.filter(q => q.materia === termoBusca);
+                    const areaSelecionada = macroareasPorMateria[termoBusca] || [];
+                    listaQuestoesFiltradas = bancoDadosOriginal.filter(q => areaSelecionada.includes(q.materia));
                 }
             } else {
                 if(subareasBox) {
@@ -331,6 +354,10 @@
                 });
                 const dadosBack = await resposta.json();
 
+                if (!resposta.ok) {
+                    throw new Error(dadosBack.erro || ('Falha ao validar resposta (HTTP ' + resposta.status + ')'));
+                }
+
                 itens.forEach((item, idx) => {
                     if (idx === dadosBack.gabarito) item.classList.add('correct');
                     else if (idx === selectedOption) item.classList.add('wrong');
@@ -351,7 +378,14 @@
                 feedbackBox.classList.remove('hidden');
                 if(btnVerify) btnVerify.innerText = "Próxima Questão →";
             } catch (erro) {
-                console.error(erro);
+                console.error('Erro ao validar resposta:', erro);
+                respondida = false;
+                if (feedbackBox) {
+                    feedbackBox.className = "feedback-message error-text";
+                    feedbackBox.innerHTML = `⚠️ <span>${erro.message || 'Não foi possível validar sua resposta.'}</span>`;
+                    feedbackBox.classList.remove('hidden');
+                }
+                if (btnVerify) btnVerify.innerText = "Tentar novamente";
             }
         }
 
