@@ -9,7 +9,7 @@ const app = express();
 conectarBanco();
 
 // Middlewares Globais
-app.use(cors());
+app.use(cors({ origin: ['https://enemverse.vercel.app'], methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], allowedHeaders: ['Content-Type', 'Authorization'] }));
 app.use(express.json()); // Permite que a API entenda requisições em formato JSON
 
 /* 
