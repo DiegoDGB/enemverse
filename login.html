@@ -94,7 +94,7 @@
 
                 try {
                     // Chamada exata apontando para o seu subdomínio e prefixo /api
-                    const resposta = await fetch('https://onrender.com', {
+                    const resposta = await fetch('https://enemverse-api.onrender.com', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, senha })
@@ -133,7 +133,7 @@
 
                 try {
                     // Chamada exata sem variáveis para evitar erros de interpolação
-                    const resposta = await fetch('https://onrender.com', {
+                    const resposta = await fetch('https://enemverse-api.onrender.com', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nome, email, senha })
