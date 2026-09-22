@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnemVerse — Painel de Questões</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}
+header{background:#111827;color:white;padding:22px 28px}header h1{margin:0 0 6px}header p{margin:0;color:#cbd5e1}
+main{max-width:1050px;margin:28px auto;padding:0 18px}.card{background:white;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 3px 15px #00000012}
+h2{margin-top:0}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.field{flex:1;min-width:260px}label{display:block;font-weight:bold;margin-bottom:7px}
+input,textarea,button{font:inherit}input,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px}textarea{min-height:260px;font-family:monospace;font-size:13px}
+button{border:0;border-radius:9px;padding:12px 17px;cursor:pointer;font-weight:bold;background:#2563eb;color:white}button.secondary{background:#475569}button.success{background:#15803d}button:disabled{opacity:.55;cursor:not-allowed}
+#status{white-space:pre-wrap;background:#0f172a;color:#e2e8f0;padding:15px;border-radius:9px;min-height:54px}.hint{color:#64748b;font-size:14px}.danger{color:#b91c1c}
+.stats{display:flex;gap:12px;flex-wrap:wrap}.stat{background:#eef2ff;padding:14px 18px;border-radius:10px;min-width:130px}.stat strong{display:block;font-size:25px}
+</style>
+</head>
+<body>
+<header><h1>EnemVerse — Painel de Questões</h1><p>Cadastro, importação e acompanhamento do banco de questões.</p></header>
+<main>
+<section class="card">
+<h2>1. Chave administrativa</h2>
+<div class="row">
+<div class="field"><label for="key">ADMIN_API_KEY</label><input id="key" type="password" placeholder="Digite a chave configurada no Render"></div>
+<button onclick="consultarStatus()">Consultar banco</button>
+</div>
+<p class="hint">A chave não é salva no navegador. Configure a mesma chave em Render → Environment Variables.</p>
+</section>
+
+<section class="card">
+<h2>2. Banco inicial</h2>
+<p>O projeto já possui um banco inicial com questões originais em Matemática, Linguagens, Biologia, Química, Física, História, Geografia, Sociologia e Filosofia.</p>
+<button class="success" onclick="carregarIniciais()">Carregar banco inicial</button>
+</section>
+
+<section class="card">
+<h2>3. Importar arquivo JSON</h2>
+<input id="arquivo" type="file" accept=".json,application/json">
+<p class="hint">Formato esperado: <code>{ "questoes": [ ... ] }</code>. O sistema valida e atualiza questões pelo ID.</p>
+<button onclick="importarArquivo()">Importar arquivo</button>
+</section>
+
+<section class="card">
+<h2>4. Cadastrar questões por JSON</h2>
+<textarea id="json" placeholder='{
+  "questoes": [
+    {
+      "id": 100,
+      "ano": 2026,
+      "materia": "Matemática",
+      "subtopico": "Funções",
+      "texto_apoio": "",
+      "enunciado": "Digite o enunciado...",
+      "alternativas": ["A", "B", "C", "D", "E"],
+      "correta": 0,
+      "explicacao": "Explique o gabarito."
+    }
+  ]
+}'></textarea>
+<br><br><button onclick="importarTexto()">Cadastrar / atualizar questões</button>
+</section>
+
+<section class="card">
+<h2>Resultado</h2>
+<div id="status">Aguardando operação...</div>
+</section>
+</main>
+<script>
+const API='https://enemverse-api.onrender.com/api';
+const keyEl=document.getElementById('key');
+const statusEl=document.getElementById('status');
+function chave(){return keyEl.value.trim()}
+function mostrar(v){statusEl.textContent=typeof v==='string'?v:JSON.stringify(v,null,2)}
+async function request(url,options={}){
+  const headers={...(options.headers||{}),'x-admin-key':chave()};
+  const r=await fetch(url,{...options,headers});
+  const data=await r.json().catch(()=>({erro:'Resposta inválida da API'}));
+  if(!r.ok) throw new Error(data.erro||('HTTP '+r.status));
+  return data;
+}
+async function consultarStatus(){
+ try{
+  const d=await request(API+'/questoes/status');
+  const linhas=(d.porMateria||[]).map(x=>x._id+': '+x.total).join('\n');
+  mostrar('Total: '+d.total+'\n\nPor matéria:\n'+linhas);
+ }catch(e){mostrar('ERRO: '+e.message)}
+}
+async function carregarIniciais(){
+ if(!chave()){mostrar('Digite a ADMIN_API_KEY primeiro.');return}
+ try{mostrar('Carregando banco inicial...');mostrar(await request(API+'/questoes/importar-iniciais',{method:'POST'}));await consultarStatus()}
+ catch(e){mostrar('ERRO: '+e.message)}
+}
+async function importarTexto(){
+ if(!chave()){mostrar('Digite a ADMIN_API_KEY primeiro.');return}
+ try{
+  const d=JSON.parse(document.getElementById('json').value);
+  mostrar('Importando...');
+  mostrar(await request(API+'/questoes/importar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}));
+  await consultarStatus();
+ }catch(e){mostrar('ERRO: '+e.message)}
+}
+async function importarArquivo(){
+ const f=document.getElementById('arquivo').files[0];
+ if(!f){mostrar('Selecione um arquivo JSON.');return}
+ try{
+  document.getElementById('json').value=await f.text();
+  await importarTexto();
+ }catch(e){mostrar('ERRO: '+e.message)}
+}
+</script>
+</body>
+</html>
