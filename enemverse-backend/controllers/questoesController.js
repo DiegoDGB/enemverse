@@ -74,8 +74,8 @@ router.post('/importar-iniciais', async (req, res) => {
 
         for (const q of normalizadas) {
             if (!Number.isInteger(q.id) || !q.materia || !q.enunciado ||
-                q.alternativas.length !== 5 || !Number.isInteger(q.correta) ||
-                q.correta < 0 || q.correta > 4) && !q.anulada {
+                q.alternativas.length !== 5 ||
+                (!q.anulada && (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4))) {
                 return res.status(400).json({
                     erro: 'O banco inicial contém uma questão inválida.',
                     questao: q.id
@@ -151,7 +151,7 @@ function erroValidacao(q) {
     if (!q.enunciado) return '"enunciado" é obrigatório.';
     if (!['Fácil', 'Média', 'Difícil'].includes(q.dificuldade)) return '"dificuldade" deve ser Fácil, Média ou Difícil.';
     if (q.alternativas.length !== 5 || q.alternativas.some(a => !a)) return 'Informe exatamente 5 alternativas preenchidas.';
-    if (!q.anulada && (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) && !q.anulada) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
+    if (!q.anulada && (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4)) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
     return null;
 }
 router.get('/admin/listar', async (req, res) => {
@@ -449,7 +449,7 @@ router.post('/importar', async (req, res) => {
                 return res.status(400).json({ erro: `Questão ${q.id}: informe exatamente 5 alternativas.` });
             }
 
-            if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) && !q.anulada {
+            if (!q.anulada && (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4)) {
                 return res.status(400).json({
                     erro: `Questão ${q.id}: "correta" deve ser 0, 1, 2, 3 ou 4.`
                 });
