@@ -307,6 +307,42 @@ router.post('/admin/migrar-dificuldades', async (req, res) => {
     }
 });
 
+// Classificação inicial das questões existentes por dificuldade.
+router.post('/admin/classificar-dificuldades', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const classificacao = {
+            1:'Fácil',2:'Fácil',3:'Fácil',4:'Média',5:'Fácil',6:'Média',
+            7:'Difícil',8:'Fácil',9:'Fácil',10:'Média',11:'Média',12:'Média',
+            13:'Média',14:'Média',15:'Fácil',16:'Fácil',17:'Fácil',18:'Média',
+            19:'Média'
+        };
+        const ids = Object.keys(classificacao).map(Number);
+        const existentes = await Questao.find({ id: { $in: ids } }).select('id dificuldade').lean();
+        const operacoes = existentes.map(q => ({
+            updateOne: {
+                filter: { id: q.id },
+                update: { $set: { dificuldade: classificacao[q.id] } }
+            }
+        }));
+        const resultado = operacoes.length ? await Questao.bulkWrite(operacoes, { ordered: false }) : { modifiedCount: 0 };
+        const distribuicao = await Questao.aggregate([
+            { $group: { _id: '$dificuldade', total: { $sum: 1 } } },
+            { $sort: { _id: 1 } }
+        ]);
+        res.json({
+            sucesso:true,
+            consideradas: existentes.length,
+            atualizadas: resultado.modifiedCount,
+            distribuicao,
+            mensagem:'Classificação inicial de dificuldade aplicada com sucesso.'
+        });
+    } catch (err) {
+        console.error('Erro ao classificar dificuldades:', err);
+        res.status(500).json({ erro:'Erro ao classificar dificuldades.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
