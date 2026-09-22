@@ -7,6 +7,12 @@ const QuestaoSchema = new mongoose.Schema({
         unique: true,
         index: true
     },
+    origem: {
+        type: String,
+        enum: ['ENEM_OFICIAL', 'AUTORAL'],
+        default: 'AUTORAL',
+        index: true
+    },
     ano: {
         type: Number
     },
@@ -70,5 +76,10 @@ const QuestaoSchema = new mongoose.Schema({
     strict: false,
     collection: 'questoes'
 });
+
+// Fase 1: índices voltados aos filtros executados no servidor.
+// O índice único de "id" continua sendo criado pelo próprio campo acima.
+QuestaoSchema.index({ origem: 1, ano: 1, area_enem: 1, materia: 1, dificuldade: 1 });
+QuestaoSchema.index({ ano: 1, numero_enem: 1 });
 
 module.exports = mongoose.models.Questao || mongoose.model('Questao', QuestaoSchema);
