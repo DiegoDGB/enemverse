@@ -52,6 +52,7 @@ router.post('/importar-iniciais', async (req, res) => {
 
         const normalizadas = dados.questoes.map(q => ({
             id: Number(q.id),
+            origem: 'AUTORAL',
             ano: q.ano != null ? Number(q.ano) : undefined,
             numero_enem: q.numero_enem != null ? Number(q.numero_enem) : undefined,
             dia: q.dia != null ? Number(q.dia) : undefined,
@@ -124,6 +125,7 @@ function validarAdmin(req, res) {
 function normalizarQuestao(q) {
     return {
         id: Number(q.id),
+        origem: ['ENEM_OFICIAL', 'AUTORAL'].includes(q.origem) ? q.origem : undefined,
         ano: q.ano !== undefined && q.ano !== null && q.ano !== '' ? Number(q.ano) : undefined,
         numero_enem: q.numero_enem !== undefined && q.numero_enem !== null && q.numero_enem !== '' ? Number(q.numero_enem) : undefined,
         dia: q.dia !== undefined && q.dia !== null && q.dia !== '' ? Number(q.dia) : undefined,
@@ -231,7 +233,8 @@ router.delete('/admin/:id', async (req, res) => {
 //
 // Regras:
 // - só altera registros sem origem;
-// - considera oficial apenas questão com ano + numero_enem + dia + caderno + fonte;
+// - marca como ENEM_OFICIAL somente o lote inequivoco ENEM 2025 (IDs 2025001..2025180 + metadados oficiais);
+// - marca como AUTORAL somente as questoes iniciais legadas de 2026 (IDs 1..18, sem numero_enem);
 // - não sobrescreve ENEM_OFICIAL/AUTORAL já definidos;
 // - registros ambíguos permanecem sem origem para revisão manual.
 router.post('/admin/migrar-origem', async (req, res) => {
@@ -249,19 +252,37 @@ router.post('/admin/migrar-origem', async (req, res) => {
         const candidatasOficiais = {
             $and: [
                 semOrigem,
-                { ano: { $type: 'number' } },
-                { numero_enem: { $type: 'number' } },
+                { ano: 2025 },
+                { id: { $gte: 2025001, $lte: 2025180 } },
+                { numero_enem: { $gte: 1, $lte: 180 } },
                 { dia: { $in: [1, 2] } },
                 { caderno: { $exists: true, $nin: [null, ''] } },
-                { fonte: { $exists: true, $nin: [null, ''] } }
+                { fonte: 'ENEM 2025 - INEP' }
+            ]
+        };
+
+        const candidatasAutorais = {
+            $and: [
+                semOrigem,
+                { ano: 2026 },
+                { id: { $gte: 1, $lte: 18 } },
+                { $or: [
+                    { numero_enem: { $exists: false } },
+                    { numero_enem: null }
+                ] }
             ]
         };
 
         const encontradasSemOrigem = await Questao.countDocuments(semOrigem);
         const oficiaisElegiveis = await Questao.countDocuments(candidatasOficiais);
+        const autoraisElegiveis = await Questao.countDocuments(candidatasAutorais);
 
-        const resultado = oficiaisElegiveis
+        const resultadoOficiais = oficiaisElegiveis
             ? await Questao.updateMany(candidatasOficiais, { $set: { origem: 'ENEM_OFICIAL' } })
+            : { modifiedCount: 0 };
+
+        const resultadoAutorais = autoraisElegiveis
+            ? await Questao.updateMany(candidatasAutorais, { $set: { origem: 'AUTORAL' } })
             : { modifiedCount: 0 };
 
         const restantes = await Questao.find(semOrigem)
@@ -283,7 +304,10 @@ router.post('/admin/migrar-origem', async (req, res) => {
             sucesso: true,
             encontradasSemOrigem,
             oficiaisElegiveis,
-            atualizadas: resultado.modifiedCount,
+            autoraisElegiveis,
+            oficiaisAtualizadas: resultadoOficiais.modifiedCount,
+            autoraisAtualizadas: resultadoAutorais.modifiedCount,
+            atualizadas: resultadoOficiais.modifiedCount + resultadoAutorais.modifiedCount,
             restantesSemOrigem: restantes.length,
             pendentesRevisao: restantes,
             distribuicao,
@@ -472,7 +496,7 @@ router.post('/admin/importar-enem-2025', async (req, res) => {
         if (!Array.isArray(dados.questoes) || dados.questoes.length !== 180) {
             return res.status(400).json({ erro: 'O arquivo oficial ENEM 2025 deve conter exatamente 180 questões.' });
         }
-        const normalizadas = dados.questoes.map(normalizarQuestao);
+        const normalizadas = dados.questoes.map(q => ({ ...normalizarQuestao(q), origem: 'ENEM_OFICIAL' }));
         const erros = [];
         const numeros = new Set();
         for (const q of normalizadas) {
