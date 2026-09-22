@@ -132,7 +132,7 @@
 
             try {
                 // ROTA INTEGRADA DA API DO RENDER
-                const respostaQuestoes = await fetch('https://onrender.com');
+                const respostaQuestoes = await fetch('https://enemverse-api.onrender.com/api/questoes');
                 bancoDadosOriginal = await respostaQuestoes.json();
                 
                 const matrizOficialENEM = [
@@ -322,7 +322,7 @@
             const itens = alternativesList.querySelectorAll('.alternative-btn');
 
             try {
-                const resposta = await fetch('https://onrender.com', {
+                const resposta = await fetch('https://enemverse-api.onrender.com/api/questoes/responder', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
