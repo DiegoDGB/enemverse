@@ -413,6 +413,20 @@
                     throw new Error(dadosBack.erro || ('Falha ao validar resposta (HTTP ' + resposta.status + ')'));
                 }
 
+                if (dadosBack.anulada) {
+                    itens.forEach(item => { item.disabled = true; });
+                    feedbackBox.className = "feedback-message gold-text";
+                    feedbackBox.innerHTML = '⚠️ <span><strong>Questão anulada no gabarito oficial.</strong> Ela não altera seu XP.</span>';
+                    feedbackBox.classList.remove('hidden');
+                    if(btnVerify) {
+                        btnVerify.innerText = "Próxima Questão →";
+                        btnVerify.disabled = false;
+                        btnVerify.style.opacity = "1";
+                        btnVerify.style.cursor = "pointer";
+                    }
+                    return;
+                }
+
                 itens.forEach((item, idx) => {
                     if (idx === dadosBack.gabarito) item.classList.add('correct');
                     else if (idx === selectedOption) item.classList.add('wrong');
