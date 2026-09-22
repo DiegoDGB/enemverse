@@ -139,36 +139,31 @@
             }
 
             try {
-                // ROTA INTEGRADA DA API DO RENDER
-                const respostaQuestoes = await fetch('https://enemverse-api.onrender.com/api/questoes');
+                // Fase 1: o frontend baixa apenas metadados para montar os filtros.
+                const respostaFiltros = await fetch('https://enemverse-api.onrender.com/api/simulados/filtros');
 
-                if (!respostaQuestoes.ok) {
-                    let detalhe = '';
-                    try {
-                        const erroApi = await respostaQuestoes.json();
-                        detalhe = erroApi.erro ? ': ' + erroApi.erro : '';
-                    } catch (_) {}
-                    throw new Error('Falha ao carregar questões (HTTP ' + respostaQuestoes.status + ')' + detalhe);
+                if (!respostaFiltros.ok) {
+                    throw new Error('Falha ao carregar filtros (HTTP ' + respostaFiltros.status + ')');
                 }
 
-                const dadosQuestoes = await respostaQuestoes.json();
-                if (!Array.isArray(dadosQuestoes)) {
-                    throw new Error('A API de questões retornou um formato inválido.');
-                }
+                const filtrosDisponiveis = await respostaFiltros.json();
+                const incidencias = {
+                    "Ciências da Natureza e suas Tecnologias": ["Ecologia", "Genética", "Cinemática", "Eletricidade", "pH"],
+                    "Matemática e suas Tecnologias": ["Estatística", "Porcentagem"],
+                    "Ciências Humanas e suas Tecnologias": ["Brasil República", "Urbanização", "Cidadania", "Cartografia", "Ética"],
+                    "Linguagens, Códigos e suas Tecnologias": ["Interpretação", "Variação linguística"]
+                };
 
-                bancoDadosOriginal = dadosQuestoes;
-                
-                const matrizOficialENEM = [
-                    { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Genética", "Cinemática", "Eletricidade", "pH"], "subareas": ["Biologia", "Física", "Química"] },
-                    { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Estatística", "Porcentagem"], "subareas": ["Matemática"] },
-                    { "nome": "Ciências Humanas e suas Tecnologias", "topicos_incidencia": ["Brasil República", "Urbanização", "Cidadania", "Cartografia", "Ética"], "subareas": ["História", "Geografia", "Sociologia", "Filosofia"] },
-                    { "nome": "Linguagens, Códigos e suas Tecnologias", "topicos_incidencia": ["Interpretação", "Variação linguística"], "subareas": ["Linguagens"] }
-                ];
-                
+                const matrizOficialENEM = (filtrosDisponiveis.areas || []).map(area => ({
+                    nome: area.nome,
+                    topicos_incidencia: incidencias[area.nome] || [],
+                    subareas: area.materias || []
+                }));
+
                 gerarMenuDropdownMatriz(matrizOficialENEM);
                 configurarFiltroDificuldade();
-                aplicarFiltros();
-                
+                await aplicarFiltros();
+
             } catch (e) {
                 console.error("Erro ao carregar simulado:", e);
                 if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor de produção.";
@@ -280,27 +275,60 @@
             });
         }
 
-        function aplicarFiltros() {
+        async function aplicarFiltros() {
             indiceAtual = 0;
-            let filtradas = [...bancoDadosOriginal];
+            selectedOption = null;
+            respondida = false;
 
-            if (filtroAreaAtual !== 'Todas') {
-                filtradas = filtradas.filter(q =>
-                    q.area_enem === filtroAreaAtual ||
-                    (!q.area_enem && (macroareasPorMateria[filtroAreaAtual] || []).includes(q.materia))
-                );
+            if (btnVerify) {
+                btnVerify.disabled = true;
+                btnVerify.style.opacity = "0.5";
+                btnVerify.style.cursor = "not-allowed";
             }
-            if (filtroMateriaAtual !== 'Todas') {
-                filtradas = filtradas.filter(q => q.materia === filtroMateriaAtual);
-            }
-            if (filtroDificuldadeAtual !== 'Todas') {
-                filtradas = filtradas.filter(q => (q.dificuldade || 'Média') === filtroDificuldadeAtual);
-            }
+            if (enunciado) enunciado.innerText = "Carregando questões selecionadas...";
 
-            listaQuestoesFiltradas = embaralhar(filtradas);
-            atualizarBarraProgresso();
-            if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
-            else mostrarAvisoSemQuestoes();
+            const payload = {
+                origem: 'ENEM_OFICIAL',
+                quantidade: 90
+            };
+            if (filtroAreaAtual !== 'Todas') payload.area = filtroAreaAtual;
+            if (filtroMateriaAtual !== 'Todas') payload.materia = filtroMateriaAtual;
+            if (filtroDificuldadeAtual !== 'Todas') payload.dificuldade = filtroDificuldadeAtual;
+
+            try {
+                const resposta = await fetch('https://enemverse-api.onrender.com/api/simulados', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const dados = await resposta.json();
+
+                if (resposta.status === 404) {
+                    bancoDadosOriginal = [];
+                    listaQuestoesFiltradas = [];
+                    mostrarAvisoSemQuestoes();
+                    return;
+                }
+                if (!resposta.ok) {
+                    throw new Error(dados.erro || ('Falha ao criar simulado (HTTP ' + resposta.status + ')'));
+                }
+                if (!Array.isArray(dados.questoes)) {
+                    throw new Error('A API de simulados retornou um formato inválido.');
+                }
+
+                bancoDadosOriginal = dados.questoes;
+                listaQuestoesFiltradas = dados.questoes;
+                atualizarBarraProgresso();
+
+                if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
+                else mostrarAvisoSemQuestoes();
+            } catch (erro) {
+                console.error('Erro ao aplicar filtros no servidor:', erro);
+                bancoDadosOriginal = [];
+                listaQuestoesFiltradas = [];
+                mostrarAvisoSemQuestoes();
+                if (enunciado) enunciado.innerText = 'Erro ao carregar questões com os filtros selecionados.';
+            }
         }
 
         function rodarRelogio() {
