@@ -295,6 +295,7 @@
             
             if(btnVerify) {
                 btnVerify.innerText = "Verificar Resposta";
+                btnVerify.disabled = true;
                 btnVerify.style.opacity = "0.5";
                 btnVerify.style.cursor = "not-allowed";
             }
@@ -326,6 +327,7 @@
             elemento.classList.add('selected');
             selectedOption = index;
             if(btnVerify) {
+                btnVerify.disabled = false;
                 btnVerify.style.opacity = "1";
                 btnVerify.style.cursor = "pointer";
             }
@@ -376,7 +378,12 @@
                     feedbackBox.innerHTML = `❌ <span><strong>Resposta Incorreta!</strong> A alternativa certa era a letra ${letraCerta}.</span>`;
                 }
                 feedbackBox.classList.remove('hidden');
-                if(btnVerify) btnVerify.innerText = "Próxima Questão →";
+                if(btnVerify) {
+                    btnVerify.innerText = "Próxima Questão →";
+                    btnVerify.disabled = false;
+                    btnVerify.style.opacity = "1";
+                    btnVerify.style.cursor = "pointer";
+                }
             } catch (erro) {
                 console.error('Erro ao validar resposta:', erro);
                 respondida = false;
@@ -385,7 +392,12 @@
                     feedbackBox.innerHTML = `⚠️ <span>${erro.message || 'Não foi possível validar sua resposta.'}</span>`;
                     feedbackBox.classList.remove('hidden');
                 }
-                if (btnVerify) btnVerify.innerText = "Tentar novamente";
+                if (btnVerify) {
+                    btnVerify.innerText = "Tentar novamente";
+                    btnVerify.disabled = false;
+                    btnVerify.style.opacity = "1";
+                    btnVerify.style.cursor = "pointer";
+                }
             }
         }
 
