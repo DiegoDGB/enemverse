@@ -65,6 +65,7 @@ router.post('/importar-iniciais', async (req, res) => {
             subtopico: String(q.subtopico || '').trim(),
             dificuldade: String(q.dificuldade || 'Média').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
+        midias: Array.isArray(q.midias) ? q.midias.filter(m => m && m.url).map(m => ({ tipo: 'imagem', url: String(m.url).trim(), legenda: String(m.legenda || '').trim(), alt: String(m.alt || '').trim() })) : [],
             enunciado: String(q.enunciado || '').trim(),
             alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
             anulada: q.anulada === true || q.anulada === 'true',
@@ -136,6 +137,7 @@ function normalizarQuestao(q) {
         subtopico: String(q.subtopico || '').trim(),
         dificuldade: String(q.dificuldade || 'Média').trim(),
         texto_apoio: String(q.texto_apoio || '').trim(),
+        midias: Array.isArray(q.midias) ? q.midias.filter(m => m && m.url).map(m => ({ tipo: 'imagem', url: String(m.url).trim(), legenda: String(m.legenda || '').trim(), alt: String(m.alt || '').trim() })) : [],
         enunciado: String(q.enunciado || '').trim(),
         alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
         anulada: q.anulada === true || q.anulada === 'true',
@@ -425,6 +427,7 @@ router.post('/importar', async (req, res) => {
             subtopico: String(q.subtopico || '').trim(),
             dificuldade: String(q.dificuldade || 'Média').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
+        midias: Array.isArray(q.midias) ? q.midias.filter(m => m && m.url).map(m => ({ tipo: 'imagem', url: String(m.url).trim(), legenda: String(m.legenda || '').trim(), alt: String(m.alt || '').trim() })) : [],
             enunciado: String(q.enunciado || '').trim(),
             alternativas: Array.isArray(q.alternativas)
                 ? q.alternativas.map(a => String(a).trim())
