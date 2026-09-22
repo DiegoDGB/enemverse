@@ -227,6 +227,76 @@ router.delete('/admin/:id', async (req, res) => {
     }
 });
 
+// Fase 1: migração idempotente e conservadora do campo "origem".
+//
+// Regras:
+// - só altera registros sem origem;
+// - considera oficial apenas questão com ano + numero_enem + dia + caderno + fonte;
+// - não sobrescreve ENEM_OFICIAL/AUTORAL já definidos;
+// - registros ambíguos permanecem sem origem para revisão manual.
+router.post('/admin/migrar-origem', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+
+    try {
+        const semOrigem = {
+            $or: [
+                { origem: { $exists: false } },
+                { origem: null },
+                { origem: '' }
+            ]
+        };
+
+        const candidatasOficiais = {
+            $and: [
+                semOrigem,
+                { ano: { $type: 'number' } },
+                { numero_enem: { $type: 'number' } },
+                { dia: { $in: [1, 2] } },
+                { caderno: { $exists: true, $nin: [null, ''] } },
+                { fonte: { $exists: true, $nin: [null, ''] } }
+            ]
+        };
+
+        const encontradasSemOrigem = await Questao.countDocuments(semOrigem);
+        const oficiaisElegiveis = await Questao.countDocuments(candidatasOficiais);
+
+        const resultado = oficiaisElegiveis
+            ? await Questao.updateMany(candidatasOficiais, { $set: { origem: 'ENEM_OFICIAL' } })
+            : { modifiedCount: 0 };
+
+        const restantes = await Questao.find(semOrigem)
+            .select('id ano numero_enem dia caderno fonte')
+            .sort({ id: 1 })
+            .lean();
+
+        const distribuicao = await Questao.aggregate([
+            {
+                $group: {
+                    _id: { $ifNull: ['$origem', 'SEM_ORIGEM'] },
+                    total: { $sum: 1 }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        res.json({
+            sucesso: true,
+            encontradasSemOrigem,
+            oficiaisElegiveis,
+            atualizadas: resultado.modifiedCount,
+            restantesSemOrigem: restantes.length,
+            pendentesRevisao: restantes,
+            distribuicao,
+            mensagem: restantes.length
+                ? 'Migração concluída. Registros ambíguos foram preservados para revisão manual.'
+                : 'Migração de origem concluída sem registros pendentes.'
+        });
+    } catch (err) {
+        console.error('Erro ao migrar origem das questões:', err);
+        res.status(500).json({ erro: 'Erro ao migrar origem das questões.' });
+    }
+});
+
 // Migra questões antigas preenchendo automaticamente a Área ENEM pela matéria.
 router.post('/admin/migrar-areas', async (req, res) => {
     if (!validarAdmin(req, res)) return;
