@@ -53,6 +53,13 @@ router.post('/importar-iniciais', async (req, res) => {
         const normalizadas = dados.questoes.map(q => ({
             id: Number(q.id),
             ano: q.ano != null ? Number(q.ano) : undefined,
+            numero_enem: q.numero_enem != null ? Number(q.numero_enem) : undefined,
+            dia: q.dia != null ? Number(q.dia) : undefined,
+            caderno: String(q.caderno || '').trim() || undefined,
+            aplicacao: String(q.aplicacao || 'Regular').trim(),
+            lingua_estrangeira: String(q.lingua_estrangeira || 'Não se aplica').trim(),
+            fonte: String(q.fonte || '').trim() || undefined,
+            fonte_url: String(q.fonte_url || '').trim() || undefined,
             area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
@@ -116,6 +123,13 @@ function normalizarQuestao(q) {
     return {
         id: Number(q.id),
         ano: q.ano !== undefined && q.ano !== null && q.ano !== '' ? Number(q.ano) : undefined,
+        numero_enem: q.numero_enem !== undefined && q.numero_enem !== null && q.numero_enem !== '' ? Number(q.numero_enem) : undefined,
+        dia: q.dia !== undefined && q.dia !== null && q.dia !== '' ? Number(q.dia) : undefined,
+        caderno: String(q.caderno || '').trim() || undefined,
+        aplicacao: String(q.aplicacao || 'Regular').trim(),
+        lingua_estrangeira: String(q.lingua_estrangeira || 'Não se aplica').trim(),
+        fonte: String(q.fonte || '').trim() || undefined,
+        fonte_url: String(q.fonte_url || '').trim() || undefined,
         area_enem: String(q.area_enem || '').trim() || undefined,
         materia: String(q.materia || '').trim(),
         subtopico: String(q.subtopico || '').trim(),
@@ -130,6 +144,8 @@ function normalizarQuestao(q) {
 function erroValidacao(q) {
     if (!Number.isInteger(q.id) || q.id <= 0) return '"id" deve ser um número inteiro positivo.';
     if (!q.materia) return '"materia" é obrigatória.';
+    if (q.dia !== undefined && ![1, 2].includes(q.dia)) return '"dia" deve ser 1 ou 2.';
+    if (!['Inglês', 'Espanhol', 'Não se aplica'].includes(q.lingua_estrangeira)) return '"lingua_estrangeira" inválida.';
     if (!q.enunciado) return '"enunciado" é obrigatório.';
     if (!['Fácil', 'Média', 'Difícil'].includes(q.dificuldade)) return '"dificuldade" deve ser Fácil, Média ou Difícil.';
     if (q.alternativas.length !== 5 || q.alternativas.some(a => !a)) return 'Informe exatamente 5 alternativas preenchidas.';
@@ -151,7 +167,7 @@ router.get('/admin/listar', async (req, res) => {
             const regex = new RegExp(busca, 'i');
             const numero = Number(busca);
             filtro.$or = [
-                { enunciado: regex }, { subtopico: regex }, { materia: regex }, { area_enem: regex },
+                { enunciado: regex }, { subtopico: regex }, { materia: regex }, { area_enem: regex }, { caderno: regex }, { aplicacao: regex }, { fonte: regex },
                 ...(Number.isInteger(numero) ? [{ id: numero }] : [])
             ];
         }
@@ -366,6 +382,13 @@ router.post('/importar', async (req, res) => {
         const normalizadas = questoes.map((q, indice) => ({
             id: Number(q.id),
             ano: q.ano !== undefined && q.ano !== null ? Number(q.ano) : undefined,
+            numero_enem: q.numero_enem != null ? Number(q.numero_enem) : undefined,
+            dia: q.dia != null ? Number(q.dia) : undefined,
+            caderno: String(q.caderno || '').trim() || undefined,
+            aplicacao: String(q.aplicacao || 'Regular').trim(),
+            lingua_estrangeira: String(q.lingua_estrangeira || 'Não se aplica').trim(),
+            fonte: String(q.fonte || '').trim() || undefined,
+            fonte_url: String(q.fonte_url || '').trim() || undefined,
             area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
