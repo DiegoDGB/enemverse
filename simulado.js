@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     // 2. CONFIGURAÇÃO DE SESSÃO E API_URL UNIFICADA
     // ============================================================
-    const API_URL = 'https://onrender.com';
+    const API_URL = 'https://enemverse-api.onrender.com';
     const tokenAtivo = localStorage.getItem('enemverse_token');
     const emailAtivo = localStorage.getItem('enemverse_email_ativo');
 
