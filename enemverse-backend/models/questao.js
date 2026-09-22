@@ -4,6 +4,7 @@ const QuestaoSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
+        unique: true,
         index: true
     },
     ano: {
@@ -28,14 +29,17 @@ const QuestaoSchema = new mongoose.Schema({
     },
     correta: {
         type: Number,
-        required: true
+        required: true,
+        min: 0,
+        max: 4
     },
     explicacao: {
         type: String
     }
 }, {
     timestamps: true,
-    strict: false
+    strict: false,
+    collection: 'questoes'
 });
 
 module.exports = mongoose.models.Questao || mongoose.model('Questao', QuestaoSchema);
