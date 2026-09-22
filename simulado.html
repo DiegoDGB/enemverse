@@ -43,11 +43,12 @@
 
         <!-- SEÇÃO DE FILTROS DINÂMICOS (MATRIZ DO ENEM) -->
         <section class="filters-container">
-            <span class="filters-title">📚 Filtrar por Área ou Disciplina:</span>
+            <span class="filters-title">📚 Escolha Área ENEM → Matéria → Dificuldade:</span>
             <div class="macro-areas-group" id="macroAreasGroup">
                 <button class="macro-btn active">Todas as Áreas</button>
             </div>
             
+            <div class="difficulty-filter"><span class="difficulty-label">Dificuldade:</span><button class="difficulty-btn active" data-dificuldade="Todas">Todas</button><button class="difficulty-btn" data-dificuldade="Fácil">Fácil</button><button class="difficulty-btn" data-dificuldade="Média">Média</button><button class="difficulty-btn" data-dificuldade="Difícil">Difícil</button></div>
             <div class="subareas-display-box" id="subareasBox" style="display: none;">
                 <div class="panel-content">
                     <h4 id="subareaTitle">Foco da Área</h4>
@@ -61,6 +62,7 @@
             <div class="question-meta">
                 <span class="badge-tag label-year">ENEM --</span>
                 <span class="badge-tag label-materia">Carregando...</span>
+                <span class="badge-tag label-dificuldade">--</span>
                 
                 <div class="timer-wrapper">
                     <span>⏱</span>
@@ -88,6 +90,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const labelYear = document.querySelector('.label-year');
         const labelMateria = document.querySelector('.label-materia');
+        const labelDificuldade = document.querySelector('.label-dificuldade');
         const textoApoio = document.querySelector('.texto-apoio');
         const enunciado = document.querySelector('.enunciado');
         const alternativesList = document.querySelector('.alternatives-list');
@@ -109,6 +112,9 @@
         let indiceAtual = 0;
         let selectedOption = null;
         let respondida = false;
+        let filtroAreaAtual = 'Todas';
+        let filtroMateriaAtual = 'Todas';
+        let filtroDificuldadeAtual = 'Todas';
         
         const emailAtivo = localStorage.getItem('enemverse_email_ativo');
         const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
@@ -158,7 +164,8 @@
                 ];
                 
                 gerarMenuDropdownMatriz(matrizOficialENEM);
-                filtrarQuestoes('Todas', 'macro');
+                configurarFiltroDificuldade();
+                aplicarFiltros();
                 
             } catch (e) {
                 console.error("Erro ao carregar simulado:", e);
@@ -209,7 +216,16 @@
         function tratarCliqueMacro(elementoBtn, nomeArea) {
             limparEstilosFiltros();
             elementoBtn.classList.add('active');
-            filtrarQuestoes(nomeArea, 'macro');
+            filtroAreaAtual = nomeArea;
+            filtroMateriaAtual = 'Todas';
+            if(subareasBox) {
+                if(nomeArea === 'Todas') subareasBox.style.display = 'none';
+                else {
+                    subareasBox.style.display = 'block';
+                    subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Área: ${nomeArea}</h4><p class="panel-incidencia">Escolha uma matéria no menu ou mantenha toda a área.</p></div>`;
+                }
+            }
+            aplicarFiltros();
         }
         function tratarCliqueSub(evento, elementoBtn, nomeSub) {
             evento.stopPropagation();
@@ -217,7 +233,10 @@
             elementoBtn.classList.add('active-sub');
             const pai = elementoBtn.closest('.dropdown')?.querySelector('.macro-btn');
             if (pai) pai.classList.add('active');
-            filtrarQuestoes(nomeSub, 'sub');
+            filtroMateriaAtual = nomeSub;
+            filtroAreaAtual = areaPorMateria(nomeSub);
+            if(subareasBox) { subareasBox.style.display='block'; subareasBox.innerHTML=`<div class="panel-content"><h4>🔬 Matéria: ${nomeSub}</h4><p class="panel-incidencia">Agora você também pode escolher a dificuldade.</p></div>`; }
+            aplicarFiltros();
         }
 
         function limparEstilosFiltros() {
@@ -232,32 +251,53 @@
             "Linguagens, Códigos e suas Tecnologias": ["Linguagens"]
         };
 
-        function filtrarQuestoes(termoBusca, tipo) {
+        function areaPorMateria(materia) {
+            for (const [area, materias] of Object.entries(macroareasPorMateria)) {
+                if (materias.includes(materia)) return area;
+            }
+            return 'Todas';
+        }
+
+        function embaralhar(lista) {
+            const copia = [...lista];
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+            return copia;
+        }
+
+        function configurarFiltroDificuldade() {
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    filtroDificuldadeAtual = btn.dataset.dificuldade;
+                    aplicarFiltros();
+                });
+            });
+        }
+
+        function aplicarFiltros() {
             indiceAtual = 0;
-            if (tipo === 'macro') {
-                if (termoBusca === 'Todas') {
-                    if(subareasBox) subareasBox.style.display = 'none';
-                    listaQuestoesFiltradas = [...bancoDadosOriginal];
-                } else {
-                    if(subareasBox) {
-                        subareasBox.style.display = 'block';
-                        subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Foco da Área: ${termoBusca}</h4><p class="panel-incidencia">🎯 <strong>Mais cobrados:</strong> ${dicionarioIncidencia[termoBusca]}</p></div>`;
-                    }
-                    const areaSelecionada = macroareasPorMateria[termoBusca] || [];
-                    listaQuestoesFiltradas = bancoDadosOriginal.filter(q => areaSelecionada.includes(q.materia));
-                }
-            } else {
-                if(subareasBox) {
-                    subareasBox.style.display = 'block';
-                    subareasBox.innerHTML = `<div class="panel-content"><h4>🔬 Disciplina Ativa: ${termoBusca}</h4><p class="panel-incidencia">Buscando questões do banco de dados na nuvem...</p></div>`;
-                }
-                listaQuestoesFiltradas = bancoDadosOriginal.filter(q => 
-                    (q.subtopico && q.subtopico.toLowerCase().includes(termoBusca.toLowerCase())) || 
-                    (q.materia && q.materia.toLowerCase().includes(termoBusca.toLowerCase()))
+            let filtradas = [...bancoDadosOriginal];
+
+            if (filtroAreaAtual !== 'Todas') {
+                filtradas = filtradas.filter(q =>
+                    q.area_enem === filtroAreaAtual ||
+                    (!q.area_enem && (macroareasPorMateria[filtroAreaAtual] || []).includes(q.materia))
                 );
             }
+            if (filtroMateriaAtual !== 'Todas') {
+                filtradas = filtradas.filter(q => q.materia === filtroMateriaAtual);
+            }
+            if (filtroDificuldadeAtual !== 'Todas') {
+                filtradas = filtradas.filter(q => (q.dificuldade || 'Média') === filtroDificuldadeAtual);
+            }
+
+            listaQuestoesFiltradas = embaralhar(filtradas);
             atualizarBarraProgresso();
-            if (listaQuestoesFiltradas.length > 0) renderizarQuestao(indiceAtual);
+            if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
             else mostrarAvisoSemQuestoes();
         }
 
@@ -302,7 +342,8 @@
             if(feedbackBox) feedbackBox.classList.add('hidden');
 
             if(labelYear) labelYear.innerText = `ENEM ${q.ano}`;
-            if(labelMateria) labelMateria.innerText = q.subtopico || q.materia;
+            if(labelMateria) labelMateria.innerText = q.materia + (q.subtopico ? ' • ' + q.subtopico : '');
+            if(labelDificuldade) { labelDificuldade.innerText = q.dificuldade || 'Média'; labelDificuldade.dataset.nivel = q.dificuldade || 'Média'; }
             if(textoApoio) textoApoio.innerHTML = q.texto_apoio || '';
             if(enunciado) enunciado.innerText = q.enunciado;
 
