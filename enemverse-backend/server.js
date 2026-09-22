@@ -23,8 +23,11 @@ app.use(express.json()); // Permite que a API entenda requisições em formato J
 // Rotas de Autenticação (Cadastro, Login e Perfil Seguro)
 app.use('/api/auth', require('./controllers/authController'));
 
-// Rotas do Simulado (Listar Questões e Responder/Computar XP)
+// Rotas legadas de questões. Mantidas durante a transição da Fase 1.
 app.use('/api/questoes', require('./controllers/questoesController'));
+
+// Fase 1: criação de simulados com seleção e filtros executados no servidor.
+app.use('/api/simulados', require('./controllers/simuladosController'));
 
 // Rotas do Leaderboard (Tabela Classificatória Geral)
 app.use('/api/ranking', require('./controllers/rankController'));
