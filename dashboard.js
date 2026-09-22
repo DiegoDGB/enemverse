@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // URL base da sua API no Render
-    const API_URL = 'https://onrender.com';
+    const API_URL = 'https://enemverse-api.onrender.com';
 
     async function buscarDadosUsuarioBanco() {
         try {
