@@ -484,3 +484,13 @@ body {
         text-align: center;
     }
 }
+
+/* Filtro por dificuldade */
+.difficulty-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.difficulty-label{font-size:.85rem;font-weight:700;color:var(--text-muted);margin-right:4px}
+.difficulty-btn{padding:9px 14px;border-radius:999px;border:1px solid #cbd5e1;background:var(--surface);color:var(--text-main);font-weight:700;cursor:pointer;transition:.2s}
+.difficulty-btn:hover,.difficulty-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.label-dificuldade{background:#f1f5f9;color:#475569}
+.label-dificuldade[data-nivel="Fácil"]{background:#ecfdf5;color:#047857}
+.label-dificuldade[data-nivel="Média"]{background:#fffbeb;color:#b45309}
+.label-dificuldade[data-nivel="Difícil"]{background:#fef2f2;color:#b91c1c}
