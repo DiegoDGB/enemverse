@@ -359,6 +359,35 @@ router.post('/admin/classificar-dificuldades', async (req, res) => {
     }
 });
 
+// Valida um lote oficial antes da importação definitiva.
+router.post('/admin/validar-lote-oficial', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const { questoes, ano = 2025 } = req.body;
+        if (!Array.isArray(questoes) || !questoes.length) return res.status(400).json({ erro: 'Envie o campo "questoes" com pelo menos uma questão.' });
+        const erros = [], avisos = [], numeros = new Map();
+        questoes.forEach((raw, i) => {
+            const q = normalizarQuestao(raw);
+            const prefixo = 'Item ' + (i + 1) + (q.numero_enem ? ' / ENEM ' + q.numero_enem : '');
+            const erro = erroValidacao(q); if (erro) erros.push(prefixo + ': ' + erro);
+            if (q.ano !== Number(ano)) erros.push(prefixo + ': ano deve ser ' + ano + '.');
+            if (!Number.isInteger(q.numero_enem) || q.numero_enem < 1 || q.numero_enem > 180) erros.push(prefixo + ': numero_enem deve estar entre 1 e 180.');
+            if (![1,2].includes(q.dia)) erros.push(prefixo + ': dia deve ser 1 ou 2.');
+            if (!q.caderno) erros.push(prefixo + ': caderno é obrigatório.');
+            if (!q.fonte) erros.push(prefixo + ': fonte é obrigatória.');
+            if (!q.fonte_url) avisos.push(prefixo + ': fonte_url não informada.');
+            const esperado = q.numero_enem <= 90 ? 1 : 2;
+            if (q.numero_enem && q.dia !== esperado) erros.push(prefixo + ': número oficial incompatível com o dia da prova.');
+            if (q.numero_enem) numeros.set(q.numero_enem, (numeros.get(q.numero_enem)||0)+1);
+        });
+        const duplicados=[...numeros].filter(([,n])=>n>1).map(([n])=>n);
+        if (duplicados.length) avisos.push('Números oficiais repetidos no lote: '+duplicados.join(', ')+'. Isso só é esperado quando houver versões de língua estrangeira.');
+        const presentes=[...numeros.keys()].sort((x,y)=>x-y);
+        const faltantes=Array.from({length:180},(_,i)=>i+1).filter(n=>!numeros.has(n));
+        res.json({ sucesso: erros.length===0, ano:Number(ano), recebidas:questoes.length, numerosOficiaisUnicos:presentes.length, erros, avisos, faltantes, prontoParaImportar:erros.length===0 });
+    } catch(err){ console.error('Erro ao validar lote oficial:',err); res.status(500).json({erro:'Erro ao validar lote oficial.'}); }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
