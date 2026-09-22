@@ -25,6 +25,11 @@ const QuestaoSchema = new mongoose.Schema({
     subtopico: {
         type: String
     },
+    dificuldade: {
+        type: String,
+        enum: ['Fácil', 'Média', 'Difícil'],
+        default: 'Média'
+    },
     texto_apoio: {
         type: String
     },
