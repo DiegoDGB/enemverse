@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Questao = require('../models/Questao');
-const Usuario = require('../models/Usuario');
+const Questao = require('../models/questao');
+const Usuario = require('../models/usuario');
 
 // Rota para o Simulado puxar todas as questões injetadas no banco
 router.get('/', async (req, res) => {
