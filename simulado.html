@@ -71,6 +71,7 @@
             </div>
 
             <div class="texto-apoio">Carregando textos do banco de dados...</div>
+            <div id="questaoMidias" class="questao-midias"></div>
             <h2 class="enunciado">Por favor, aguarde o carregamento dos servidores na nuvem.</h2>
 
             <div class="alternatives-list"></div>
@@ -93,6 +94,7 @@
         const labelDificuldade = document.querySelector('.label-dificuldade');
         const textoApoio = document.querySelector('.texto-apoio');
         const enunciado = document.querySelector('.enunciado');
+        const questaoMidias = document.getElementById('questaoMidias');
         const alternativesList = document.querySelector('.alternatives-list');
         const btnVerify = document.getElementById('btnVerify');
         const feedbackBox = document.getElementById('feedbackBox');
@@ -346,6 +348,16 @@
             if(labelDificuldade) { labelDificuldade.innerText = q.dificuldade || 'Média'; labelDificuldade.dataset.nivel = q.dificuldade || 'Média'; }
             if(textoApoio) textoApoio.innerHTML = q.texto_apoio || '';
             if(enunciado) enunciado.innerText = q.enunciado;
+            if (questaoMidias) {
+                questaoMidias.innerHTML = '';
+                (q.midias || []).forEach(m => {
+                    if (!m || !m.url) return;
+                    const figura = document.createElement('figure');
+                    figura.style.margin = '18px 0';
+                    figura.innerHTML = '<img src="' + m.url + '" alt="' + (m.alt || 'Material visual da questão').replace(/"/g, '&quot;') + '" loading="lazy" style="max-width:100%;height:auto;display:block;margin:auto;border-radius:8px">' + (m.legenda ? '<figcaption style="margin-top:8px;text-align:center;font-size:.9rem;opacity:.8">' + m.legenda + '</figcaption>' : '');
+                    questaoMidias.appendChild(figura);
+                });
+            }
 
             if(alternativesList) {
                 alternativesList.innerHTML = '';
@@ -468,6 +480,7 @@
 
         function mostrarAvisoSemQuestoes() {
             if(enunciado) enunciado.innerText = "Nenhuma questão encontrada para os critérios selecionados.";
+            if(questaoMidias) questaoMidias.innerHTML = '';
             clearInterval(cronometroInterval);
         }
 
