@@ -67,14 +67,15 @@ router.post('/importar-iniciais', async (req, res) => {
             texto_apoio: String(q.texto_apoio || '').trim(),
             enunciado: String(q.enunciado || '').trim(),
             alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
-            correta: Number(q.correta),
+            anulada: q.anulada === true || q.anulada === 'true',
+        correta: (q.anulada === true || q.anulada === 'true') ? null : Number(q.correta),
             explicacao: String(q.explicacao || '').trim()
         }));
 
         for (const q of normalizadas) {
             if (!Number.isInteger(q.id) || !q.materia || !q.enunciado ||
                 q.alternativas.length !== 5 || !Number.isInteger(q.correta) ||
-                q.correta < 0 || q.correta > 4) {
+                q.correta < 0 || q.correta > 4) && !q.anulada {
                 return res.status(400).json({
                     erro: 'O banco inicial contém uma questão inválida.',
                     questao: q.id
@@ -137,7 +138,8 @@ function normalizarQuestao(q) {
         texto_apoio: String(q.texto_apoio || '').trim(),
         enunciado: String(q.enunciado || '').trim(),
         alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
-        correta: Number(q.correta),
+        anulada: q.anulada === true || q.anulada === 'true',
+        correta: (q.anulada === true || q.anulada === 'true') ? null : Number(q.correta),
         explicacao: String(q.explicacao || '').trim()
     };
 }
@@ -149,7 +151,7 @@ function erroValidacao(q) {
     if (!q.enunciado) return '"enunciado" é obrigatório.';
     if (!['Fácil', 'Média', 'Difícil'].includes(q.dificuldade)) return '"dificuldade" deve ser Fácil, Média ou Difícil.';
     if (q.alternativas.length !== 5 || q.alternativas.some(a => !a)) return 'Informe exatamente 5 alternativas preenchidas.';
-    if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
+    if (!q.anulada && (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) && !q.anulada) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
     return null;
 }
 router.get('/admin/listar', async (req, res) => {
@@ -427,7 +429,8 @@ router.post('/importar', async (req, res) => {
             alternativas: Array.isArray(q.alternativas)
                 ? q.alternativas.map(a => String(a).trim())
                 : [],
-            correta: Number(q.correta),
+            anulada: q.anulada === true || q.anulada === 'true',
+        correta: (q.anulada === true || q.anulada === 'true') ? null : Number(q.correta),
             explicacao: String(q.explicacao || '').trim()
         }));
 
@@ -446,7 +449,7 @@ router.post('/importar', async (req, res) => {
                 return res.status(400).json({ erro: `Questão ${q.id}: informe exatamente 5 alternativas.` });
             }
 
-            if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) {
+            if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) && !q.anulada {
                 return res.status(400).json({
                     erro: `Questão ${q.id}: "correta" deve ser 0, 1, 2, 3 ou 4.`
                 });
@@ -503,6 +506,10 @@ router.post('/responder', async (req, res) => {
             });
         }
 
+        if (questao.anulada) {
+            return res.json({ correto: null, anulada: true, gabarito: null, novoXP: usuario.xp, xpGanho: 0, explicacao: questao.explicacao || 'Questão anulada no gabarito oficial.' });
+        }
+
         const acertou = Number(questao.correta) === Number(alternativaSelecionada);
         let xpGanho = 0;
 
@@ -514,6 +521,7 @@ router.post('/responder', async (req, res) => {
 
         res.json({
             correto: acertou,
+            anulada: false,
             gabarito: questao.correta,
             novoXP: usuario.xp,
             xpGanho,
