@@ -56,6 +56,7 @@ router.post('/importar-iniciais', async (req, res) => {
             area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
+            dificuldade: String(q.dificuldade || 'Média').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
             enunciado: String(q.enunciado || '').trim(),
             alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
@@ -118,6 +119,7 @@ function normalizarQuestao(q) {
         area_enem: String(q.area_enem || '').trim() || undefined,
         materia: String(q.materia || '').trim(),
         subtopico: String(q.subtopico || '').trim(),
+        dificuldade: String(q.dificuldade || 'Média').trim(),
         texto_apoio: String(q.texto_apoio || '').trim(),
         enunciado: String(q.enunciado || '').trim(),
         alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
@@ -129,6 +131,7 @@ function erroValidacao(q) {
     if (!Number.isInteger(q.id) || q.id <= 0) return '"id" deve ser um número inteiro positivo.';
     if (!q.materia) return '"materia" é obrigatória.';
     if (!q.enunciado) return '"enunciado" é obrigatório.';
+    if (!['Fácil', 'Média', 'Difícil'].includes(q.dificuldade)) return '"dificuldade" deve ser Fácil, Média ou Difícil.';
     if (q.alternativas.length !== 5 || q.alternativas.some(a => !a)) return 'Informe exatamente 5 alternativas preenchidas.';
     if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
     return null;
@@ -139,9 +142,11 @@ router.get('/admin/listar', async (req, res) => {
         const busca = String(req.query.busca || '').trim();
         const materia = String(req.query.materia || '').trim();
         const area = String(req.query.area || '').trim();
+        const dificuldade = String(req.query.dificuldade || '').trim();
         const filtro = {};
         if (materia) filtro.materia = materia;
         if (area) filtro.area_enem = area;
+        if (dificuldade) filtro.dificuldade = dificuldade;
         if (busca) {
             const regex = new RegExp(busca, 'i');
             const numero = Number(busca);
@@ -273,6 +278,35 @@ router.post('/admin/migrar-areas', async (req, res) => {
     }
 });
 
+// Migra questões antigas sem dificuldade para o nível padrão "Média".
+router.post('/admin/migrar-dificuldades', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const filtro = {
+            $or: [
+                { dificuldade: { $exists: false } },
+                { dificuldade: null },
+                { dificuldade: '' }
+            ]
+        };
+        const encontradas = await Questao.countDocuments(filtro);
+        const resultado = await Questao.updateMany(filtro, { $set: { dificuldade: 'Média' } });
+        const restantes = await Questao.countDocuments(filtro);
+        res.json({
+            sucesso: true,
+            encontradas,
+            atualizadas: resultado.modifiedCount,
+            restantes,
+            mensagem: resultado.modifiedCount
+                ? 'Dificuldades migradas para Média com sucesso.'
+                : 'Nenhuma questão precisava de migração de dificuldade.'
+        });
+    } catch (err) {
+        console.error('Erro ao migrar dificuldades:', err);
+        res.status(500).json({ erro: 'Erro ao migrar dificuldades.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
@@ -299,6 +333,7 @@ router.post('/importar', async (req, res) => {
             area_enem: String(q.area_enem || '').trim() || undefined,
             materia: String(q.materia || '').trim(),
             subtopico: String(q.subtopico || '').trim(),
+            dificuldade: String(q.dificuldade || 'Média').trim(),
             texto_apoio: String(q.texto_apoio || '').trim(),
             enunciado: String(q.enunciado || '').trim(),
             alternativas: Array.isArray(q.alternativas)
