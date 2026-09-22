@@ -4740,7 +4740,13 @@
         "4.",
         "5."
       ],
-      "midias": [],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2025/azul/q165.webp",
+          "alt": "Material visual oficial da questão 165 do ENEM 2025"
+        }
+      ],
       "anulada": false,
       "correta": 3,
       "explicacao": ""
@@ -4767,7 +4773,13 @@
         "9",
         "15"
       ],
-      "midias": [],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2025/azul/q166.webp",
+          "alt": "Material visual oficial da questão 166 do ENEM 2025"
+        }
+      ],
       "anulada": false,
       "correta": 4,
       "explicacao": ""
