@@ -94,11 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (erroContainer) erroContainer.classList.add('hidden');
 
             try {
-                const resposta = await fetch(`${API_URL}/auth/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, senha })
-                });
+                const resposta = await fetch('https://onrender.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha })
+            });
 
                 const dados = await resposta.json();
                 if (!resposta.ok) throw new Error(dados.erro || 'Falha ao entrar no universo.');
@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Fetch disparando para a URL unificada correta
-                const resposta = await fetch(`${API_URL}/auth/cadastrar`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nome, email, senha })
-                });
+                const resposta = await fetch('https://onrender.com', {
+                method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, email, senha })
+});
 
                 const dados = await resposta.json();
                 if (!resposta.ok) throw new Error(dados.erro || 'Erro ao criar conta.');
