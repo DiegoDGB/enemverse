@@ -392,6 +392,43 @@ router.post('/admin/validar-lote-oficial', async (req, res) => {
     } catch(err){ console.error('Erro ao validar lote oficial:',err); res.status(500).json({erro:'Erro ao validar lote oficial.'}); }
 });
 
+// Importa o banco oficial ENEM 2025 que acompanha o deploy.
+// Evita enviar as 180 questões pelo navegador e mantém a operação protegida pela ADMIN_API_KEY.
+router.post('/admin/importar-enem-2025', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const arquivo = path.join(__dirname, '../dados/enem-2025-azul.json');
+        const dados = JSON.parse(await fs.readFile(arquivo, 'utf8'));
+        if (!Array.isArray(dados.questoes) || dados.questoes.length !== 180) {
+            return res.status(400).json({ erro: 'O arquivo oficial ENEM 2025 deve conter exatamente 180 questões.' });
+        }
+        const normalizadas = dados.questoes.map(normalizarQuestao);
+        const erros = [];
+        const numeros = new Set();
+        for (const q of normalizadas) {
+            const erro = erroValidacao(q);
+            if (erro) erros.push('Questão ' + q.id + ': ' + erro);
+            if (q.ano !== 2025) erros.push('Questão ' + q.id + ': ano inválido.');
+            if (!Number.isInteger(q.numero_enem) || q.numero_enem < 1 || q.numero_enem > 180) erros.push('Questão ' + q.id + ': numero_enem inválido.');
+            if (q.numero_enem) numeros.add(q.numero_enem);
+        }
+        const faltantes = Array.from({length:180}, (_,i)=>i+1).filter(n=>!numeros.has(n));
+        if (faltantes.length) erros.push('Números ENEM ausentes: ' + faltantes.join(', '));
+        const anuladas = normalizadas.filter(q=>q.anulada).map(q=>q.numero_enem).sort((a,b)=>a-b);
+        if (JSON.stringify(anuladas) !== JSON.stringify([123,132,174])) erros.push('Questões anuladas não correspondem a 123, 132 e 174.');
+        if (erros.length) return res.status(400).json({ erro:'Banco oficial reprovado na validação.', erros });
+
+        const resultado = await Questao.bulkWrite(normalizadas.map(q=>({
+            updateOne:{ filter:{id:q.id}, update:{$set:q}, upsert:true }
+        })), { ordered:false });
+        const total2025 = await Questao.countDocuments({ ano:2025 });
+        res.json({ sucesso:true, recebidas:180, inseridas:resultado.upsertedCount, atualizadas:resultado.modifiedCount, total2025, anuladas, mensagem:'Banco oficial ENEM 2025 importado com sucesso.' });
+    } catch (err) {
+        console.error('Erro ao importar ENEM 2025:', err);
+        res.status(500).json({ erro:'Erro ao importar banco oficial ENEM 2025.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
