@@ -100,6 +100,104 @@ router.post('/importar-iniciais', async (req, res) => {
     }
 });
 
+// Operações administrativas para gerenciar questões individualmente.
+function validarAdmin(req, res) {
+    const chaveConfigurada = process.env.ADMIN_API_KEY;
+    const chaveEnviada = req.header('x-admin-key');
+    if (!chaveConfigurada || !chaveEnviada || chaveEnviada !== chaveConfigurada) {
+        res.status(401).json({ erro: 'Acesso não autorizado.' });
+        return false;
+    }
+    return true;
+}
+function normalizarQuestao(q) {
+    return {
+        id: Number(q.id),
+        ano: q.ano !== undefined && q.ano !== null && q.ano !== '' ? Number(q.ano) : undefined,
+        materia: String(q.materia || '').trim(),
+        subtopico: String(q.subtopico || '').trim(),
+        texto_apoio: String(q.texto_apoio || '').trim(),
+        enunciado: String(q.enunciado || '').trim(),
+        alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],
+        correta: Number(q.correta),
+        explicacao: String(q.explicacao || '').trim()
+    };
+}
+function erroValidacao(q) {
+    if (!Number.isInteger(q.id) || q.id <= 0) return '"id" deve ser um número inteiro positivo.';
+    if (!q.materia) return '"materia" é obrigatória.';
+    if (!q.enunciado) return '"enunciado" é obrigatório.';
+    if (q.alternativas.length !== 5 || q.alternativas.some(a => !a)) return 'Informe exatamente 5 alternativas preenchidas.';
+    if (!Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) return '"correta" deve ser 0, 1, 2, 3 ou 4.';
+    return null;
+}
+router.get('/admin/listar', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const busca = String(req.query.busca || '').trim();
+        const materia = String(req.query.materia || '').trim();
+        const filtro = {};
+        if (materia) filtro.materia = materia;
+        if (busca) {
+            const regex = new RegExp(busca, 'i');
+            const numero = Number(busca);
+            filtro.$or = [
+                { enunciado: regex }, { subtopico: regex }, { materia: regex },
+                ...(Number.isInteger(numero) ? [{ id: numero }] : [])
+            ];
+        }
+        const questoes = await Questao.find(filtro).sort({ id: 1 }).lean();
+        res.json({ total: questoes.length, questoes });
+    } catch (err) {
+        console.error('Erro ao listar questões no admin:', err);
+        res.status(500).json({ erro: 'Erro ao listar questões.' });
+    }
+});
+router.post('/admin', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const q = normalizarQuestao(req.body);
+        const erro = erroValidacao(q);
+        if (erro) return res.status(400).json({ erro });
+        if (await Questao.exists({ id: q.id })) return res.status(409).json({ erro: 'Já existe uma questão com este ID.' });
+        const criada = await Questao.create(q);
+        res.status(201).json({ sucesso: true, mensagem: 'Questão cadastrada com sucesso.', questao: criada });
+    } catch (err) {
+        console.error('Erro ao cadastrar questão:', err);
+        res.status(500).json({ erro: 'Erro ao cadastrar questão.' });
+    }
+});
+router.put('/admin/:id', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const idAtual = Number(req.params.id);
+        if (!Number.isInteger(idAtual)) return res.status(400).json({ erro: 'ID inválido.' });
+        const q = normalizarQuestao(req.body);
+        const erro = erroValidacao(q);
+        if (erro) return res.status(400).json({ erro });
+        if (q.id !== idAtual && await Questao.exists({ id: q.id })) return res.status(409).json({ erro: 'Já existe outra questão com o novo ID.' });
+        const atualizada = await Questao.findOneAndUpdate({ id: idAtual }, { $set: q }, { new: true, runValidators: true });
+        if (!atualizada) return res.status(404).json({ erro: 'Questão não encontrada.' });
+        res.json({ sucesso: true, mensagem: 'Questão atualizada com sucesso.', questao: atualizada });
+    } catch (err) {
+        console.error('Erro ao atualizar questão:', err);
+        res.status(500).json({ erro: 'Erro ao atualizar questão.' });
+    }
+});
+router.delete('/admin/:id', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const id = Number(req.params.id);
+        if (!Number.isInteger(id)) return res.status(400).json({ erro: 'ID inválido.' });
+        const removida = await Questao.findOneAndDelete({ id });
+        if (!removida) return res.status(404).json({ erro: 'Questão não encontrada.' });
+        res.json({ sucesso: true, mensagem: 'Questão excluída com sucesso.' });
+    } catch (err) {
+        console.error('Erro ao excluir questão:', err);
+        res.status(500).json({ erro: 'Erro ao excluir questão.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
