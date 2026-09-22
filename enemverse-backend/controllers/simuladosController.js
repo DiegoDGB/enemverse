@@ -18,6 +18,64 @@ function textoOpcional(valor) {
     return String(valor).trim();
 }
 
+// Retorna somente metadados necessários para montar os filtros do frontend.
+// Não envia enunciados, alternativas, gabaritos ou explicações.
+router.get('/filtros', async (req, res) => {
+    try {
+        const [anos, origensBanco, areasMaterias, dificuldadesBanco] = await Promise.all([
+            Questao.distinct('ano', { ano: { $type: 'number' } }),
+            Questao.distinct('origem', { origem: { $in: ORIGENS } }),
+            Questao.aggregate([
+                {
+                    $match: {
+                        area_enem: { $in: AREAS_ENEM },
+                        materia: { $type: 'string', $ne: '' }
+                    }
+                },
+                {
+                    $group: {
+                        _id: '$area_enem',
+                        materias: { $addToSet: '$materia' }
+                    }
+                }
+            ]),
+            Questao.distinct('dificuldade', { dificuldade: { $in: DIFICULDADES } })
+        ]);
+
+        // Compatibilidade temporária: questões oficiais legadas podem ainda não ter "origem".
+        const oficiaisLegadas = await Questao.exists({
+            origem: { $exists: false },
+            numero_enem: { $exists: true, $ne: null }
+        });
+
+        const origens = [...new Set([
+            ...origensBanco,
+            ...(oficiaisLegadas ? ['ENEM_OFICIAL'] : [])
+        ])].sort();
+
+        const mapaAreas = new Map(areasMaterias.map(item => [
+            item._id,
+            [...item.materias].sort((a, b) => a.localeCompare(b, 'pt-BR'))
+        ]));
+
+        const areas = AREAS_ENEM
+            .filter(nome => mapaAreas.has(nome))
+            .map(nome => ({ nome, materias: mapaAreas.get(nome) }));
+
+        const dificuldades = DIFICULDADES.filter(nivel => dificuldadesBanco.includes(nivel));
+
+        res.json({
+            anos: anos.sort((a, b) => b - a),
+            origens,
+            areas,
+            dificuldades
+        });
+    } catch (err) {
+        console.error('Erro ao carregar filtros de simulados:', err);
+        res.status(500).json({ erro: 'Erro ao carregar filtros de simulados.' });
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const anoInformado = req.body.ano !== undefined && req.body.ano !== null && req.body.ano !== '';
