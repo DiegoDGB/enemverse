@@ -1,112 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EnemVerse — Painel de Questões</title>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EnemVerse — Administração de Questões</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}
-header{background:#111827;color:white;padding:22px 28px}header h1{margin:0 0 6px}header p{margin:0;color:#cbd5e1}
-main{max-width:1050px;margin:28px auto;padding:0 18px}.card{background:white;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 3px 15px #00000012}
-h2{margin-top:0}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.field{flex:1;min-width:260px}label{display:block;font-weight:bold;margin-bottom:7px}
-input,textarea,button{font:inherit}input,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px}textarea{min-height:260px;font-family:monospace;font-size:13px}
-button{border:0;border-radius:9px;padding:12px 17px;cursor:pointer;font-weight:bold;background:#2563eb;color:white}button.secondary{background:#475569}button.success{background:#15803d}button:disabled{opacity:.55;cursor:not-allowed}
-#status{white-space:pre-wrap;background:#0f172a;color:#e2e8f0;padding:15px;border-radius:9px;min-height:54px}.hint{color:#64748b;font-size:14px}.danger{color:#b91c1c}
-.stats{display:flex;gap:12px;flex-wrap:wrap}.stat{background:#eef2ff;padding:14px 18px;border-radius:10px;min-width:130px}.stat strong{display:block;font-size:25px}
-</style>
-</head>
-<body>
-<header><h1>EnemVerse — Painel de Questões</h1><p>Cadastro, importação e acompanhamento do banco de questões.</p></header>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f1f5f9;color:#172033}header{background:#0f172a;color:#fff;padding:22px 28px}header h1{margin:0 0 5px}header p{margin:0;color:#cbd5e1}main{max-width:1200px;margin:24px auto;padding:0 16px}.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 3px 15px #0001}.row,.grid{display:flex;gap:12px;flex-wrap:wrap}.field{flex:1;min-width:180px}label{display:block;font-weight:700;margin:0 0 6px}input,select,textarea,button{font:inherit}input,select,textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px}textarea{min-height:90px;resize:vertical}button{border:0;border-radius:8px;padding:10px 15px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}button.secondary{background:#475569}button.success{background:#15803d}button.danger{background:#b91c1c}button:disabled{opacity:.5}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#eef2ff;border-radius:10px;padding:12px 16px;min-width:130px}.stat strong{display:block;font-size:24px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{width:auto;min-width:190px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:top}th{background:#f8fafc}.actions{white-space:nowrap}.actions button{padding:7px 9px;margin:2px}.muted{color:#64748b;font-size:13px}#status{white-space:pre-wrap;background:#0f172a;color:#e2e8f0;padding:13px;border-radius:9px;min-height:48px}.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){.alt-grid{grid-template-columns:1fr}.toolbar input,.toolbar select{width:100%}}
+</style></head><body>
+<header><h1>EnemVerse — Administração de Questões</h1><p>Cadastre, pesquise, edite, exclua e importe questões.</p></header>
 <main>
-<section class="card">
-<h2>1. Chave administrativa</h2>
-<div class="row">
-<div class="field"><label for="key">ADMIN_API_KEY</label><input id="key" type="password" placeholder="Digite a chave configurada no Render"></div>
-<button onclick="consultarStatus()">Consultar banco</button>
-</div>
-<p class="hint">A chave não é salva no navegador. Configure a mesma chave em Render → Environment Variables.</p>
-</section>
+<section class="card"><h2>Acesso administrativo</h2><div class="row"><div class="field"><label>ADMIN_API_KEY</label><input id="key" type="password" placeholder="Chave configurada no Render"></div><button onclick="iniciarPainel()">Entrar / Atualizar painel</button></div><p class="muted">A chave fica somente nesta página enquanto ela estiver aberta.</p></section>
 
-<section class="card">
-<h2>2. Banco inicial</h2>
-<p>O projeto já possui um banco inicial com questões originais em Matemática, Linguagens, Biologia, Química, Física, História, Geografia, Sociologia e Filosofia.</p>
-<button class="success" onclick="carregarIniciais()">Carregar banco inicial</button>
-</section>
+<section class="card"><h2>Resumo do banco</h2><div id="stats" class="stats"><div class="stat"><strong>—</strong>Total</div></div></section>
 
-<section class="card">
-<h2>3. Importar arquivo JSON</h2>
-<input id="arquivo" type="file" accept=".json,application/json">
-<p class="hint">Formato esperado: <code>{ "questoes": [ ... ] }</code>. O sistema valida e atualiza questões pelo ID.</p>
-<button onclick="importarArquivo()">Importar arquivo</button>
-</section>
+<section class="card"><h2 id="formTitle">Nova questão</h2>
+<form id="form" onsubmit="salvarQuestao(event)">
+<div class="grid"><div class="field"><label>ID</label><input id="id" type="number" min="1" required></div><div class="field"><label>Ano</label><input id="ano" type="number" value="2026"></div><div class="field"><label>Matéria</label><select id="materia" required><option value="">Selecione</option><option>Matemática</option><option>Linguagens</option><option>Biologia</option><option>Física</option><option>Química</option><option>História</option><option>Geografia</option><option>Sociologia</option><option>Filosofia</option></select></div><div class="field"><label>Subtópico</label><input id="subtopico" placeholder="Ex.: Porcentagem"></div></div>
+<br><label>Texto de apoio</label><textarea id="texto_apoio" placeholder="Opcional"></textarea>
+<label>Enunciado</label><textarea id="enunciado" required placeholder="Digite o enunciado da questão"></textarea>
+<div class="alt-grid"><div><label>Alternativa A</label><input class="alt" required></div><div><label>Alternativa B</label><input class="alt" required></div><div><label>Alternativa C</label><input class="alt" required></div><div><label>Alternativa D</label><input class="alt" required></div><div><label>Alternativa E</label><input class="alt" required></div><div><label>Resposta correta</label><select id="correta" required><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option><option value="4">E</option></select></div></div>
+<br><label>Explicação do gabarito</label><textarea id="explicacao" placeholder="Explique por que a alternativa está correta"></textarea>
+<div class="row"><button class="success" type="submit" id="saveBtn">Cadastrar questão</button><button class="secondary" type="button" onclick="limparFormulario()">Limpar / Cancelar edição</button></div>
+</form></section>
 
-<section class="card">
-<h2>4. Cadastrar questões por JSON</h2>
-<textarea id="json" placeholder='{
-  "questoes": [
-    {
-      "id": 100,
-      "ano": 2026,
-      "materia": "Matemática",
-      "subtopico": "Funções",
-      "texto_apoio": "",
-      "enunciado": "Digite o enunciado...",
-      "alternativas": ["A", "B", "C", "D", "E"],
-      "correta": 0,
-      "explicacao": "Explique o gabarito."
-    }
-  ]
-}'></textarea>
-<br><br><button onclick="importarTexto()">Cadastrar / atualizar questões</button>
-</section>
+<section class="card"><h2>Banco de questões</h2><div class="toolbar"><input id="busca" placeholder="Buscar por ID, matéria, assunto ou texto"><select id="filtroMateria"><option value="">Todas as matérias</option></select><button onclick="listarQuestoes()">Pesquisar</button></div><div id="contador" class="muted"></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Ano</th><th>Matéria</th><th>Assunto</th><th>Enunciado</th><th>Ações</th></tr></thead><tbody id="lista"></tbody></table></div></section>
 
-<section class="card">
-<h2>Resultado</h2>
-<div id="status">Aguardando operação...</div>
-</section>
+<section class="card"><h2>Importação e banco inicial</h2><div class="row"><button class="success" onclick="carregarIniciais()">Carregar / atualizar banco inicial</button><input id="arquivo" type="file" accept=".json,application/json"><button onclick="importarArquivo()">Importar JSON</button></div><p class="muted">A importação em lote usa o formato { "questoes": [ ... ] } e atualiza registros pelo ID.</p></section>
+<section class="card"><h2>Resultado da operação</h2><div id="status">Aguardando operação...</div></section>
 </main>
 <script>
 const API='https://enemverse-api.onrender.com/api';
-const keyEl=document.getElementById('key');
-const statusEl=document.getElementById('status');
-function chave(){return keyEl.value.trim()}
-function mostrar(v){statusEl.textContent=typeof v==='string'?v:JSON.stringify(v,null,2)}
-async function request(url,options={}){
-  const headers={...(options.headers||{}),'x-admin-key':chave()};
-  const r=await fetch(url,{...options,headers});
-  const data=await r.json().catch(()=>({erro:'Resposta inválida da API'}));
-  if(!r.ok) throw new Error(data.erro||('HTTP '+r.status));
-  return data;
-}
-async function consultarStatus(){
- try{
-  const d=await request(API+'/questoes/status');
-  const linhas=(d.porMateria||[]).map(x=>x._id+': '+x.total).join('\n');
-  mostrar('Total: '+d.total+'\n\nPor matéria:\n'+linhas);
- }catch(e){mostrar('ERRO: '+e.message)}
-}
-async function carregarIniciais(){
- if(!chave()){mostrar('Digite a ADMIN_API_KEY primeiro.');return}
- try{mostrar('Carregando banco inicial...');mostrar(await request(API+'/questoes/importar-iniciais',{method:'POST'}));await consultarStatus()}
- catch(e){mostrar('ERRO: '+e.message)}
-}
-async function importarTexto(){
- if(!chave()){mostrar('Digite a ADMIN_API_KEY primeiro.');return}
- try{
-  const d=JSON.parse(document.getElementById('json').value);
-  mostrar('Importando...');
-  mostrar(await request(API+'/questoes/importar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}));
-  await consultarStatus();
- }catch(e){mostrar('ERRO: '+e.message)}
-}
-async function importarArquivo(){
- const f=document.getElementById('arquivo').files[0];
- if(!f){mostrar('Selecione um arquivo JSON.');return}
- try{
-  document.getElementById('json').value=await f.text();
-  await importarTexto();
- }catch(e){mostrar('ERRO: '+e.message)}
-}
-</script>
-</body>
-</html>
+const $=id=>document.getElementById(id); let questoes=[]; let idEditando=null;
+function chave(){return $('key').value.trim()} function mostrar(v){$('status').textContent=typeof v==='string'?v:JSON.stringify(v,null,2)}
+async function request(url,opt={}){if(!chave())throw new Error('Digite a ADMIN_API_KEY.');const headers={...(opt.headers||{}),'x-admin-key':chave()};const r=await fetch(url,{...opt,headers});const d=await r.json().catch(()=>({erro:'Resposta inválida da API'}));if(!r.ok)throw new Error(d.erro||('HTTP '+r.status));return d}
+async function iniciarPainel(){try{await Promise.all([consultarStatus(),listarQuestoes()]);mostrar('Painel atualizado com sucesso.')}catch(e){mostrar('ERRO: '+e.message)}}
+async function consultarStatus(){const d=await request(API+'/questoes/status');$('stats').innerHTML='<div class="stat"><strong>'+d.total+'</strong>Total</div>'+(d.porMateria||[]).map(x=>'<div class="stat"><strong>'+x.total+'</strong>'+esc(x._id||'Sem matéria')+'</div>').join('');const s=$('filtroMateria'), atual=s.value;s.innerHTML='<option value="">Todas as matérias</option>'+(d.porMateria||[]).map(x=>'<option>'+esc(x._id||'')+'</option>').join('');s.value=atual}
+async function listarQuestoes(){try{const p=new URLSearchParams();if($('busca').value.trim())p.set('busca',$('busca').value.trim());if($('filtroMateria').value)p.set('materia',$('filtroMateria').value);const d=await request(API+'/questoes/admin/listar?'+p);questoes=d.questoes||[];$('contador').textContent=questoes.length+' questão(ões) encontrada(s).';$('lista').innerHTML=questoes.map(q=>'<tr><td>'+q.id+'</td><td>'+(q.ano||'—')+'</td><td>'+esc(q.materia)+'</td><td>'+esc(q.subtopico||'—')+'</td><td>'+esc(cortar(q.enunciado,100))+'</td><td class="actions"><button onclick="editar('+q.id+')">Editar</button><button class="danger" onclick="excluir('+q.id+')">Excluir</button></td></tr>').join('')||'<tr><td colspan="6">Nenhuma questão encontrada.</td></tr>'}catch(e){mostrar('ERRO: '+e.message)}}
+function dadosForm(){return{id:Number($('id').value),ano:$('ano').value?Number($('ano').value):undefined,materia:$('materia').value,subtopico:$('subtopico').value.trim(),texto_apoio:$('texto_apoio').value.trim(),enunciado:$('enunciado').value.trim(),alternativas:[...document.querySelectorAll('.alt')].map(x=>x.value.trim()),correta:Number($('correta').value),explicacao:$('explicacao').value.trim()}}
+async function salvarQuestao(e){e.preventDefault();try{const q=dadosForm();const editando=idEditando!==null;const d=await request(API+'/questoes/admin'+(editando?'/'+idEditando:''),{method:editando?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(q)});mostrar(d.mensagem);limparFormulario();await Promise.all([consultarStatus(),listarQuestoes()])}catch(e){mostrar('ERRO: '+e.message)}}
+function editar(id){const q=questoes.find(x=>x.id===id);if(!q)return;idEditando=id;$('formTitle').textContent='Editar questão #'+id;$('saveBtn').textContent='Salvar alterações';$('id').value=q.id;$('ano').value=q.ano||'';$('materia').value=q.materia||'';$('subtopico').value=q.subtopico||'';$('texto_apoio').value=q.texto_apoio||'';$('enunciado').value=q.enunciado||'';document.querySelectorAll('.alt').forEach((x,i)=>x.value=(q.alternativas||[])[i]||'');$('correta').value=q.correta;$('explicacao').value=q.explicacao||'';window.scrollTo({top:$('form').offsetTop-80,behavior:'smooth'})}
+async function excluir(id){if(!confirm('Excluir definitivamente a questão #'+id+'?'))return;try{const d=await request(API+'/questoes/admin/'+id,{method:'DELETE'});mostrar(d.mensagem);if(idEditando===id)limparFormulario();await Promise.all([consultarStatus(),listarQuestoes()])}catch(e){mostrar('ERRO: '+e.message)}}
+function limparFormulario(){idEditando=null;$('form').reset();$('ano').value=2026;$('formTitle').textContent='Nova questão';$('saveBtn').textContent='Cadastrar questão'}
+async function carregarIniciais(){if(!confirm('Carregar/atualizar as questões do banco inicial?'))return;try{const d=await request(API+'/questoes/importar-iniciais',{method:'POST'});mostrar(d);await Promise.all([consultarStatus(),listarQuestoes()])}catch(e){mostrar('ERRO: '+e.message)}}
+async function importarArquivo(){const f=$('arquivo').files[0];if(!f){mostrar('Selecione um arquivo JSON.');return}try{const d=JSON.parse(await f.text());const r=await request(API+'/questoes/importar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});mostrar(r);await Promise.all([consultarStatus(),listarQuestoes()])}catch(e){mostrar('ERRO: '+e.message)}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function cortar(v,n){v=String(v||'');return v.length>n?v.slice(0,n)+'…':v}
+$('busca').addEventListener('keydown',e=>{if(e.key==='Enter')listarQuestoes()});
+</script></body></html>
