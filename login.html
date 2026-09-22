@@ -6,153 +6,150 @@
     <title>EnemVerse - Acessar o Universo</title>
     <link rel="stylesheet" href="login.css">
 </head>
-<body class="login-universe-bg">
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-brand">🌌 EnemVerse</div>
+            
+            <!-- Abas de Alternância -->
+            <div class="auth-tabs">
+                <button id="tabLogin" class="tab-btn active">Acessar Conta</button>
+                <button id="tabCadastro" class="tab-btn">Cadastrar</button>
+            </div>
 
-    <div class="auth-card">
-    <div class="auth-brand">🌌 EnemVerse</div>
-    
-    <!-- Abas de Alternância -->
-    <div class="auth-tabs">
-        <button id="tabLogin" class="tab-btn active">Acessar Conta</button>
-        <button id="tabCadastro" class="tab-btn">Cadastrar</button>
+            <!-- Containers de Mensagem de Erro -->
+            <div id="loginErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center;"></div>
+            <div id="cadErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center;"></div>
+
+            <!-- 1. FORMULÁRIO DE LOGIN -->
+            <form id="formLogin">
+                <div class="form-group">
+                    <label for="loginEmail">E-MAIL</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginSenha">SENHA</label>
+                    <input type="password" id="loginSenha" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="submit-btn">Entrar no Universo</button>
+            </form>
+
+            <!-- 2. FORMULÁRIO DE CADASTRO -->
+            <form id="formCadastro" class="hidden">
+                <div class="form-group">
+                    <label for="cadNome">NOME COMPLETO</label>
+                    <input type="text" id="cadNome" placeholder="Seu Nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cadEmail">E-MAIL</label>
+                    <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="cadSenha">SENHA</label>
+                    <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
+                </div>
+                <button type="submit" class="submit-btn">Criar Minha Conta</button>
+            </form>
+
+            <a href="index.html" class="back-home-link" style="display: block; text-align: center; margin-top: 20px; color: #a3a3a3; text-decoration: none; font-size: 14px;">← Voltar para a vitrine</a>
+        </div>
     </div>
 
-    <!-- Mensagens de Erro Ocultas por Padrão -->
-    <div id="loginErro" class="auth-error-message hidden"></div>
-    <div id="cadErro" class="auth-error-message hidden"></div>
+    <!-- SCRIPT DE CONEXÃO DIRETA E TRAVADA COM O RENDER -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabLogin = document.getElementById('tabLogin');
+        const tabCadastro = document.getElementById('tabCadastro');
+        const formLogin = document.getElementById('formLogin');
+        const formCadastro = document.getElementById('formCadastro');
 
-    <!-- 1. FORMULÁRIO DE LOGIN -->
-    <form id="formLogin">
-        <div class="form-group">
-            <label for="loginEmail">E-MAIL</label>
-            <input type="email" id="loginEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="form-group">
-            <label for="loginSenha">SENHA</label>
-            <input type="password" id="loginSenha" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="submit-btn">Entrar no Universo</button>
-    </form>
-
-    <!-- 2. FORMULÁRIO DE CADASTRO (Inicia oculto com a classe 'hidden') -->
-    <form id="formCadastro" class="hidden">
-        <div class="form-group">
-            <label for="cadNome">NOME COMPLETO</label>
-            <input type="text" id="cadNome" placeholder="Seu Nome" required>
-        </div>
-        <div class="form-group">
-            <label for="cadEmail">E-MAIL</label>
-            <input type="email" id="cadEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="form-group">
-            <label for="cadSenha">SENHA</label>
-            <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
-        </div>
-        <button type="submit" class="submit-btn">Criar My Conta</button>
-    </form>
-
-    <a href="index.html" class="back-home-link">← Voltar para a vitrine</a>
-</div>
-
-
-   <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // URL EXATA E COMPLETA DO SEU BACKEND NO RENDER (COM PREFIXO /api)
-    const API_URL = 'https://onrender.com';
-
-    const tabLogin = document.getElementById('tabLogin');
-    const tabCadastro = document.getElementById('tabCadastro');
-    const formLogin = document.getElementById('formLogin');
-    const formCadastro = document.getElementById('formCadastro');
-
-    if (tabLogin && tabCadastro) {
-        tabLogin.addEventListener('click', () => {
-            tabLogin.classList.add('active');
-            tabCadastro.classList.remove('active');
-            formLogin.classList.remove('hidden');
-            formCadastro.classList.add('hidden');
-        });
-
-        tabCadastro.addEventListener('click', () => {
-            tabCadastro.classList.add('active');
-            tabLogin.classList.remove('active');
-            formCadastro.classList.remove('hidden');
-            formLogin.classList.add('hidden');
-        });
-    }
-
-    // ==========================================
-    // 1. FLUXO DE LOGIN
-    // ==========================================
-    if (formLogin) {
-        formLogin.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const senha = document.getElementById('loginSenha').value;
-            const erroContainer = document.getElementById('loginErro');
-
-            if (erroContainer) erroContainer.classList.add('hidden');
-
-            try {
-                const resposta = await fetch('https://onrender.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, senha })
+        // Alternância visual de abas
+        if (tabLogin && tabCadastro) {
+            tabLogin.addEventListener('click', () => {
+                tabLogin.classList.add('active');
+                tabCadastro.classList.remove('active');
+                formLogin.classList.remove('hidden');
+                formCadastro.classList.add('hidden');
             });
 
-                const dados = await resposta.json();
-                if (!resposta.ok) throw new Error(dados.erro || 'Falha ao entrar no universo.');
+            tabCadastro.addEventListener('click', () => {
+                tabCadastro.classList.add('active');
+                tabLogin.classList.remove('active');
+                formCadastro.classList.remove('hidden');
+                formLogin.classList.add('hidden');
+            });
+        }
 
-                localStorage.setItem('enemverse_token', dados.token);
-                localStorage.setItem('enemverse_email_ativo', dados.email);
-                window.location.href = 'dashboard.html';
-            } catch (erro) {
-                console.error("Erro no login:", erro);
-                if (erroContainer) {
-                    erroContainer.innerText = erro.message;
-                    erroContainer.classList.remove('hidden');
+        // ==========================================
+        // 1. DISPARO DO LOGIN
+        // ==========================================
+        if (formLogin) {
+            formLogin.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value.trim();
+                const senha = document.getElementById('loginSenha').value;
+                const erroContainer = document.getElementById('loginErro');
+
+                if (erroContainer) erroContainer.classList.add('hidden');
+
+                try {
+                    const resposta = await fetch('https://onrender.com', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, senha })
+                    });
+
+                    const dados = await resposta.json();
+                    if (!resposta.ok) throw new Error(dados.erro || 'Falha ao entrar no universo.');
+
+                    localStorage.setItem('enemverse_token', dados.token);
+                    localStorage.setItem('enemverse_email_ativo', dados.email);
+                    window.location.href = 'dashboard.html';
+                } catch (erro) {
+                    console.error("Erro no login:", erro);
+                    if (erroContainer) {
+                        erroContainer.innerText = erro.message;
+                        erroContainer.classList.remove('hidden');
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    // ==========================================
-    // 2. FLUXO DE CADASTRO
-    // ==========================================
-    if (formCadastro) {
-        formCadastro.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const nome = document.getElementById('cadNome').value.trim();
-            const email = document.getElementById('cadEmail').value.trim();
-            const senha = document.getElementById('cadSenha').value;
-            const erroContainer = document.getElementById('cadErro');
+        // ==========================================
+        // 2. DISPARO DO CADASTRO
+        // ==========================================
+        if (formCadastro) {
+            formCadastro.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nome = document.getElementById('cadNome').value.trim();
+                const email = document.getElementById('cadEmail').value.trim();
+                const senha = document.getElementById('cadSenha').value;
+                const erroContainer = document.getElementById('cadErro');
 
-            if (erroContainer) erroContainer.classList.add('hidden');
+                if (erroContainer) erroContainer.classList.add('hidden');
 
-            try {
-                // Fetch disparando para a URL unificada correta
-                const resposta = await fetch('https://onrender.com', {
-                method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nome, email, senha })
-});
+                try {
+                    const resposta = await fetch('https://onrender.com', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nome, email, senha })
+                    });
 
-                const dados = await resposta.json();
-                if (!resposta.ok) throw new Error(dados.erro || 'Erro ao criar conta.');
+                    const dados = await resposta.json();
+                    if (!resposta.ok) throw new Error(dados.erro || 'Erro ao criar conta.');
 
-                alert('Sua conta foi registrada com sucesso no MongoDB! Faça login para continuar.');
-                if (tabLogin) tabLogin.click(); 
-            } catch (erro) {
-                console.error("Erro no cadastro:", erro);
-                if (erroContainer) {
-                    erroContainer.innerText = erro.message;
-                    erroContainer.classList.remove('hidden');
+                    alert('Sua conta foi registrada com sucesso no MongoDB! Faça login para continuar.');
+                    if (tabLogin) tabLogin.click(); 
+                } catch (erro) {
+                    console.error("Erro no cadastro:", erro);
+                    if (erroContainer) {
+                        erroContainer.innerText = erro.message;
+                        erroContainer.classList.remove('hidden');
+                    }
                 }
-            }
-        });
-    }
-});
-
-</script>
+            });
+        }
+    });
+    </script>
 </body>
 </html>
