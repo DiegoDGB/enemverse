@@ -18,8 +18,8 @@
             </div>
 
             <!-- Containers de Mensagem de Erro -->
-            <div id="loginErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center;"></div>
-            <div id="cadErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center;"></div>
+            <div id="loginErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
+            <div id="cadErro" class="auth-error-message hidden" style="color: #ff4a4a; margin-bottom: 15px; text-align: center; font-weight: bold;"></div>
 
             <!-- 1. FORMULÁRIO DE LOGIN -->
             <form id="formLogin">
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE CONEXÃO DIRETA E TRAVADA COM O RENDER -->
+    <!-- SCRIPT DE CONEXÃO DIRETA COM O SEU BACKEND NO RENDER -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const tabLogin = document.getElementById('tabLogin');
@@ -63,7 +63,7 @@
         const formLogin = document.getElementById('formLogin');
         const formCadastro = document.getElementById('formCadastro');
 
-        // Alternância visual de abas
+        // Alternância visual de abas (Tabs)
         if (tabLogin && tabCadastro) {
             tabLogin.addEventListener('click', () => {
                 tabLogin.classList.add('active');
@@ -81,7 +81,7 @@
         }
 
         // ==========================================
-        // 1. DISPARO DO LOGIN
+        // 1. FLUXO DE LOGIN (AUTENTICAÇÃO)
         // ==========================================
         if (formLogin) {
             formLogin.addEventListener('submit', async (e) => {
@@ -93,6 +93,7 @@
                 if (erroContainer) erroContainer.classList.add('hidden');
 
                 try {
+                    // Chamada exata apontando para o seu subdomínio e prefixo /api
                     const resposta = await fetch('https://onrender.com', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -102,8 +103,10 @@
                     const dados = await resposta.json();
                     if (!resposta.ok) throw new Error(dados.erro || 'Falha ao entrar no universo.');
 
+                    // Armazenamento do token de segurança JWT enviado pelo MongoDB
                     localStorage.setItem('enemverse_token', dados.token);
                     localStorage.setItem('enemverse_email_ativo', dados.email);
+                    
                     window.location.href = 'dashboard.html';
                 } catch (erro) {
                     console.error("Erro no login:", erro);
@@ -116,7 +119,7 @@
         }
 
         // ==========================================
-        // 2. DISPARO DO CADASTRO
+        // 2. FLUXO DE CADASTRO (REGISTRO REAL NO BANCO)
         // ==========================================
         if (formCadastro) {
             formCadastro.addEventListener('submit', async (e) => {
@@ -129,6 +132,7 @@
                 if (erroContainer) erroContainer.classList.add('hidden');
 
                 try {
+                    // Chamada exata sem variáveis para evitar erros de interpolação
                     const resposta = await fetch('https://onrender.com', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -138,8 +142,8 @@
                     const dados = await resposta.json();
                     if (!resposta.ok) throw new Error(dados.erro || 'Erro ao criar conta.');
 
-                    alert('Sua conta foi registrada com sucesso no MongoDB! Faça login para continuar.');
-                    if (tabLogin) tabLogin.click(); 
+                    alert('Sua conta foi registrada com sucesso no MongoDB Atlas! Faça login para continuar.');
+                    if (tabLogin) tabLogin.click(); // Muda para a aba de login automaticamente
                 } catch (erro) {
                     console.error("Erro no cadastro:", erro);
                     if (erroContainer) {
