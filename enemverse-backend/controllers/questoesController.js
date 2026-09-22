@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
+const fs = require('fs/promises');
+const path = require('path');
 
 // Lista todas as questões disponíveis para o simulado
 router.get('/', async (req, res) => {
@@ -30,7 +32,7 @@ router.get('/status', async (req, res) => {
     }
 });
 
-// Importação em lote.
+// Carrega o banco inicial que acompanha o projeto.\n// Também protegido pela ADMIN_API_KEY.\nrouter.post('/importar-iniciais', async (req, res) => {\n    try {\n        const chaveConfigurada = process.env.ADMIN_API_KEY;\n        const chaveEnviada = req.header('x-admin-key');\n\n        if (!chaveConfigurada || !chaveEnviada || chaveEnviada !== chaveConfigurada) {\n            return res.status(401).json({ erro: 'Acesso não autorizado.' });\n        }\n\n        const arquivo = path.join(__dirname, '../dados/questoes-iniciais.json');\n        const dados = JSON.parse(await fs.readFile(arquivo, 'utf8'));\n\n        if (!Array.isArray(dados.questoes) || dados.questoes.length === 0) {\n            return res.status(400).json({ erro: 'O banco inicial está vazio ou inválido.' });\n        }\n\n        req.body.questoes = dados.questoes;\n\n        const normalizadas = dados.questoes.map(q => ({\n            id: Number(q.id), ano: q.ano != null ? Number(q.ano) : undefined,\n            materia: String(q.materia || '').trim(), subtopico: String(q.subtopico || '').trim(),\n            texto_apoio: String(q.texto_apoio || '').trim(), enunciado: String(q.enunciado || '').trim(),\n            alternativas: Array.isArray(q.alternativas) ? q.alternativas.map(a => String(a).trim()) : [],\n            correta: Number(q.correta), explicacao: String(q.explicacao || '').trim()\n        }));\n\n        for (const q of normalizadas) {\n            if (!Number.isInteger(q.id) || !q.enunciado || q.alternativas.length !== 5 || !Number.isInteger(q.correta) || q.correta < 0 || q.correta > 4) {\n                return res.status(400).json({ erro: 'O banco inicial contém uma questão inválida.', questao: q.id });\n            }\n        }\n\n        const resultado = await Questao.bulkWrite(normalizadas.map(q => ({\n            updateOne: { filter: { id: q.id }, update: { $set: q }, upsert: true }\n        })), { ordered: false });\n\n        res.json({ sucesso: true, recebidas: normalizadas.length, inseridas: resultado.upsertedCount, atualizadas: resultado.modifiedCount, mensagem: 'Banco inicial carregado com sucesso.' });\n    } catch (err) {\n        console.error('Erro ao carregar banco inicial:', err);\n        res.status(500).json({ erro: 'Erro ao carregar banco inicial.' });\n    }\n});\n\n// Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
 router.post('/importar', async (req, res) => {
