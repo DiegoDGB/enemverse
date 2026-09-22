@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleção de Elementos da Interface
+    // ============================================================
+    // 1. SELEÇÃO DE ELEMENTOS DA INTERFACE (Alinhados ao simulado.css)
+    // ============================================================
     const labelYear = document.querySelector('.label-year');
     const labelMateria = document.querySelector('.label-materia');
     const textoApoio = document.querySelector('.texto-apoio');
@@ -7,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const alternativesList = document.querySelector('.alternatives-list');
     const btnVerify = document.getElementById('btnVerify');
     const feedbackBox = document.getElementById('feedbackBox');
-    const navXP = document.getElementById('navXP');
+    const navXP = document.getElementById('navXP') || document.querySelector('.user-stats-stacked p:nth-of-type(2)');
     const progressText = document.getElementById('progressText');
     const progressBarFill = document.querySelector('.progress-bar-fill');
     
@@ -15,31 +17,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerDisplay = document.getElementById('countdownTimer');
     const timerWrapper = document.querySelector('.timer-wrapper');
     const userNameDisplay = document.querySelector('.user-name');
-    const navStreakDisplay = document.getElementById('navStreak');
+    const navStreakDisplay = document.getElementById('navStreak') || document.querySelector('.user-stats-stacked p:nth-of-type(1)');
 
-    // Estado da Aplicação
+    // ============================================================
+    // 2. CONFIGURAÇÃO DE SESSÃO E API_URL UNIFICADA
+    // ============================================================
+    const API_URL = 'https://onrender.com';
+    const tokenAtivo = localStorage.getItem('enemverse_token');
+    const emailAtivo = localStorage.getItem('enemverse_email_ativo');
+
+    // Se o estudante tentar burlar a URL sem estar logado, barra na hora
+    if (!tokenAtivo || !emailAtivo) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Estado interno da aplicação
     let bancoDadosOriginal = [];
     let listaQuestoesFiltradas = [];
     let dicionarioIncidencia = {}; 
     let indiceAtual = 0;
     let selectedOption = null;
     let respondida = false;
-    
-    // Captura de Sessão do LocalStorage
-    const emailAtivo = localStorage.getItem('enemverse_email_ativo');
-    const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
-    let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
-    let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 1;
 
     let tempoRestante = 180;
     let cronometroInterval = null;
     let tempoEsgotadoStatus = false;
 
+    // ============================================================
+    // 3. INICIALIZAÇÃO DA PLATAFORMA (SINCRONIZAÇÃO DO PERFIL)
+    // ============================================================
     async function iniciarPlataforma() {
-        if (userNameDisplay) userNameDisplay.innerText = nomeReal;
-        if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1 ? "1 dia seguido" : `${ofensivaReal} dias seguidos`;
-        if (navXP) navXP.innerText = `${currentXP.toLocaleString()} XP total`;
-
         if (btnVerify) {
             btnVerify.addEventListener('click', gerenciarCliqueBotaoPrincipal);
             btnVerify.style.opacity = "0.5";
@@ -47,11 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // SINCRO: Puxando as questões direto da sua API oficial do Render
-            const respostaQuestoes = await fetch('https://onrender.com');
+            // Sincroniza os dados do header direto da API para evitar fraudes locais de XP
+            const respostaPerfil = await fetch(`${API_URL}/auth/perfil?email=${emailAtivo}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenAtivo}`
+                }
+            });
+
+            if (respostaPerfil.ok) {
+                const estudante = await respostaPerfil.json();
+                if (userNameDisplay) userNameDisplay.innerText = estudante.nome;
+                if (navStreakDisplay) navStreakDisplay.innerText = `🔥 ${estudante.ofensiva} ${estudante.ofensiva === 1 ? 'Dia Ofensiva' : 'Dias Ofensiva'}`;
+                if (navXP) navXP.innerText = `⚡ ${estudante.xp.toLocaleString('pt-BR')} XP total`;
+            }
+
+            // Puxa o banco de questões real injetado no MongoDB Atlas
+            if (enunciado) enunciado.innerText = "Carregando caderno de questões do ENEMverse...";
+            const respostaQuestoes = await fetch(`${API_URL}/questoes`);
             bancoDadosOriginal = await respostaQuestoes.json();
             
-            // Matriz Completa do ENEM atualizada conforme o seu arquivo JSON
+            // Matriz Oficial do ENEM de incidência pedagógica
             const matrizOficialENEM = [
                 { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Mecânica", "Estequiometria", "Evolução"], "subareas": ["Biologia", "Física", "Química"] },
                 { "nome": "Matemática e suas Tecnologias", "topicos_incidencia": ["Funções", "Geometria Espacial", "Estatística", "Porcentagem"], "subareas": ["Álgebra", "Geometria"] },
@@ -64,16 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } catch (e) {
             console.error("Erro ao carregar simulado:", e);
-            if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor de produção.";
+            if (enunciado) enunciado.innerText = "Erro crítico ao conectar com o banco de dados das questões.";
         }
     }
 
+    // ============================================================
+    // 4. MECÂNICA DE FILTROS E DROPDOWNS
+    // ============================================================
     function gerarMenuDropdownMatriz(macroareas) {
         const macroAreasGroup = document.getElementById('macroAreasGroup');
         if (!macroAreasGroup) return;
         macroAreasGroup.innerHTML = '';
 
-        // Botão padrão para carregar todas as questões
         const btnTodas = document.createElement('button');
         btnTodas.className = 'macro-btn active';
         btnTodas.innerText = 'Todas as Áreas';
@@ -86,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const divDropdown = document.createElement('div');
             divDropdown.className = 'dropdown';
 
-            // Encurta visualmente o nome da área para caber no layout flexível
             let nomeCurto = area.nome.split(" e ")[0]; 
             const btnMacro = document.createElement('button');
             btnMacro.className = 'macro-btn';
@@ -129,23 +155,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.macro-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active-sub'));
     }
+
     function filtrarQuestoes(termoBusca, tipo) {
         indiceAtual = 0;
         if (tipo === 'macro') {
             if (termoBusca === 'Todas') {
-                if(subareasBox) subareasBox.style.display = 'none';
+                if (subareasBox) subareasBox.style.display = 'none';
                 listaQuestoesFiltradas = [...bancoDadosOriginal];
             } else {
-                if(subareasBox) {
+                if (subareasBox) {
                     subareasBox.style.display = 'block';
                     subareasBox.innerHTML = `<div class="panel-content"><h4>📂 Foco da Área: ${termoBusca}</h4><p class="panel-incidencia">🎯 <strong>Mais cobrados:</strong> ${dicionarioIncidencia[termoBusca]}</p></div>`;
                 }
                 listaQuestoesFiltradas = bancoDadosOriginal.filter(q => q.materia === termoBusca);
             }
         } else {
-            if(subareasBox) {
+            if (subareasBox) {
                 subareasBox.style.display = 'block';
-                subareasBox.innerHTML = `<div class="panel-content"><h4>🔬 Disciplina Ativa: ${termoBusca}</h4><p class="panel-incidencia">Buscando questões do banco de dados na nuvem...</p></div>`;
+                subareasBox.innerHTML = `<div class="panel-content"><h4>🔬 Disciplina Ativa: ${termoBusca}</h4><p class="panel-incidencia">Buscando tópicos e subcampos...</p></div>`;
             }
             listaQuestoesFiltradas = bancoDadosOriginal.filter(q => 
                 (q.subtopico && q.subtopico.toLowerCase().includes(termoBusca.toLowerCase())) || 
@@ -156,52 +183,57 @@ document.addEventListener('DOMContentLoaded', () => {
         if (listaQuestoesFiltradas.length > 0) renderizarQuestao(indiceAtual);
         else mostrarAvisoSemQuestoes();
     }
-
+    // ============================================================
+    // 5. CRONÔMETRO DE PERFORMANCE (3 minutos por questão)
+    // ============================================================
     function rodarRelogio() {
         clearInterval(cronometroInterval);
         tempoRestante = 180;
         tempoEsgotadoStatus = false;
-        if(timerWrapper) timerWrapper.classList.remove('timer-alert');
+        if (timerWrapper) timerWrapper.classList.remove('timer-alert');
         
         cronometroInterval = setInterval(() => {
             tempoRestante--;
             const min = Math.floor(tempoRestante / 60);
             const seg = tempoRestante % 60;
-            if(timerDisplay) timerDisplay.innerText = `${min < 10 ? '0'+min : min}:${seg < 10 ? '0'+seg : seg}`;
+            if (timerDisplay) timerDisplay.innerText = `${min < 10 ? '0'+min : min}:${seg < 10 ? '0'+seg : seg}`;
 
             if (tempoRestante === 30 && timerWrapper) timerWrapper.classList.add('timer-alert');
 
             if (tempoRestante <= 0) {
                 clearInterval(cronometroInterval);
                 tempoEsgotadoStatus = true;
-                if(feedbackBox) {
+                if (feedbackBox) {
                     feedbackBox.classList.remove('hidden');
                     feedbackBox.className = "feedback-message error-text";
-                    feedbackBox.innerHTML = `⚠️ <span>O tempo acabou! Responda para ganhar metade dos pontos (+10 XP).</span>`;
+                    feedbackBox.innerHTML = `⚠️ <span>O tempo acabou! Marque uma opção para validar metade dos pontos de XP (+10 XP).</span>`;
                 }
             }
         }, 1000);
     }
 
+    // ============================================================
+    // 6. RENDERIZAÇÃO DA QUESTÃO NA INTERFACE
+    // ============================================================
     function renderizarQuestao(index) {
         if (!listaQuestoesFiltradas[index]) return;
         const q = listaQuestoesFiltradas[index];
         respondida = false;
         selectedOption = null;
         
-        if(btnVerify) {
+        if (btnVerify) {
             btnVerify.innerText = "Verificar Resposta";
             btnVerify.style.opacity = "0.5";
             btnVerify.style.cursor = "not-allowed";
         }
-        if(feedbackBox) feedbackBox.classList.add('hidden');
+        if (feedbackBox) feedbackBox.classList.add('hidden');
 
-        if(labelYear) labelYear.innerText = `ENEM ${q.ano}`;
-        if(labelMateria) labelMateria.innerText = q.subtopico || q.materia;
-        if(textoApoio) textoApoio.innerHTML = q.texto_apoio || '';
-        if(enunciado) enunciado.innerText = q.enunciado;
+        if (labelYear) labelYear.innerText = `ENEM ${q.ano}`;
+        if (labelMateria) labelMateria.innerText = q.subtopico || q.materia;
+        if (textoApoio) textoApoio.innerHTML = q.texto_apoio || q.textoApoio || '';
+        if (enunciado) enunciado.innerText = q.enunciado;
 
-        if(alternativesList) {
+        if (alternativesList) {
             alternativesList.innerHTML = '';
             const letras = ['A', 'B', 'C', 'D', 'E'];
             q.alternativas.forEach((alt, idx) => {
@@ -221,18 +253,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.alternative-btn').forEach(i => i.classList.remove('selected'));
         elemento.classList.add('selected');
         selectedOption = index;
-        if(btnVerify) {
+        if (btnVerify) {
             btnVerify.style.opacity = "1";
             btnVerify.style.cursor = "pointer";
         }
     }
 
+    // Controla se o clique vai avaliar o gabarito ou passar para frente
     function gerenciarCliqueBotaoPrincipal() {
         if (selectedOption === null && !respondida) return;
         if (!respondida) verificarRespostaServidor();
         else avancarProximaQuestao();
     }
 
+    // ============================================================
+    // 7. ENVIO SEGURO E VERIFICAÇÃO COM CÁLCULO DE XP NO BANCO
+    // ============================================================
     async function verificarRespostaServidor() {
         if (selectedOption === null || respondida) return;
         respondida = true;
@@ -240,14 +276,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = listaQuestoesFiltradas[indiceAtual];
         const itens = alternativesList.querySelectorAll('.alternative-btn');
 
+        if (feedbackBox) {
+            feedbackBox.className = "feedback-message";
+            feedbackBox.innerHTML = "Sincronizando pontos com o banco de dados...";
+            feedbackBox.classList.remove('hidden');
+        }
+
         try {
-            const resposta = await fetch('https://onrender.com', {
+            // Envia a resposta para processamento seguro na API protegida por Token JWT
+            const resposta = await fetch(`${API_URL}/questoes/responder`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenAtivo}`
+                },
                 body: JSON.stringify({
-                    email: emailAtivo, questaoId: q.id, alternativaSelecionada: selectedOption, tempoEsgotado: tempoEsgotadoStatus
+                    email: emailAtivo, 
+                    questaoId: q.id, 
+                    alternativaSelecionada: selectedOption, 
+                    tempoEsgotado: tempoEsgotadoStatus
                 })
             });
+            
             const dadosBack = await resposta.json();
 
             itens.forEach((item, idx) => {
@@ -257,20 +307,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (dadosBack.correto) {
-                currentXP = dadosBack.novoXP;
-                localStorage.setItem('enemverse_xp', currentXP);
-                if(navXP) navXP.innerText = `${currentXP.toLocaleString()} XP total`;
+                if (navXP) navXP.innerText = `⚡ ${dadosBack.novoXP.toLocaleString('pt-BR')} XP total`;
                 feedbackBox.className = "feedback-message success-text";
-                feedbackBox.innerHTML = `🎉 <span><strong>Resposta Correta!</strong> +${dadosBack.xpGanho} XP sincronizados.</span>`;
+                feedbackBox.innerHTML = `🎉 <span><strong>Resposta Correta!</strong> +${dadosBack.xpGanho} XP adicionados à sua conta.</span>`;
             } else {
                 const letraCerta = ['A', 'B', 'C', 'D', 'E'][dadosBack.gabarito];
                 feedbackBox.className = "feedback-message error-text";
                 feedbackBox.innerHTML = `❌ <span><strong>Resposta Incorreta!</strong> A alternativa certa era a letra ${letraCerta}.</span>`;
             }
+            
+            // Adiciona a explicação pedagógica da questão se o banco possuir
+            if (dadosBack.explicacao) {
+                feedbackBox.innerHTML += `<div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border);">💡 <strong>Análise:</strong> ${dadosBack.explicacao}</div>`;
+            }
+            
             feedbackBox.classList.remove('hidden');
-            if(btnVerify) btnVerify.innerText = "Próxima Questão →";
+            if (btnVerify) btnVerify.innerText = "Próxima Questão →";
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao validar resposta:", erro);
+            if (feedbackBox) feedbackBox.innerHTML = "⚠️ Falha ao computar pontuação na nuvem.";
         }
     }
 
@@ -279,14 +334,15 @@ document.addEventListener('DOMContentLoaded', () => {
             indiceAtual++;
             renderizarQuestao(indiceAtual);
         } else {
-            if(feedbackBox) {
+            if (feedbackBox) {
                 feedbackBox.className = "feedback-message gold-text";
-                feedbackBox.innerHTML = `🏆 <span>Você completou todas as questões deste filtro!</span>`;
+                feedbackBox.innerHTML = `🏆 <span>Você completou o caderno de estudos deste filtro! Mude de área para continuar jogando.</span>`;
                 feedbackBox.classList.remove('hidden');
             }
-            if(btnVerify) {
+            if (btnVerify) {
                 btnVerify.style.opacity = "0.5";
                 btnVerify.style.cursor = "not-allowed";
+                btnVerify.disabled = true;
             }
         }
     }
@@ -299,7 +355,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function mostrarAvisoSemQuestoes() {
-        if(enunciado) enunciado.innerText = "Nenhuma questão encontrada para os critérios selecionados.";
+        if (enunciado) enunciado.innerText = "Nenhuma questão encontrada para os critérios selecionados.";
+        if (textoApoio) textoApoio.innerHTML = '';
+        if (alternativesList) alternativesList.innerHTML = '';
+        if (labelYear) labelYear.innerText = 'ENEM --';
+        if (labelMateria) labelMateria.innerText = 'Banca vazia';
         clearInterval(cronometroInterval);
     }
 
