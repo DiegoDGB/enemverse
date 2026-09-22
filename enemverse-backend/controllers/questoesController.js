@@ -202,6 +202,77 @@ router.delete('/admin/:id', async (req, res) => {
     }
 });
 
+// Migra questões antigas preenchendo automaticamente a Área ENEM pela matéria.
+router.post('/admin/migrar-areas', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    try {
+        const mapa = {
+            'Biologia': 'Ciências da Natureza e suas Tecnologias',
+            'Física': 'Ciências da Natureza e suas Tecnologias',
+            'Química': 'Ciências da Natureza e suas Tecnologias',
+            'Matemática': 'Matemática e suas Tecnologias',
+            'História': 'Ciências Humanas e suas Tecnologias',
+            'Geografia': 'Ciências Humanas e suas Tecnologias',
+            'Sociologia': 'Ciências Humanas e suas Tecnologias',
+            'Filosofia': 'Ciências Humanas e suas Tecnologias',
+            'Linguagens': 'Linguagens, Códigos e suas Tecnologias'
+        };
+
+        const questoes = await Questao.find({
+            $or: [
+                { area_enem: { $exists: false } },
+                { area_enem: null },
+                { area_enem: '' }
+            ]
+        }).select('id materia area_enem');
+
+        const operacoes = [];
+        const semMapeamento = [];
+
+        for (const q of questoes) {
+            const area = mapa[q.materia];
+            if (!area) {
+                semMapeamento.push({ id: q.id, materia: q.materia });
+                continue;
+            }
+            operacoes.push({
+                updateOne: {
+                    filter: { _id: q._id },
+                    update: { $set: { area_enem: area } }
+                }
+            });
+        }
+
+        let atualizadas = 0;
+        if (operacoes.length) {
+            const resultado = await Questao.bulkWrite(operacoes, { ordered: false });
+            atualizadas = resultado.modifiedCount;
+        }
+
+        const restantes = await Questao.countDocuments({
+            $or: [
+                { area_enem: { $exists: false } },
+                { area_enem: null },
+                { area_enem: '' }
+            ]
+        });
+
+        res.json({
+            sucesso: true,
+            encontradas: questoes.length,
+            atualizadas,
+            restantes,
+            semMapeamento,
+            mensagem: atualizadas
+                ? 'Áreas ENEM migradas com sucesso.'
+                : 'Nenhuma questão precisava de migração.'
+        });
+    } catch (err) {
+        console.error('Erro ao migrar áreas ENEM:', err);
+        res.status(500).json({ erro: 'Erro ao migrar áreas ENEM.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
