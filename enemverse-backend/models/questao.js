@@ -48,11 +48,13 @@ const QuestaoSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    anulada: { type: Boolean, default: false },
     correta: {
         type: Number,
-        required: true,
+        required: function() { return !this.anulada; },
         min: 0,
-        max: 4
+        max: 4,
+        default: null
     },
     explicacao: {
         type: String
