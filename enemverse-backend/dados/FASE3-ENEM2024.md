@@ -20,6 +20,13 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - Conferência visual por amostragem: a questão 1 exige a imagem com as citações, ausente na extração textual; 177 e 178 trazem tabelas; as fórmulas das alternativas da 180 não são reconstruídas de forma legível pelo PDF em texto. A questão 154 inclui letras A–E dentro do próprio material da questão, de modo que separar alternativas pela primeira letra encontrada daria resultado errado.
 - Prioridade: recortar e associar imagens/tabelas aos números corretos, reconstruir fórmulas e alternativas, remover marcas editoriais e comparar cada registro com a página original. Depois executar o validador e testar apenas no banco DEV. A revisão visual permanece pendente.
 
+## Lotes em revisão
+
+- `dados/revisao-enem-2024-azul-lote-01.json`: questões 1–5, Inglês, três imagens oficiais associadas.
+- `dados/revisao-enem-2024-azul-lote-02.json`: questões 6–10, texto e alternativas separados.
+- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py` e `python scripts/revisar-lote-02-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
+- **Não importar os lotes isolados**; reunir 180 questões, conferir mídias e fórmulas, marcar a revisão apenas ao término e então rodar o validador.
+
 ## Próximo lote de trabalho
 
 1. Baixar as duas provas oficiais para a pasta local `enemverse-backend/fontes-pdf/` com os nomes `2024_dia1_azul.pdf` e `2024_dia2_azul.pdf` (links no manifesto). Essa pasta é ignorada pelo Git.
