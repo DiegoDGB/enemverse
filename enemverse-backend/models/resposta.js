@@ -62,5 +62,6 @@ const RespostaSchema = new mongoose.Schema({
 });
 
 RespostaSchema.index({ usuario: 1, questaoId: 1 }, { unique: true });
+RespostaSchema.index({ usuario: 1, ultimaRespostaEm: -1 });
 
 module.exports = mongoose.models.Resposta || mongoose.model('Resposta', RespostaSchema);
