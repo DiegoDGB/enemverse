@@ -89,9 +89,7 @@
     <!-- ========================================== -->
     <script>
     // Configuração central da API: produção usa backend estável; preview/local usa DEV.
-    const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
-        ? 'https://enemverse-api.onrender.com'
-        : 'https://enemverse-api-dev.onrender.com';
+    const API_BASE_URL = window.ENEMVERSE_API_BASE_URL;
 
     document.addEventListener('DOMContentLoaded', () => {
         const labelYear = document.querySelector('.label-year');
