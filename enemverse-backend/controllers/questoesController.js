@@ -4,6 +4,7 @@ const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
 const Resposta = require('../models/resposta');
+const Tentativa = require('../models/tentativa');
 const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
@@ -632,173 +633,125 @@ router.post('/importar', async (req, res) => {
 // Valida a resposta, registra o histórico e computa XP com identidade vinda do JWT.
 router.post('/responder', autenticarUsuario, async (req, res) => {
     const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
-
-    if (questaoId === null || questaoId === undefined || questaoId === '' || !Number.isInteger(Number(questaoId)) || Number(questaoId) <= 0) {
+    const id = Number(questaoId);
+    const alternativa = Number(alternativaSelecionada);
+    if (questaoId === null || questaoId === undefined || questaoId === '' ||
+        !Number.isInteger(id) || id <= 0) {
         return res.status(400).json({ erro: 'Questão inválida.' });
     }
-
-    const alternativa = Number(alternativaSelecionada);
-    if (alternativaSelecionada === null || alternativaSelecionada === undefined || alternativaSelecionada === '' || !Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
+    if (alternativaSelecionada === null || alternativaSelecionada === undefined || alternativaSelecionada === '' ||
+        !Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
         return res.status(400).json({ erro: 'Alternativa selecionada inválida.' });
     }
 
     try {
-        const [questao, usuario] = await Promise.all([
-            Questao.findOne({ id: Number(questaoId) }),
-            Usuario.findById(req.usuario.id)
-        ]);
+        const questao = await Questao.findOne({ id });
+        if (!questao) return res.status(404).json({ erro: 'Questão não encontrada.' });
 
-        if (!usuario) {
-            return res.status(401).json({ erro: 'Usuário autenticado não encontrado.' });
-        }
-
-        if (!questao) {
-            return res.status(404).json({ erro: 'Questão não encontrada.' });
-        }
-
-        const agora = new Date();
-        const dadosTentativa = {
-            questao: questao._id,
-            alternativaSelecionada: alternativa,
-            anulada: Boolean(questao.anulada),
-            tempoEsgotado: Boolean(tempoEsgotado),
-            ultimaRespostaEm: agora
-        };
-
-        if (questao.anulada) {
-            await Resposta.findOneAndUpdate(
-                { usuario: usuario._id, questaoId: questao.id },
-                {
-                    $set: { ...dadosTentativa, correto: false },
-                    $setOnInsert: {
-                        usuario: usuario._id,
-                        questaoId: questao.id,
-                        primeiraRespostaEm: agora,
-                        xpGanho: 0,
-                        xpConcedido: false
-                    },
-                    $inc: { tentativas: 1 }
-                },
-                { upsert: true, new: true, setDefaultsOnInsert: false }
-            );
-
-            return res.json({
-                correto: null,
-                anulada: true,
-                gabarito: null,
-                novoXP: usuario.xp,
-                xpGanho: 0,
-                explicacao: questao.explicacao || 'Questão anulada no gabarito oficial.'
-            });
-        }
-
-        const acertou = Number(questao.correta) === alternativa;
-        let xpGanho = 0;
-
-        // Garante primeiro o registro único. Depois, a concessão de XP é feita
-        // por uma atualização condicional sem upsert, evitando duplicidade.
-        await Resposta.findOneAndUpdate(
-            { usuario: usuario._id, questaoId: questao.id },
-            {
-                $setOnInsert: {
-                    usuario: usuario._id,
-                    questao: questao._id,
-                    questaoId: questao.id,
-                    alternativaSelecionada: alternativa,
-                    correto: false,
-                    anulada: false,
-                    tempoEsgotado: Boolean(tempoEsgotado),
-                    xpGanho: 0,
-                    xpConcedido: false,
-                    tentativas: 0,
-                    primeiraRespostaEm: agora,
-                    ultimaRespostaEm: agora
-                }
-            },
-            { upsert: true, new: true, setDefaultsOnInsert: false }
-        );
-
-        if (acertou) {
-            const premio = tempoEsgotado ? 10 : 20;
-
-            // Apenas a primeira transição para acerto pode reivindicar XP.
-            // O filtro xpConcedido != true torna tentativas repetidas idempotentes.
-            const respostaPremiada = await Resposta.findOneAndUpdate(
-                {
-                    usuario: usuario._id,
-                    questaoId: questao.id,
-                    xpConcedido: false
-                },
-                {
-                    $set: {
-                        ...dadosTentativa,
-                        correto: true,
-                        xpConcedido: true,
-                        xpGanho: premio
-                    },
-                    $inc: { tentativas: 1 }
-                },
-                { new: true }
-            );
-
-            if (respostaPremiada) {
-                xpGanho = premio;
-                const usuarioAtualizado = await Usuario.findByIdAndUpdate(
-                    usuario._id,
-                    { $inc: { xp: xpGanho } },
-                    { new: true }
-                );
-                usuario.xp = usuarioAtualizado.xp;
-            } else {
-                await Resposta.findOneAndUpdate(
-                    { usuario: usuario._id, questaoId: questao.id },
-                    {
-                        $set: { ...dadosTentativa, correto: true },
-                        $inc: { tentativas: 1 }
+        // O resumo, a tentativa e o saldo de XP são gravados na mesma transação.
+        // Em caso de conflito no índice único, recomeça em uma nova transação.
+        let resultado;
+        for (let tentativaTransacao = 0; tentativaTransacao < 4; tentativaTransacao++) {
+            const session = await mongoose.startSession();
+            try {
+                await session.withTransaction(async () => {
+                    const usuario = await Usuario.findById(req.usuario.id).session(session);
+                    if (!usuario) {
+                        const erro = new Error('Usuário autenticado não encontrado.');
+                        erro.status = 401;
+                        throw erro;
                     }
-                );
+
+                    const agora = new Date();
+                    const resumo = await Resposta.findOneAndUpdate(
+                        { usuario: usuario._id, questaoId: questao.id },
+                        { $setOnInsert: {
+                            usuario: usuario._id, questao: questao._id, questaoId: questao.id,
+                            alternativaSelecionada: alternativa, correto: false, anulada: false,
+                            tempoEsgotado: false, xpGanho: 0, xpConcedido: false,
+                            tentativas: 0, primeiraRespostaEm: agora, ultimaRespostaEm: agora
+                        } },
+                        { upsert: true, new: true, setDefaultsOnInsert: false, session }
+                    );
+                    const anulada = Boolean(questao.anulada);
+                    const acertou = !anulada && Number(questao.correta) === alternativa;
+                    const xpGanho = acertou && !resumo.xpConcedido ? (tempoEsgotado ? 10 : 20) : 0;
+                    const numero = resumo.tentativas + 1;
+
+                    await Resposta.updateOne(
+                        { _id: resumo._id },
+                        {
+                            $set: {
+                                questao: questao._id, alternativaSelecionada: alternativa,
+                                correto: acertou, anulada, tempoEsgotado: Boolean(tempoEsgotado),
+                                ultimaRespostaEm: agora,
+                                xpConcedido: Boolean(resumo.xpConcedido || xpGanho),
+                                xpGanho: (resumo.xpGanho || 0) + xpGanho
+                            },
+                            $inc: { tentativas: 1 }
+                        },
+                        { session }
+                    );
+                    await Tentativa.create([{
+                        usuario: usuario._id, questao: questao._id, questaoId: questao.id,
+                        numero, alternativaSelecionada: alternativa, correto: acertou,
+                        anulada, tempoEsgotado: Boolean(tempoEsgotado), xpGanho,
+                        respondidaEm: agora
+                    }], { session });
+
+                    let novoXP = usuario.xp;
+                    if (xpGanho) {
+                        const atualizado = await Usuario.findByIdAndUpdate(
+                            usuario._id, { $inc: { xp: xpGanho } }, { new: true, session }
+                        );
+                        novoXP = atualizado.xp;
+                    }
+                    resultado = {
+                        correto: anulada ? null : acertou,
+                        anulada, gabarito: anulada ? null : questao.correta,
+                        novoXP, xpGanho,
+                        explicacao: questao.explicacao || (anulada ? 'Questão anulada no gabarito oficial.' : '')
+                    };
+                });
+                return res.json(resultado);
+            } catch (err) {
+                if (err.status) return res.status(err.status).json({ erro: err.message });
+                const concorrente = err.code === 11000 || err.hasErrorLabel?.('TransientTransactionError');
+                if (!concorrente || tentativaTransacao === 3) throw err;
+            } finally {
+                await session.endSession();
             }
-        } else {
-            await Resposta.findOneAndUpdate(
-                { usuario: usuario._id, questaoId: questao.id },
-                {
-                    $set: { ...dadosTentativa, correto: false },
-                    $setOnInsert: {
-                        usuario: usuario._id,
-                        questaoId: questao.id,
-                        primeiraRespostaEm: agora,
-                        xpGanho: 0,
-                        xpConcedido: false
-                    },
-                    $inc: { tentativas: 1 }
-                },
-                { upsert: true, new: true, setDefaultsOnInsert: false }
-            );
         }
-
-        res.json({
-            correto: acertou,
-            anulada: false,
-            gabarito: questao.correta,
-            novoXP: usuario.xp,
-            xpGanho,
-            explicacao: questao.explicacao
-        });
     } catch (err) {
-        // Em concorrência extrema, o índice único impede dois históricos para a mesma questão.
-        if (err?.code === 11000) {
-            const usuarioAtual = await Usuario.findById(req.usuario.id).select('xp').lean();
-            return res.status(409).json({
-                erro: 'Resposta concorrente detectada. Tente novamente.',
-                novoXP: usuarioAtual?.xp ?? 0
-            });
-        }
-
         console.error('Erro ao processar resposta:', err);
-        res.status(500).json({ erro: 'Erro ao processar computação de pontuação.' });
+        res.status(500).json({ erro: 'Erro ao processar resposta. Tente novamente.' });
     }
 });
 
+
+/** Tentativas individuais registradas a partir desta versão, em ordem recente. */
+router.get('/historico/tentativas', autenticarUsuario, async (req, res) => {
+    const pagina = Number(req.query.pagina || 1);
+    const limite = Number(req.query.limite || 20);
+    const questaoId = req.query.questaoId === undefined ? null : Number(req.query.questaoId);
+    if (!Number.isInteger(pagina) || pagina < 1 || !Number.isInteger(limite) || limite < 1 ||
+        limite > 100 || (questaoId !== null && (!Number.isInteger(questaoId) || questaoId <= 0))) {
+        return res.status(400).json({ erro: 'Filtros de paginação ou questão inválidos.' });
+    }
+    try {
+        const filtro = { usuario: req.usuario.id };
+        if (questaoId !== null) filtro.questaoId = questaoId;
+        const [total, registros] = await Promise.all([
+            Tentativa.countDocuments(filtro),
+            Tentativa.find(filtro).select('-usuario -__v').sort({ respondidaEm: -1, _id: -1 })
+                .skip((pagina - 1) * limite).limit(limite).lean()
+        ]);
+        res.json({ pagina, limite, total, paginas: Math.ceil(total / limite), registros });
+    } catch (err) {
+        console.error('Erro ao consultar tentativas:', err);
+        res.status(500).json({ erro: 'Erro ao consultar tentativas.' });
+    }
+});
 
 /**
  * Histórico consolidado por questão. Uma linha representa o estado mais recente
