@@ -57,6 +57,10 @@
 
     <!-- SCRIPT DE CONEXÃO DIRETA COM O SEU BACKEND NO RENDER -->
     <script>
+    const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
+        ? 'https://enemverse-api.onrender.com'
+        : 'https://enemverse-api-dev.onrender.com';
+
     document.addEventListener('DOMContentLoaded', () => {
         const tabLogin = document.getElementById('tabLogin');
         const tabCadastro = document.getElementById('tabCadastro');
@@ -94,7 +98,7 @@
 
                 try {
                     // Chamada exata apontando para o seu subdomínio e prefixo /api
-                    const resposta = await fetch('https://enemverse-api.onrender.com/api/auth/login', {
+                    const resposta = await fetch(`${API_BASE_URL}/api/auth/login`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, senha })
@@ -133,7 +137,7 @@
 
                 try {
                     // Chamada exata sem variáveis para evitar erros de interpolação
-                    const resposta = await fetch('https://enemverse-api.onrender.com/api/auth/cadastrar', {
+                    const resposta = await fetch(`${API_BASE_URL}/api/auth/cadastrar`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ nome, email, senha })
