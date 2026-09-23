@@ -426,9 +426,22 @@
 
         async function verificarRespostaServidor() {
             if (selectedOption === null || respondida) return;
+
+            const q = listaQuestoesFiltradas[indiceAtual];
+            if (!q || q.id === undefined || q.id === null) {
+                console.warn('Tentativa de responder sem uma questão carregada.');
+                respondida = false;
+                selectedOption = null;
+                if (btnVerify) {
+                    btnVerify.disabled = true;
+                    btnVerify.style.opacity = "0.5";
+                    btnVerify.style.cursor = "not-allowed";
+                }
+                return;
+            }
+
             respondida = true;
             clearInterval(cronometroInterval);
-            const q = listaQuestoesFiltradas[indiceAtual];
             const itens = alternativesList.querySelectorAll('.alternative-btn');
 
             try {
