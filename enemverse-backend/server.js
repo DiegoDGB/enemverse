@@ -9,7 +9,26 @@ const app = express();
 conectarBanco();
 
 // Middlewares Globais
-app.use(cors({ origin: ['https://enemverse.vercel.app'], methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-key'] }));
+const origensPermitidas = [
+    'https://enemverse.vercel.app',
+    ...(process.env.CORS_ORIGINS || '').split(',').map(origem => origem.trim()).filter(Boolean)
+];
+
+app.use(cors({
+    origin(origin, callback) {
+        // Requisições sem Origin (curl/Postman/server-to-server) continuam permitidas.
+        if (!origin || origensPermitidas.includes(origin)) return callback(null, true);
+
+        // No ambiente DEV, previews do próprio projeto no Vercel são aceitos.
+        if (process.env.NODE_ENV !== 'production' && /^https:\/\/enemverse(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error('Origem não permitida pelo CORS.'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-key']
+}));
 app.use(express.json()); // Permite que a API entenda requisições em formato JSON
 
 /* 
