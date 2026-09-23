@@ -83,28 +83,14 @@ router.post('/login', async (req, res) => {
 // 3. ROTA DE PERFIL SEGURO
 // Deve conter APENAS '/perfil'
 // ==========================================
-router.get('/perfil', async (req, res) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
-    const emailFiltro = req.query.email;
-
-    if (!token && !emailFiltro) {
-        return res.status(401).json({ erro: 'Acesso negado. Autenticação necessária.' });
-    }
-
+router.get('/perfil', require('../middlewares/autenticarUsuario'), async (req, res) => {
     try {
-        let emailUsuario = emailFiltro;
-
-        if (token) {
-            const decodificado = jwt.verify(token, process.env.JWT_SECRET || 'CHAVE_TOKEN_ENEMVERSE');
-            emailUsuario = decodificado.email;
-        }
-
-        const usuario = await Usuario.findOne({ email: emailUsuario }).select('-senha');
+        const usuario = await Usuario.findById(req.usuario.id).select('-senha');
         if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado.' });
-
         res.json(usuario);
     } catch (err) {
-        res.status(401).json({ erro: 'Token inválido ou expirado.' });
+        console.error('Erro ao consultar perfil:', err);
+        res.status(500).json({ erro: 'Erro ao consultar perfil.' });
     }
 });
 
