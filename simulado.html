@@ -122,7 +122,7 @@
         let filtroMateriaAtual = 'Todas';
         let filtroDificuldadeAtual = 'Todas';
         
-        const emailAtivo = localStorage.getItem('enemverse_email_ativo');
+        const tokenAtivo = localStorage.getItem('enemverse_token');
         const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
         let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
         let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 1;
@@ -434,9 +434,14 @@
             try {
                 const resposta = await fetch(`${API_BASE_URL}/api/questoes/responder`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${tokenAtivo}`
+                    },
                     body: JSON.stringify({
-                        email: emailAtivo, questaoId: q.id, alternativaSelecionada: selectedOption, tempoEsgotado: tempoEsgotadoStatus
+                        questaoId: q.id,
+                        alternativaSelecionada: selectedOption,
+                        tempoEsgotado: tempoEsgotadoStatus
                     })
                 });
                 const dadosBack = await resposta.json();
