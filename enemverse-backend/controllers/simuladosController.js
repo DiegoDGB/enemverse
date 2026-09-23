@@ -18,6 +18,39 @@ function textoOpcional(valor) {
     return String(valor).trim();
 }
 
+// Recurso de diagnóstico exclusivo do ambiente DEV.
+// Permite carregar uma questão oficial específica sem expor gabarito ou explicação.
+router.get('/teste/questao/:numeroEnem', async (req, res) => {
+    if (process.env.NODE_ENV === 'production' && !process.env.RENDER_SERVICE_NAME?.includes('dev')) {
+        return res.status(404).json({ erro: 'Rota não encontrada.' });
+    }
+
+    const numeroEnem = Number(req.params.numeroEnem);
+    if (!Number.isInteger(numeroEnem) || numeroEnem < 1 || numeroEnem > 180) {
+        return res.status(400).json({ erro: 'Número ENEM inválido.' });
+    }
+
+    try {
+        const questao = await Questao.findOne({
+            ano: 2025,
+            numero_enem: numeroEnem,
+            $or: [
+                { origem: 'ENEM_OFICIAL' },
+                { origem: { $exists: false } }
+            ]
+        }).select('-correta -explicacao -__v -createdAt -updatedAt').lean();
+
+        if (!questao) {
+            return res.status(404).json({ erro: 'Questão oficial não encontrada.' });
+        }
+
+        res.json({ sucesso: true, questao });
+    } catch (err) {
+        console.error('Erro ao carregar questão de teste:', err);
+        res.status(500).json({ erro: 'Erro ao carregar questão de teste.' });
+    }
+});
+
 // Retorna somente metadados necessários para montar os filtros do frontend.
 // Não envia enunciados, alternativas, gabaritos ou explicações.
 router.get('/filtros', async (req, res) => {
