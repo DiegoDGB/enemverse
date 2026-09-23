@@ -27,7 +27,10 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - `dados/revisao-enem-2024-azul-lote-03.json`: questões 11–20, páginas 6–9.
 - `dados/revisao-enem-2024-azul-lote-04.json`: questões 21–30, imagens oficiais de 21 e 25.
 - `dados/revisao-enem-2024-azul-lote-05.json`: questões 31–45, imagens oficiais de 33, 36 (duas) e 43.
-- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py`, `python scripts/revisar-lote-02-2024.py`, `python scripts/revisar-lote-03-2024.py`, `python scripts/revisar-lote-04-2024.py` e `python scripts/revisar-lote-05-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
+- `dados/revisao-enem-2024-azul-lote-06.json`: questões 46–60, gráfico oficial da 53.
+- `dados/revisao-enem-2024-azul-lote-07.json`: questões 61–75.
+- `dados/revisao-enem-2024-azul-lote-08.json`: questões 76–90, imagens oficiais de 77 e 86 (duas).
+- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py`, `python scripts/revisar-lote-02-2024.py`, `python scripts/revisar-lote-03-2024.py`, `python scripts/revisar-lote-04-2024.py`, `python scripts/revisar-lote-05-2024.py`, `python scripts/revisar-lote-06-2024.py`, `python scripts/revisar-lote-07-2024.py` e `python scripts/revisar-lote-08-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
 - **Não importar os lotes isolados**; reunir 180 questões, conferir mídias e fórmulas, marcar a revisão apenas ao término e então rodar o validador.
 
 ## Próximo lote de trabalho
