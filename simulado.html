@@ -117,6 +117,11 @@
         let filtroAreaAtual = 'Todas';
         let filtroMateriaAtual = 'Todas';
         let filtroDificuldadeAtual = 'Todas';
+        // Atalho de teste: ?questao=163 fixa a questão 163 do ENEM 2025 azul.
+        const parametroQuestao = new URLSearchParams(window.location.search).get('questao');
+        const numeroTeste = parametroQuestao && /^(?:[1-9]|[1-9][0-9]|1[0-7][0-9]|180)$/.test(parametroQuestao)
+            ? Number(parametroQuestao) : null;
+        const modoTeste = parametroQuestao !== null;
         
         const tokenAtivo = localStorage.getItem('enemverse_token');
         if (!tokenAtivo) {
@@ -301,7 +306,14 @@
                 filtradas = filtradas.filter(q => (q.dificuldade || 'Média') === filtroDificuldadeAtual);
             }
 
-            listaQuestoesFiltradas = embaralhar(filtradas);
+            if (modoTeste) {
+                // Nunca substituir silenciosamente o teste por uma questão aleatória.
+                listaQuestoesFiltradas = numeroTeste === null ? [] : bancoDadosOriginal.filter(q =>
+                    q.ano === 2025 && q.numero_enem === numeroTeste && /Azul/i.test(q.caderno || '')
+                ).slice(0, 1);
+            } else {
+                listaQuestoesFiltradas = embaralhar(filtradas);
+            }
             atualizarBarraProgresso();
             if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
             else mostrarAvisoSemQuestoes();
@@ -426,7 +438,7 @@
                     feedbackBox.innerHTML = '⚠️ <span><strong>Questão anulada no gabarito oficial.</strong> Ela não altera seu XP.</span>';
                     feedbackBox.classList.remove('hidden');
                     if(btnVerify) {
-                        btnVerify.innerText = "Próxima Questão →";
+                        btnVerify.innerText = modoTeste ? "Responder novamente ↻" : "Próxima Questão →";
                         btnVerify.disabled = false;
                         btnVerify.style.opacity = "1";
                         btnVerify.style.cursor = "pointer";
@@ -453,7 +465,7 @@
                 }
                 feedbackBox.classList.remove('hidden');
                 if(btnVerify) {
-                    btnVerify.innerText = "Próxima Questão →";
+                    btnVerify.innerText = modoTeste ? "Responder novamente ↻" : "Próxima Questão →";
                     btnVerify.disabled = false;
                     btnVerify.style.opacity = "1";
                     btnVerify.style.cursor = "pointer";
@@ -476,6 +488,10 @@
         }
 
         function avancarProximaQuestao() {
+            if (modoTeste && listaQuestoesFiltradas.length) {
+                renderizarQuestao(0);
+                return;
+            }
             if (indiceAtual + 1 < listaQuestoesFiltradas.length) {
                 indiceAtual++;
                 renderizarQuestao(indiceAtual);
