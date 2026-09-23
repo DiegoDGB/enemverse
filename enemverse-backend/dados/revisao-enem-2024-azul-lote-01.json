@@ -1,0 +1,171 @@
+{
+  "aviso": "Lote parcial, questões 1–5 revisadas visualmente. Não importar isoladamente.",
+  "questoes": [
+    {
+      "id": 2024001,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 1,
+      "dia": 1,
+      "caderno": "1 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Inglês",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "area_enem": "Linguagens, Códigos e suas Tecnologias",
+      "materia": "Linguagens",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Disponível em: http://thumbpress.com. Acesso em: 28 out. 2013.",
+      "enunciado": "A relação entre as citações atribuídas ao físico Albert Einstein e ao cantor e compositor Bob Marley reside na crença de que é necessário",
+      "alternativas": [
+        "dar oportunidade a pessoas que parecem necessitadas.",
+        "identificar contextos que podem representar perigo.",
+        "tirar proveito de situações que podem ser adversas.",
+        "evitar dificuldades que parecem ser intransponíveis.",
+        "contestar circunstâncias que parecem ser harmônicas."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-001.jpeg",
+          "legenda": "",
+          "alt": "Duas ilustrações com citações atribuídas a Albert Einstein e Bob Marley."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024002,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 2,
+      "dia": 1,
+      "caderno": "1 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Inglês",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "area_enem": "Linguagens, Códigos e suas Tecnologias",
+      "materia": "Linguagens",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Holy War\nOh, so we can hate each other and fear each other\nWe can build these walls between each other\nBaby, blow by blow and brick by brick\nKeep yourself locked in, yourself locked in\n[…]\nOh, maybe we should love somebody\nOh, maybe we could care a little more\nSo maybe we should love somebody\nInstead of polishing the bombs of holy war\nKEYS, A. Here. Estados Unidos: RCA Records, 2016.",
+      "enunciado": "Nessa letra de canção, que aborda um contexto de ódio e intolerância, o marcador “instead of” introduz a ideia de",
+      "alternativas": [
+        "mudança de comportamento.",
+        "panorama de conflitos.",
+        "rotina de isolamento.",
+        "perspectiva bélica.",
+        "cenário religioso."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024003,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 3,
+      "dia": 1,
+      "caderno": "1 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Inglês",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "area_enem": "Linguagens, Códigos e suas Tecnologias",
+      "materia": "Linguagens",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Disponível em: www.hongkiat.com. Acesso em: 18 ago. 2017 (adaptado).",
+      "enunciado": "O texto estabelece uma relação entre elementos da natureza e comandos de um programa de computador para",
+      "alternativas": [
+        "alertar as pessoas sobre a rápida destruição da natureza.",
+        "conscientizar os indivíduos sobre a passagem acelerada do tempo.",
+        "apresentar aos leitores os avanços tecnológicos na área da agricultura.",
+        "orientar os usuários sobre o emprego sustentável das novas tecnologias.",
+        "informar os interessados sobre o tempo de crescimento de novas árvores."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-003.jpeg",
+          "legenda": "",
+          "alt": "Ilustração de uma janela de exclusão de arquivos: ícones de árvores desaparecem da Terra."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024004,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 4,
+      "dia": 1,
+      "caderno": "1 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Inglês",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "area_enem": "Linguagens, Códigos e suas Tecnologias",
+      "materia": "Linguagens",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "I remember being caught speaking Spanish at recess\n[...] I remember being sent to the corner of the classroom\nfor “talking back” to the Anglo teacher when all I was trying\nto do was tell her how to pronounce my name. “If you\nwant to be American, speak ‘American’. If you don’t like it,\ngo back to Mexico where you belong”.\n“I want you to speak English […]”, my mother would\nsay, mortified that I spoke English like a Mexican. At Pan\nAmerican University, I and all Chicano students were\nrequired to take two speech classes. Their purpose: to get\nrid of our accents.\nANZALDÚA, G. Borderlands/La Frontera: The New Mestiza.\nSan Francisco: Aunt Lute Books, 1987.",
+      "enunciado": "O problema abordado nesse texto sobre imigrantes residentes nos Estados Unidos diz respeito aos prejuízos gerados pelo(a)",
+      "alternativas": [
+        "repúdio ao sotaque espanhol no uso do inglês.",
+        "resignação diante do apagamento da língua materna.",
+        "escassez de oportunidades de aprendizado do espanhol.",
+        "choque entre falantes de línguas distintas de diferentes gerações.",
+        "concorrência entre as variações linguísticas do inglês e as do espanhol."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024005,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 5,
+      "dia": 1,
+      "caderno": "1 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Inglês",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "area_enem": "Linguagens, Códigos e suas Tecnologias",
+      "materia": "Linguagens",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Disponível em: www.clickhole.com. Acesso em: 26 out. 2015.",
+      "enunciado": "A carta da editora Stephanie Allen-Nichols à escritora Alice Walker tem o propósito de",
+      "alternativas": [
+        "problematizar o enredo de sua obra.",
+        "acusar o recebimento de seu manuscrito.",
+        "solicitar a revisão ortográfica de seu texto.",
+        "informar a transferência de seu livro a outra editora.",
+        "comunicar a recusa da publicação de seu romance."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-005.jpeg",
+          "legenda": "",
+          "alt": "Carta ilustrada da editora Stephanie Allen-Nichols dirigida a Alice Walker."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    }
+  ]
+}
