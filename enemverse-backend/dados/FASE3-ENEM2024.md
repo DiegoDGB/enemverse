@@ -12,6 +12,14 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
 - Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
 
+
+## Auditoria do rascunho extraído
+
+- Cobertura: 180 números exclusivos (1–180), sem ausência; o gabarito tem 180 entradas e marca a 129 como anulada. Isso **não equivale a 180 questões conferidas**.
+- 57 registros contêm rodapés ou marcas da editoração anexados ao texto; 13 têm pelo menos uma alternativa cuja linha começa somente com a letra, comum em expressões matemáticas; 4 contêm caracteres de controle. As categorias se sobrepõem: 64 registros têm ao menos um desses sinais automáticos de revisão.
+- Conferência visual por amostragem: a questão 1 exige a imagem com as citações, ausente na extração textual; 177 e 178 trazem tabelas; as fórmulas das alternativas da 180 não são reconstruídas de forma legível pelo PDF em texto. A questão 154 inclui letras A–E dentro do próprio material da questão, de modo que separar alternativas pela primeira letra encontrada daria resultado errado.
+- Prioridade: recortar e associar imagens/tabelas aos números corretos, reconstruir fórmulas e alternativas, remover marcas editoriais e comparar cada registro com a página original. Depois executar o validador e testar apenas no banco DEV. A revisão visual permanece pendente.
+
 ## Próximo lote de trabalho
 
 1. Baixar as duas provas oficiais para a pasta local `enemverse-backend/fontes-pdf/` com os nomes `2024_dia1_azul.pdf` e `2024_dia2_azul.pdf` (links no manifesto). Essa pasta é ignorada pelo Git.
