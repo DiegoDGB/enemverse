@@ -25,8 +25,9 @@
 <section class="card"><h2>Manutenção e importação</h2><div class="row"><button onclick="migrarAreas()">Migrar áreas das questões antigas</button><button onclick="migrarDificuldades()">Migrar dificuldades antigas</button><button class="success" onclick="classificarDificuldades()">Classificar banco atual</button><button class="success" onclick="carregarIniciais()">Carregar / atualizar banco inicial</button><input id="arquivo" type="file" accept=".json,application/json"><button onclick="validarArquivoOficial()">Validar ENEM oficial</button><button onclick="importarArquivo()">Importar JSON</button></div><p class="muted">A importação em lote usa o formato { "questoes": [ ... ] } e atualiza registros pelo ID.</p></section>
 <section class="card"><h2>Resultado da operação</h2><div id="status">Aguardando operação...</div></section>
 </main>
+<script src="api-config.js"></script>
 <script>
-const API='https://enemverse-api.onrender.com/api';
+const API=`${window.ENEMVERSE_API_BASE_URL}/api`;
 const $=id=>document.getElementById(id); let questoes=[]; let idEditando=null;
 function chave(){return $('key').value.trim()} function mostrar(v){$('status').textContent=typeof v==='string'?v:JSON.stringify(v,null,2)}
 async function request(url,opt={}){if(!chave())throw new Error('Digite a ADMIN_API_KEY.');const headers={...(opt.headers||{}),'x-admin-key':chave()};const r=await fetch(url,{...opt,headers});const d=await r.json().catch(()=>({erro:'Resposta inválida da API'}));if(!r.ok)throw new Error(d.erro||('HTTP '+r.status));return d}
