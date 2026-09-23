@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
+const Resposta = require('../models/resposta');
+const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -626,31 +628,133 @@ router.post('/importar', async (req, res) => {
     }
 });
 
-// Valida a resposta e computa a premiação de XP no banco
-router.post('/responder', async (req, res) => {
-    const { email, questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
+// Valida a resposta, registra o histórico e computa XP com identidade vinda do JWT.
+router.post('/responder', autenticarUsuario, async (req, res) => {
+    const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
+
+    if (!Number.isInteger(Number(questaoId))) {
+        return res.status(400).json({ erro: 'Questão inválida.' });
+    }
+
+    const alternativa = Number(alternativaSelecionada);
+    if (!Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
+        return res.status(400).json({ erro: 'Alternativa selecionada inválida.' });
+    }
 
     try {
-        const questao = await Questao.findOne({ id: questaoId });
-        const usuario = await Usuario.findOne({ email });
+        const [questao, usuario] = await Promise.all([
+            Questao.findOne({ id: Number(questaoId) }),
+            Usuario.findById(req.usuario.id)
+        ]);
 
-        if (!questao || !usuario) {
-            return res.status(404).json({
-                erro: 'Dados cadastrais ou questão não encontrados.'
+        if (!usuario) {
+            return res.status(401).json({ erro: 'Usuário autenticado não encontrado.' });
+        }
+
+        if (!questao) {
+            return res.status(404).json({ erro: 'Questão não encontrada.' });
+        }
+
+        const agora = new Date();
+        const dadosTentativa = {
+            questao: questao._id,
+            alternativaSelecionada: alternativa,
+            anulada: Boolean(questao.anulada),
+            tempoEsgotado: Boolean(tempoEsgotado),
+            ultimaRespostaEm: agora
+        };
+
+        if (questao.anulada) {
+            await Resposta.findOneAndUpdate(
+                { usuario: usuario._id, questaoId: questao.id },
+                {
+                    $set: { ...dadosTentativa, correto: false },
+                    $setOnInsert: {
+                        usuario: usuario._id,
+                        questaoId: questao.id,
+                        primeiraRespostaEm: agora,
+                        xpGanho: 0,
+                        xpConcedido: false
+                    },
+                    $inc: { tentativas: 1 }
+                },
+                { upsert: true, new: true, setDefaultsOnInsert: false }
+            );
+
+            return res.json({
+                correto: null,
+                anulada: true,
+                gabarito: null,
+                novoXP: usuario.xp,
+                xpGanho: 0,
+                explicacao: questao.explicacao || 'Questão anulada no gabarito oficial.'
             });
         }
 
-        if (questao.anulada) {
-            return res.json({ correto: null, anulada: true, gabarito: null, novoXP: usuario.xp, xpGanho: 0, explicacao: questao.explicacao || 'Questão anulada no gabarito oficial.' });
-        }
-
-        const acertou = Number(questao.correta) === Number(alternativaSelecionada);
+        const acertou = Number(questao.correta) === alternativa;
         let xpGanho = 0;
 
         if (acertou) {
-            xpGanho = tempoEsgotado ? 10 : 20;
-            usuario.xp += xpGanho;
-            await usuario.save();
+            const premio = tempoEsgotado ? 10 : 20;
+
+            // Apenas a primeira transição para acerto pode reivindicar XP.
+            // O filtro xpConcedido != true torna tentativas repetidas idempotentes.
+            const respostaPremiada = await Resposta.findOneAndUpdate(
+                {
+                    usuario: usuario._id,
+                    questaoId: questao.id,
+                    xpConcedido: { $ne: true }
+                },
+                {
+                    $set: {
+                        ...dadosTentativa,
+                        correto: true,
+                        xpConcedido: true,
+                        xpGanho: premio
+                    },
+                    $setOnInsert: {
+                        usuario: usuario._id,
+                        questaoId: questao.id,
+                        primeiraRespostaEm: agora
+                    },
+                    $inc: { tentativas: 1 }
+                },
+                { upsert: true, new: true, setDefaultsOnInsert: false }
+            );
+
+            if (respostaPremiada) {
+                xpGanho = premio;
+                const usuarioAtualizado = await Usuario.findByIdAndUpdate(
+                    usuario._id,
+                    { $inc: { xp: xpGanho } },
+                    { new: true }
+                );
+                usuario.xp = usuarioAtualizado.xp;
+            } else {
+                await Resposta.findOneAndUpdate(
+                    { usuario: usuario._id, questaoId: questao.id },
+                    {
+                        $set: { ...dadosTentativa, correto: true },
+                        $inc: { tentativas: 1 }
+                    }
+                );
+            }
+        } else {
+            await Resposta.findOneAndUpdate(
+                { usuario: usuario._id, questaoId: questao.id },
+                {
+                    $set: { ...dadosTentativa, correto: false },
+                    $setOnInsert: {
+                        usuario: usuario._id,
+                        questaoId: questao.id,
+                        primeiraRespostaEm: agora,
+                        xpGanho: 0,
+                        xpConcedido: false
+                    },
+                    $inc: { tentativas: 1 }
+                },
+                { upsert: true, new: true, setDefaultsOnInsert: false }
+            );
         }
 
         res.json({
@@ -662,6 +766,15 @@ router.post('/responder', async (req, res) => {
             explicacao: questao.explicacao
         });
     } catch (err) {
+        // Em concorrência extrema, o índice único impede dois históricos para a mesma questão.
+        if (err?.code === 11000) {
+            const usuarioAtual = await Usuario.findById(req.usuario.id).select('xp').lean();
+            return res.status(409).json({
+                erro: 'Resposta concorrente detectada. Tente novamente.',
+                novoXP: usuarioAtual?.xp ?? 0
+            });
+        }
+
         console.error('Erro ao processar resposta:', err);
         res.status(500).json({ erro: 'Erro ao processar computação de pontuação.' });
     }
