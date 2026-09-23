@@ -24,7 +24,9 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 
 - `dados/revisao-enem-2024-azul-lote-01.json`: questões 1–5, Inglês, três imagens oficiais associadas.
 - `dados/revisao-enem-2024-azul-lote-02.json`: questões 6–10, texto e alternativas separados.
-- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py` e `python scripts/revisar-lote-02-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
+- `dados/revisao-enem-2024-azul-lote-03.json`: questões 11–20, páginas 6–9.
+- `dados/revisao-enem-2024-azul-lote-04.json`: questões 21–30, imagens oficiais de 21 e 25.
+- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py`, `python scripts/revisar-lote-02-2024.py`, `python scripts/revisar-lote-03-2024.py` e `python scripts/revisar-lote-04-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
 - **Não importar os lotes isolados**; reunir 180 questões, conferir mídias e fórmulas, marcar a revisão apenas ao término e então rodar o validador.
 
 ## Próximo lote de trabalho
