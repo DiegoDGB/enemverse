@@ -777,6 +777,28 @@ router.get('/historico', autenticarUsuario, async (req, res) => {
     }
 });
 
+// Conta questões distintas respondidas no dia local informado pelo navegador.
+router.get('/historico/hoje', autenticarUsuario, async (req, res) => {
+    const inicio = new Date(req.query.inicio);
+    const fim = new Date(req.query.fim);
+    const duracao = fim.getTime() - inicio.getTime();
+    if (!Number.isFinite(inicio.getTime()) || !Number.isFinite(fim.getTime()) ||
+        duracao <= 0 || duracao > 26 * 60 * 60 * 1000) {
+        return res.status(400).json({ erro: 'Intervalo do dia inválido.' });
+    }
+    try {
+        const respondidas = await Resposta.countDocuments({
+            usuario: req.usuario.id,
+            anulada: { $ne: true },
+            ultimaRespostaEm: { $gte: inicio, $lt: fim }
+        });
+        res.json({ respondidas, meta: 10 });
+    } catch (err) {
+        console.error('Erro ao consultar atividade diária:', err);
+        res.status(500).json({ erro: 'Erro ao consultar atividade diária.' });
+    }
+});
+
 router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
     try {
         const usuario = req.usuario.id;
