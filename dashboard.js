@@ -1,6 +1,4 @@
-const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
-    ? 'https://enemverse-api.onrender.com'
-    : 'https://enemverse-api-dev.onrender.com';
+const API_BASE_URL = window.ENEMVERSE_API_BASE_URL;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
