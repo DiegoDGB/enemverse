@@ -1,0 +1,526 @@
+{
+  "aviso": "Lote parcial, questões 151–165 revisadas visualmente. Não importar isoladamente.",
+  "questoes": [
+    {
+      "id": 2024151,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 151,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O arquiteto Renzo Piano exibiu a maquete da nova\nsede do Museu Whitney de Arte Americana, um prédio\nassimétrico que tem um vão aberto para a galeria principal,\ncuja medida da área é 1 672 m²\n.\nConsidere que a escala da maquete exibida é 1 : 200.\nÉpoca, n. 682, jun. 2011 (adaptado).",
+      "enunciado": "A medida da área do vão aberto nessa maquete, em centímetro quadrado, é",
+      "alternativas": [
+        "4,18.",
+        "8,36.",
+        "41,80.",
+        "83,60.",
+        "418,00."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024152,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 152,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O gráfico apresenta o valor total de exportações e o\nvalor total de importações, ao longo de um período, em\nbilhão de dólares. O saldo da balança comercial brasileira\né dado pelo valor total de exportações menos o valor total\nde importações num mesmo período.\nValor total de exportações e importações\nDisponível em: http://blogs.estadao.com.br.\nAcesso em: 20 fev. 2013 (adaptado).\nConsidere que os saldos da balança comercial\nbrasileira, nos três meses destacados no gráfico, sejam\nrepresentados por:\n• S₁ : saldo em junho de 2009;\n• S₂ : saldo em janeiro de 2010;\n• S₃ : saldo em junho de 2010.",
+      "enunciado": "A ordenação dos saldos S₁, S₂ e S₃, do maior para o menor, é",
+      "alternativas": [
+        "S₁, S₃ e S₂.",
+        "S₂, S₁ e S₃.",
+        "S₂, S₃ e S₁.",
+        "S₃, S₁ e S₂.",
+        "S₃, S₂ e S₁."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-152.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de importações e exportações brasileiras nos três meses assinalados."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024153,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 153,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um instituto de pesquisa constatou que, nos últimos\ndez anos, o crescimento populacional de uma cidade foi\nde 135,25%.",
+      "enunciado": "Qual é a representação decimal da taxa percentual desse crescimento populacional?",
+      "alternativas": [
+        "13525,0",
+        "135,25",
+        "13,525",
+        "1,3525",
+        "0,13525"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024154,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 154,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Contratos de vários serviços disponíveis na internet\napresentam uma quantidade excessiva de informações.\nIsso faz com que o tempo necessário para a leitura desses\ncontratos possa ser longo.\nO quadro apresenta uma amostra do tempo considerado\nnecessário para a leitura completa do contrato de alguns\nserviços digitais.\nTipo de\nserviço\nTempo necessário para a leitura\ncompleta do contrato (em minuto)\nA 36\nB 17\nC 27\nD 13\nE 13\nF 13\nROMERO, L. Não li e concordo. Superinteressante,\nn. 307, ago. 2012 (adaptado).",
+      "enunciado": "O tempo médio, em minuto, necessário para a leitura completa de um contrato de serviço dentre os listados no quadro é, com uma casa decimal, aproximadamente,",
+      "alternativas": [
+        "13,0.",
+        "15,0.",
+        "19,8.",
+        "20,0.",
+        "23,3."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-154-tabela.png",
+          "legenda": "",
+          "alt": "Tabela de tempos de leitura de contratos dos serviços A a F."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024155,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 155,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um proprietário pretende instalar um sensor de\npresença para a proteção de seu imóvel. O sensor\ndeverá detectar movimentos de objetos e pessoas numa\ndeterminada região plana. A figura ilustra a vista superior\nda área de cobertura (setor circular em azul) de um sensor\ncolocado no ponto S. Essa área depende da medida do\nângulo α, em grau, e do raio R, em metro.\nAo aumentar o ângulo α ou o raio R aumenta-se a\nárea de cobertura do sensor. Entretanto, quanto maior\nessa área, maior o preço do sensor.\nPara esse fim, há cinco tipos de sensores disponíveis\nno mercado, cada um com as seguintes características:\n• tipo I: α = 15° e R = 20 m;\n• tipo II: α = 30° e R = 22 m;\n• tipo III: α = 40° e R = 12 m;\n• tipo IV: α = 60° e R = 16 m;\n• tipo V: α = 90° e R = 10 m.\nEsse proprietário pretende adquirir um desses sensores\nque seja capaz de cobrir, no mínimo, uma área de medida\n70 m²\n, com o menor preço possível.\nUse 3 como valor aproximado para π.",
+      "enunciado": "O proprietário do imóvel deverá adquirir o sensor do tipo",
+      "alternativas": [
+        "I.",
+        "II.",
+        "III.",
+        "IV.",
+        "V."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-155.jpeg",
+          "legenda": "",
+          "alt": "Setor circular com raio R e ângulo α do sensor de presença."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024156,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 156,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O uso de aplicativos de transporte tem sido uma\nalternativa à população que busca preços mais competitivos\npara se locomover, principalmente nas grandes cidades.\nAs formas usadas para determinar o valor cobrado por\ncada viagem variam de um aplicativo para outro, mas, em\ngeral, o valor V a ser pago, em real, varia em função de:\n• tarifa base F: valor fixo, em real, cobrado no início\nda viagem;\n• tempo T: tempo, em minuto, de duração da viagem;\n• distância D: distância percorrida, em quilômetro.\nUm desses aplicativos cobra R$ 2,00 de valor fixo,\nacrescido de R$ 0,26 por minuto de viagem e de R$ 1,40\npor quilômetro rodado.",
+      "enunciado": "Nessas condições, a expressão que fornece o valor V a ser pago por uma viagem desse aplicativo é",
+      "alternativas": [
+        "2,00F + 0,26T + 1,40D",
+        "2,00 + 0,26T + 1,40D",
+        "2,00 + 0,26T + D",
+        "0,26T + 1,40D",
+        "F + T + D"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024157,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 157,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma doceira vende e entrega, em seu bairro, porções\nde 100 g de docinhos de aniversário. Atualmente, a taxa\núnica de entrega é R$ 10,00, e o valor cobrado por uma\nporção é R$ 25,00. Por uma estratégia de vendas, a partir\nda próxima semana, a taxa única de entrega será R$ 15,00,\ne um novo valor será cobrado por uma porção, de maneira\nque o valor total a ser pago por um cliente na compra de\n5 porções permaneça o mesmo.",
+      "enunciado": "A partir da próxima semana, qual será o novo valor cobrado, em real, por uma porção?",
+      "alternativas": [
+        "12,50",
+        "20,00",
+        "24,00",
+        "30,00",
+        "37,50"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024158,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 158,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Em uma loja de defensivos agrícolas, os preços de\nalguns produtos foram divulgados em um cartaz.\nSabe-se que 1 litro de defensivo do Tipo A é suficiente\npara aplicação em 0,5 hectare (ha), enquanto que 1 litro de\ndefensivo do Tipo B é suficiente para aplicação em 0,4 ha.\nUm agricultor precisa comprar, nessa loja, uma quantidade\nde litros de defensivo suficiente para aplicar em uma área\nde 20 ha, além de levar uma máscara para aplicação.",
+      "enunciado": "O valor mínimo, em real, a ser gasto pelo agricultor é",
+      "alternativas": [
+        "147,00.",
+        "150,00.",
+        "162,50.",
+        "165,75.",
+        "168,00."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-158.jpeg",
+          "legenda": "",
+          "alt": "Cartaz com promoção e preços dos defensivos e da máscara."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024159,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 159,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma tubulação despeja sempre o mesmo volume de\nágua por unidade de tempo em uma caixa-d’água, o que\nsignifica dizer que a vazão de água nessa tubulação é\nconstante. Na junção dessa tubulação com a caixa-d’água,\nestá instalada uma membrana de filtragem cujo objetivo é\nfiltrar eventuais impurezas presentes na água, combinado\na um bom fluxo de água. O fluxo (φ) de água através\nda superfície da membrana é diretamente proporcional\nà vazão de água na tubulação, medida em mililitro por\nsegundo, e inversamente proporcional à área da superfície\nda membrana, medida em centímetro quadrado.",
+      "enunciado": "A unidade de medida adequada para descrever o fluxo (φ) de água que atravessa a superfície da membrana é",
+      "alternativas": [
+        "mL · s · cm²",
+        "(mL/s) · cm²",
+        "mL/(cm² · s)",
+        "(cm² · s)/mL",
+        "cm²/(mL · s)"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-159-alternativas.png",
+          "legenda": "",
+          "alt": "Expressões fracionárias das unidades de medida A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024160,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 160,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma piscina tem capacidade de 2 500 000 litros.\nSeu sistema de abastecimento foi regulado para ter\numa vazão constante de 6000 litros de água por minuto.\nO mesmo sistema foi instalado em uma segunda\npiscina, com capacidade de 2750000 litros, e regulado\npara ter uma vazão, também constante, capaz de enchê-la\nem um tempo 20% maior que o gasto para encher\na primeira piscina.",
+      "enunciado": "A vazão do sistema de abastecimento da segunda piscina, em litro por minuto, é",
+      "alternativas": [
+        "8250.",
+        "7920.",
+        "6545.",
+        "5500.",
+        "5280."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024161,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 161,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um tanque, em formato de paralelepípedo reto retângulo, tem em seu interior dois anteparos verticais, fixados na\nsua base e em duas paredes opostas, sendo perpendiculares a elas, conforme a figura.\nEsses anteparos, de espessuras desprezíveis, estão instalados de maneira a dividir a base do tanque em três\nretângulos congruentes, tendo suas alturas iguais à metade e a um quarto da altura do tanque. O tanque é abastecido\npor uma entrada situada no teto, através de um duto que despeja água a uma vazão constante, sendo necessárias\n12 horas para finalizar o seu enchimento.",
+      "enunciado": "O gráfico que descreve, em cada instante, a maior altura de coluna de água, dentre aquelas que vão sendo formadas ao longo do enchimento do tanque, é",
+      "alternativas": [
+        "Gráfico A: cresce entre 0 e 2 h, permanece constante entre 2 e 4 h e cresce de 4 a 12 h.",
+        "Gráfico B: cresce entre 0 e 2 h, permanece constante entre 2 e 6 h e cresce de 6 a 12 h.",
+        "Gráfico C: cresce entre 0 e 2 h, permanece constante entre 2 e 10 h e cresce de 10 a 12 h.",
+        "Gráfico D: segmentos horizontais com degraus entre 2 e 6 h.",
+        "Gráfico E: segmentos horizontais com degraus entre 2 e 6 h."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-tanque.jpeg",
+          "legenda": "",
+          "alt": "Tanque com três compartimentos e anteparos de alturas H/2 e H/4."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-a.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de altura da coluna de água da alternativa A."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-b.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de altura da coluna de água da alternativa B."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-c.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de altura da coluna de água da alternativa C."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-d.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de altura da coluna de água da alternativa D."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-161-e.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de altura da coluna de água da alternativa E."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024162,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 162,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma imobiliária iniciou uma campanha de divulgação\npara promover a venda de apartamentos que podem ser\npagos em 100 parcelas mensais. O valor da primeira delas\né fixado no momento da compra, com o pagamento dessa\nprimeira parcela. A partir da segunda parcela, o valor é\ndeterminado pela aplicação de um acréscimo percentual\nfixo ao valor da parcela anterior. Como atrativo, a imobiliária\nfará o pagamento de todas as parcelas correspondentes\nao mês de aniversário do comprador.\nUm cliente, que faz aniversário no mês de maio,\ndecidiu comprar um desses apartamentos por meio do\nfinanciamento oferecido pela imobiliária, e pretende escolher\no mês mais adequado para realizar essa compra, de modo\nque o valor total dos pagamentos seja o menor possível.",
+      "enunciado": "Qual é o mês que esse cliente deverá escolher para realizar a compra do apartamento?",
+      "alternativas": [
+        "Fevereiro.",
+        "Abril.",
+        "Maio.",
+        "Junho.",
+        "Agosto."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024163,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 163,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um sistema de polias circulares e correias é um dos\nmecanismos responsáveis pela transmissão de movimento\nem máquinas rotativas. O manual de um motor traz uma\nfigura representando um sistema composto por duas polias\ne uma correia de transmissão, tensionada e perfeitamente\najustada sobre as polias, de modo a não apresentar folgas\nnos contatos com as polias. Considere que as partes\ndessa correia que não ficam em contato com as polias são\nrepresentadas por segmentos de reta tangentes às polias.\nPara substituição dessa correia, é necessária a\nespecificação de seu comprimento.\nConsidere 3 como valor aproximado para π.",
+      "enunciado": "A medida do comprimento dessa correia, em centímetro, é",
+      "alternativas": [
+        "54.",
+        "60.",
+        "66.",
+        "68.",
+        "72."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-163.jpeg",
+          "legenda": "",
+          "alt": "Duas polias, trechos tangentes de correia e medidas."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024164,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 164,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A prefeitura de uma cidade planeja construir três postos\nde saúde. Esses postos devem ser construídos em locais\nequidistantes entre si e de forma que as distâncias desses\ntrês postos ao hospital dessa cidade sejam iguais. Foram\nconseguidos três locais para a construção dos postos de\nsaúde que apresentam as características desejadas, e\nque distam 10 km entre si, conforme o esquema, no qual o\nponto H representa o local onde está construído o hospital;\nos pontos P1\n, P2\ne P3\n, os postos de saúde; e esses quatro\npontos estão em um mesmo plano.",
+      "enunciado": "A distância, em quilômetro, entre o hospital e cada um dos postos de saúde, é um valor entre",
+      "alternativas": [
+        "2 e 3.",
+        "4 e 5.",
+        "5 e 6.",
+        "7 e 8.",
+        "8 e 9."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-164.jpeg",
+          "legenda": "",
+          "alt": "Triângulo dos postos P₁, P₂, P₃ e hospital H."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024165,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 165,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Para melhorar o fluxo de ônibus em uma avenida que tem dois semáforos, a prefeitura reduzirá o tempo em que cada sinal ficará vermelho, que atualmente é de 15 segundos a cada 60 segundos. Admita que o instante de chegada de um ônibus a cada semáforo é aleatório.\nO engenheiro de tráfego da prefeitura calculou a probabilidade de um ônibus encontrar cada um deles vermelho, obtendo 15/60. A partir daí, estabeleceu uma mesma redução na quantidade do tempo, em segundo, em que cada sinal ficará vermelho, de maneira que a probabilidade de um ônibus encontrar ambos os sinais vermelhos numa mesma viagem seja igual a 4/100, considerando os eventos independentes.",
+      "enunciado": "Para isso, a redução do tempo em que o sinal ficará vermelho, em segundo, estabelecida pelo engenheiro foi de",
+      "alternativas": [
+        "1,35.",
+        "3,00.",
+        "9,00.",
+        "12,60.",
+        "13,80."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    }
+  ]
+}
