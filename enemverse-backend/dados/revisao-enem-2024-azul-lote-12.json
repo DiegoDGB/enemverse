@@ -1,0 +1,528 @@
+{
+  "aviso": "Lote parcial, questões 136–150 revisadas visualmente. Não importar isoladamente.",
+  "questoes": [
+    {
+      "id": 2024136,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 136,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O tamanho mínimo que a visão humana é capaz de\nvisualizar sem o uso de equipamento auxiliar é equivalente\na 100 micrômetros (1 micrômetro = 10-3\nmilímetros).\nUma estudante pretende visualizar e analisar hemácias\ndo sangue humano, que medem 0,007 mm de diâmetro.\nEla adquiriu um microscópio óptico que tem uma lente\nocular que amplia em 10 vezes a imagem do objeto em\nobservação, e um conjunto de lentes objetivas com estas\ncapacidades de ampliação:\n• lente I: 2 vezes;\n• lente II: 10 vezes;\n• lente III: 15 vezes;\n• lente IV: 1,1 vez;\n• lente V: 1,4 vez.\nO funcionamento desse microscópio permite o uso da\nlente ocular sozinha ou a combinação dela com uma\nde suas lentes objetivas, proporcionando, nesse caso,\num aumento de sua capacidade de ampliação final, que é\ndada pelo produto entre as capacidades de ampliação da\nocular e da objetiva.\nEssa estudante pretende selecionar a lente objetiva de\nmenor capacidade de ampliação que permita, na combinação\ncom a ocular, visualizar hemácias do sangue humano.",
+      "enunciado": "A lente objetiva a ser selecionada pela estudante é a",
+      "alternativas": [
+        "I.",
+        "II.",
+        "III.",
+        "IV.",
+        "V."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-136.jpeg",
+          "legenda": "",
+          "alt": "Microscópio com lentes ocular e objetivas."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024137,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 137,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Ao calcular a média de suas notas em 4 provas, um\nestudante dividiu, por engano, a soma das notas por 5.\nCom isso, a média obtida foi 1 unidade menor do que\ndeveria ser, caso fosse calculada corretamente.",
+      "enunciado": "O valor correto da média das notas desse estudante é",
+      "alternativas": [
+        "4.",
+        "5.",
+        "6.",
+        "19.",
+        "21."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024138,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 138,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Para abrir a porta de uma empresa, cada funcionário\ndeve cadastrar uma senha utilizando um teclado\nalfanumérico como o representado na figura.\nPor exemplo: a tecla que contém o número 2 traz as\nletras correlacionadas A, B e C. Cada toque nessa tecla\nmostra, sequencialmente, os seguintes caracteres: 2, A, B\ne C. Para os próximos toques, essa sequência se repete.\nAs demais teclas funcionam da mesma maneira.\nAs senhas a serem cadastradas pelos funcionários\ndevem conter 5 caracteres, sendo 2 algarismos distintos\nseguidos de 3 letras diferentes, nessa ordem. Um funcionário\nirá cadastrar a sua primeira senha, podendo escolher entre\nas teclas que apresentam os números 1, 2, 5, 7 e 0 e as\nrespectivas letras correlacionadas, quando houver.",
+      "enunciado": "O número de possibilidades diferentes que esse funcionário tem para cadastrar sua senha é",
+      "alternativas": [
+        "11520.",
+        "14400.",
+        "18000.",
+        "312000.",
+        "390000."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-138.jpeg",
+          "legenda": "",
+          "alt": "Teclado numérico com letras associadas às teclas."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024139,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 139,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um artesão utiliza dois tipos de componentes, X e\nY, nos enfeites que produz. Ele sempre compra todos os\ncomponentes em uma mesma loja. O quadro apresenta\nos preços dos dois tipos de componentes nas lojas I e II.\nLojas\nPreços dos componentes (R$)\nX Y\nI 3,00 1,00\nII 2,00 4,00\nEle confeccionará enfeites formados por duas unidades\ndo componente X e uma unidade do componente Y e\nefetuará a compra na loja que oferecer o menor valor total\npara a confecção de um enfeite.",
+      "enunciado": "O artesão efetuará a compra na loja",
+      "alternativas": [
+        "I, pois o valor é R$ 7,00.",
+        "I, pois o valor é R$ 4,00.",
+        "II, pois o valor é R$ 6,00.",
+        "I, pois anuncia o componente com o menor preço.",
+        "II, pois o componente X, que é o mais utilizado, tem menor preço."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-139-tabela.png",
+          "legenda": "",
+          "alt": "Preços dos componentes X e Y nas lojas I e II."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024140,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 140,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "João e Felipe participaram, na escola, de uma maratona\nde matemática na qual, durante uma semana, resolveram\n200 questões cada. Nessa maratona, a porcentagem P de\nacertos de cada participante é convertida em um conceito:\n• insatisfatório: se 0 ≤ P < 50;\n• regular: se 50 ≤ P < 60;\n• bom: se 60 ≤ P < 75;\n• muito bom: se 75 ≤ P < 90;\n• excelente: se 90 ≤ P ≤ 100.\nJoão acertou 75% das questões da maratona e Felipe\nacertou 30% a menos que a quantidade de questões que\nJoão acertou.",
+      "enunciado": "Os conceitos de João e Felipe foram, respectivamente,",
+      "alternativas": [
+        "muito bom e bom.",
+        "muito bom e regular.",
+        "muito bom e insatisfatório.",
+        "bom e regular.",
+        "bom e insatisfatório."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024141,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 141,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Três grandezas (I, II e III) se relacionam entre si.\nOs gráficos a seguir, formados por segmentos de reta,\ndescrevem as relações de dependência existentes entre\nas grandezas I e II, e entre as grandezas II e III.",
+      "enunciado": "O valor máximo assumido pela grandeza III, quando a grandeza I varia de 1 a 3, é",
+      "alternativas": [
+        "1,0.",
+        "2,5.",
+        "3,0.",
+        "3,5.",
+        "4,0."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-141-grafico-1.jpeg",
+          "legenda": "",
+          "alt": "Gráfico da grandeza II em função da grandeza I."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-141-grafico-2.jpeg",
+          "legenda": "",
+          "alt": "Gráfico da grandeza III em função da grandeza II."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024142,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 142,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma criança, utilizando um aplicativo, escreveu uma\nmensagem para enviar a um amigo. Essa mensagem foi\nescrita seguindo estas etapas:\nEtapas Visor de escrita\n1ª etapa: inseriu três figuras do tipo 🙂 no visor de\nescrita da mensagem;\n2ª etapa: copiou o que havia\ninserido anteriormente e\ncolou (inseriu o que havia\ncopiado) ao lado;\n3ª etapa: copiou o que tinha\nno visor na 2ª etapa e colou\nao lado.\nA criança seguiu copiando e colando, em cada etapa,\no que tinha no visor na etapa imediatamente anterior, até\nconcluir a 20ª etapa. Em seguida, enviou a mensagem.",
+      "enunciado": "Qual foi o total de figuras contidas na mensagem enviada?",
+      "alternativas": [
+        "3 × 2¹⁹",
+        "3 × 2²⁰",
+        "3 × 2²¹",
+        "3 × 2²⁰ − 1",
+        "3 × 2²⁰ − 3"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-142-tabela.png",
+          "legenda": "",
+          "alt": "Três etapas de duplicação das figuras no visor da mensagem."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024143,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 143,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma casa de shows terá um evento cujo custo total\nde produção é de R$ 34 350,00, sendo que comporta\n500 pessoas. O preço do ingresso será de R$ 130,00 e,\nnormalmente, 60% das pessoas adquirem meia-entrada,\npagando R$ 65,00 pelo ingresso. Além do faturamento\nproveniente da venda de ingressos, a casa de shows\nvende, com 60% de lucro, bebidas e petiscos ao público\nno dia do evento.\nApós ter vendido todos os 500 ingressos, constatou-se\nque a quantidade de meias-entradas vendidas superou\nem 50% o que estava previsto, impactando o faturamento\nestimado com a venda de ingressos.\nNo dia do evento, decidiu-se manter o percentual\nde 60% de lucro sobre as bebidas e petiscos, pois todo\no público que comprou ingresso compareceu ao\nshow. Com isso, espera-se ter lucro de R$ 17 000,00\nnesse evento.",
+      "enunciado": "Para que se alcance o lucro esperado, o gasto médio por pessoa com bebidas e petiscos, em real, deverá ser de",
+      "alternativas": [
+        "19,50.",
+        "28,80.",
+        "34,00.",
+        "52,00.",
+        "68,70."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024144,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 144,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Para obter um sólido de revolução (rotação de 360°\nem torno de um eixo fixo), uma professora realizou as\nseguintes etapas:\n• recortou o trapézio retângulo PQRS de um\nmaterial rígido;\n• afixou o lado PS do trapézio em uma vareta fixa\nretilínea (eixo de rotação);\n• girou o trapézio 360° em torno da vareta e obteve\num sólido de revolução.\nObserve a figura que apresenta o trapézio afixado na\nvareta e o sentido de giro.",
+      "enunciado": "O sólido obtido foi um(a)",
+      "alternativas": [
+        "cone.",
+        "cilindro.",
+        "pirâmide.",
+        "tronco de cone.",
+        "tronco de pirâmide."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-144.jpeg",
+          "legenda": "",
+          "alt": "Trapézio PQRS preso à vareta pelo lado PS."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024145,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 145,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O estádio do Maracanã passou por algumas\nmodificações estruturais para a realização da Copa do\nMundo de 2014, como, por exemplo, as dimensões do\ncampo retangular. Para se adaptar aos padrões da Fifa,\nas dimensões do campo foram reduzidas de 110 m × 75 m\npara 105 m × 68 m.\nDisponível em: http://virgula.uol.com.br.\nAcesso em: 14 ago. 2013 (adaptado).",
+      "enunciado": "Em quantos metros quadrados a área do campo do Maracanã foi reduzida?",
+      "alternativas": [
+        "24",
+        "35",
+        "555",
+        "1110",
+        "1145"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024146,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 146,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um fazendeiro pretende construir um galinheiro\nocupando uma região plana de formato retangular, com\nlados de comprimentos L metro e C metro. Os lados serão\ncercados por telas de tipos diferentes. Nos lados de\ncomprimento L metro, será utilizada uma tela cujo metro\nlinear custa R$ 20,00, enquanto, nos outros dois lados,\numa que custa R$ 15,00. O fazendeiro quer gastar, no\nmáximo, R$ 6000,00 na compra de toda a tela necessária\npara o galinheiro, e deseja que o galinheiro tenha a maior\nárea possível.",
+      "enunciado": "Qual será a medida, em metro, do maior lado do galinheiro?",
+      "alternativas": [
+        "85",
+        "100",
+        "175",
+        "200",
+        "350"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024147,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 147,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma professora de matemática utiliza em suas\naulas uma “máquina caça-números” para verificar os\nconhecimentos de seus estudantes sobre representações\nde números racionais. Essa máquina tem um visor dividido\nem seis compartimentos e, na lateral, uma alavanca. Cada\nestudante puxa a alavanca e espera que os compartimentos\nparem de girar. A partir daí, precisa responder para a\nprofessora em quais posições se encontram os números\nque representam a mesma quantidade.\nUm estudante puxou a alavanca, aguardou que os\ncompartimentos parassem de girar e observou os números\napresentados no visor. A configuração da máquina naquele\ninstante está apresentada na imagem.\nEsse estudante respondeu corretamente à pergunta\nda professora.",
+      "enunciado": "As posições indicadas pelo estudante foram",
+      "alternativas": [
+        "I, II e IV.",
+        "II, IV e V.",
+        "II, III e V.",
+        "III, V e VI.",
+        "III, IV e VI."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-147.jpeg",
+          "legenda": "",
+          "alt": "Visor da máquina de números com seis posições e frações."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024148,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 148,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma caneca com água fervendo é retirada de um\nforno de micro-ondas. A temperatura T, em grau Celsius,\nda caneca, em função do tempo t, em minuto, pode ser\nmodelada pela função T(t) = a + 80 bᵗ, representada no\ngráfico a seguir.",
+      "enunciado": "Os valores das constantes a e b são",
+      "alternativas": [
+        "a = 20; b = log(0,5)",
+        "a = 100; b = 0,5",
+        "a = 20; b = (0,5)^(1/10)",
+        "a = 20; b = (40)^(1/10) / 80",
+        "a = 20; b = 40"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-148.jpeg",
+          "legenda": "",
+          "alt": "Temperatura em função do tempo, curva de decaimento."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-148-alternativas.png",
+          "legenda": "",
+          "alt": "Expressões matemáticas das alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024149,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 149,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Em uma empresa é comercializado um produto em\nembalagens em formato de cilindro circular reto, com raio\nmedindo 3 cm, e altura medindo 15 cm. Essa empresa\nplaneja comercializar o mesmo produto em embalagens\nem formato de cubo, com capacidade igual a 80% da\ncapacidade da embalagem cilíndrica utilizada atualmente.\nUse 3 como valor aproximado para π.",
+      "enunciado": "A medida da aresta da nova embalagem, em centímetro, deve ser",
+      "alternativas": [
+        "6",
+        "18",
+        "6√6",
+        "6∛6",
+        "3∛12"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-149-alternativas.png",
+          "legenda": "",
+          "alt": "Alternativas com raízes quadradas e cúbicas."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024150,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 150,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma sala com piso no formato retangular, com lados\nde medidas 3 m e 6 m, será dividida em dois ambientes.\nPara isso, serão utilizadas colunas em formato cilíndrico,\ndispostas perpendicularmente ao piso e representadas na\nfigura pelos círculos de cor azul. Os centros desses círculos\nestarão sobre uma reta paralela aos lados de menor medida\ndo piso da sala. Os vãos entre duas colunas e entre uma\ncoluna e a parede não poderão ser superiores a 15 cm.\nPara efetuar a compra dessas colunas, foram feitos\norçamentos com base em dados fornecidos por cinco lojas.\nLoja Raio (cm)\nPreço por\nunidade (R$)\nI 5 60\nII 10 70\nIII 12 75\nIV 15 90\nV 20 120",
+      "enunciado": "A compra será realizada na loja",
+      "alternativas": [
+        "I.",
+        "II.",
+        "III.",
+        "IV.",
+        "V."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-150-sala.jpeg",
+          "legenda": "",
+          "alt": "Planta da sala retangular e disposição das colunas."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-150-tabela.png",
+          "legenda": "",
+          "alt": "Tabela de raios e preços por loja."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    }
+  ]
+}

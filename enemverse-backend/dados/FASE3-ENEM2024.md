@@ -10,7 +10,7 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - O gabarito oficial foi transcrito em `gabarito-2024-azul.json`: 180 respostas, questões 1–5 em Inglês e questão 129 anulada. As duas tabelas foram conferidas visualmente contra os PDFs.
 - A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. **Os enunciados, alternativas, figuras e fórmulas ainda precisam de transcrição e revisão visual antes da importação.**
 - `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
-- Foram reconstruídas e armazenadas em onze lotes as questões 1–135, com imagens associadas e comparação dos índices de resposta ao gabarito oficial. Faltam 136–180 e a revisão final do caderno completo.
+- Foram reconstruídas e armazenadas em doze lotes as questões 1–150, com imagens associadas e comparação dos índices de resposta ao gabarito oficial. Faltam 151–180 e a revisão final do caderno completo.
 - Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
 
 
