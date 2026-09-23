@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function buscarTodosUsuarios() {
         // CONEXÃO CORRETA COM O RENDER
-        const resposta = await fetch('https://enemverse-api.onrender.com');
+        const resposta = await fetch(`${window.ENEMVERSE_API_BASE_URL}/api/ranking`);
         return await resposta.json();
     }
 
