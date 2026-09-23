@@ -88,6 +88,11 @@
     <!-- MOTOR DE CONTROLE INJETADO DIRETO NO HTML  -->
     <!-- ========================================== -->
     <script>
+    // Configuração central da API: produção usa backend estável; preview/local usa DEV.
+    const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
+        ? 'https://enemverse-api.onrender.com'
+        : 'https://enemverse-api-dev.onrender.com';
+
     document.addEventListener('DOMContentLoaded', () => {
         const labelYear = document.querySelector('.label-year');
         const labelMateria = document.querySelector('.label-materia');
@@ -140,7 +145,7 @@
 
             try {
                 // Fase 1: o frontend baixa apenas metadados para montar os filtros.
-                const respostaFiltros = await fetch('https://enemverse-api.onrender.com/api/simulados/filtros');
+                const respostaFiltros = await fetch(`${API_BASE_URL}/api/simulados/filtros`);
 
                 if (!respostaFiltros.ok) {
                     throw new Error('Falha ao carregar filtros (HTTP ' + respostaFiltros.status + ')');
@@ -296,7 +301,7 @@
             if (filtroDificuldadeAtual !== 'Todas') payload.dificuldade = filtroDificuldadeAtual;
 
             try {
-                const resposta = await fetch('https://enemverse-api.onrender.com/api/simulados', {
+                const resposta = await fetch(`${API_BASE_URL}/api/simulados`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -428,7 +433,7 @@
             const itens = alternativesList.querySelectorAll('.alternative-btn');
 
             try {
-                const resposta = await fetch('https://enemverse-api.onrender.com/api/questoes/responder', {
+                const resposta = await fetch(`${API_BASE_URL}/api/questoes/responder`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
