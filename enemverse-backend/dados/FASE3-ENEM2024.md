@@ -8,9 +8,10 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 
 - As quatro fontes oficiais foram recebidas; o validador está pronto.
 - O gabarito oficial foi transcrito em `gabarito-2024-azul.json`: 180 respostas, questões 1–5 em Inglês e questão 129 anulada. As duas tabelas foram conferidas visualmente contra os PDFs.
-- A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. **Os enunciados, alternativas, figuras e fórmulas ainda precisam de transcrição e revisão visual antes da importação.**
+- A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. Os enunciados, alternativas, figuras e fórmulas foram reconstruídos em lotes; **a revisão final de fidelidade ao PDF ainda é necessária antes da importação**.
 - `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
-- Foram reconstruídas e armazenadas em treze lotes as questões 1–165, com imagens associadas e comparação dos índices de resposta ao gabarito oficial. Faltam 166–180 e a revisão final do caderno completo.
+- Foram reconstruídas e armazenadas em catorze lotes as questões 1–180, com imagens associadas, fórmulas recuperadas e comparação dos índices de resposta ao gabarito oficial. O arquivo `enem-2024-azul.json` reúne os lotes.
+- O validador estrutural encontra os 180 registros, imagens existentes e gabaritos coincidentes; a execução de aprovação continua bloqueada por `revisaoVisualAprovada: false`. Ainda falta a revisão visual final de fidelidade das 180 questões e o teste no banco DEV antes de considerar a importação.
 - Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
 
 

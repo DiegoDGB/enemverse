@@ -1,0 +1,598 @@
+{
+  "aviso": "Lote parcial, questões 166–180 reconstruídas. Revisão integral antes de importar.",
+  "questoes": [
+    {
+      "id": 2024166,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 166,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A densidade demográfica de uma região é definida\ncomo sendo a razão entre o número de habitantes dessa\nregião e sua área, expressa na unidade habitantes por\nquilômetro quadrado.\nUma região R é subdividida em várias outras, sendo\numa delas a região Q. A área de Q é igual a três quartos da\nárea de R, e o número de habitantes de Q é igual à metade\ndo número de habitantes de R. As densidades demográficas\ncorrespondentes a essas regiões são denotadas por d(Q)\ne d(R).",
+      "enunciado": "A expressão que relaciona d(Q) e d(R) é",
+      "alternativas": [
+        "d(Q) = (1/4) d(R)",
+        "d(Q) = (1/2) d(R)",
+        "d(Q) = (3/4) d(R)",
+        "d(Q) = (3/2) d(R)",
+        "d(Q) = (2/3) d(R)"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-166-alternativas.png",
+          "legenda": "",
+          "alt": "Expressões fracionárias das alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024167,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 167,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Atualmente, há telefones celulares com telas de\ndiversos tamanhos e em formatos retangulares. Alguns\ndeles apresentam telas medindo 3 1/2 polegadas, com\ndeterminadas especificações técnicas. Além disso, em\nmuitos modelos, com a inclusão de novas funções no\ncelular, suas telas ficaram maiores, sendo muito comum\nencontrarmos atualmente telas medindo 4 5/6 polegadas,\nconforme a figura.\nDisponível em: www.tecmundo.com.br.\nAcesso em: 5 nov. 2014 (adaptado).",
+      "enunciado": "A diferença de tamanho, em valor absoluto, entre as medidas, em polegada, das telas do celular 2 e do celular 1, representada apenas com uma casa decimal, é",
+      "alternativas": [
+        "0,1.",
+        "0,5.",
+        "1,0.",
+        "1,3.",
+        "1,8."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-167.jpeg",
+          "legenda": "",
+          "alt": "Comparação das diagonais dos celulares de 3 1/2 e 4 5/6 polegadas."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024168,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 168,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Projetistas de uma fábrica de amortecedores realizaram uma série de experimentos que produziram oscilações\nsemelhantes ao comportamento do gráfico de uma senoide, para qualquer tipo de estrada. Cada experimento teve\nduração de 20 minutos, sendo os 9 primeiros minutos em superfície que simula uma rodovia asfaltada, e os 11 minutos\nrestantes em superfície que simula uma estrada de chão.\nPara os amortecedores serem aprovados no experimento, exige-se que as amplitudes das ondas oscilatórias, em\ncada tipo de superfície, sejam constantes e, ainda, que a amplitude da oscilação do amortecedor no asfalto seja menor\ndo que sua amplitude da oscilação na estrada de chão.",
+      "enunciado": "O tipo de gráfico que descreve o comportamento oscilatório de um amortecedor aprovado nesse experimento é",
+      "alternativas": [
+        "Gráfico A: amplitude constante menor no asfalto e constante maior na estrada de chão.",
+        "Gráfico B: amplitude constante no asfalto e decrescente na estrada de chão.",
+        "Gráfico C: amplitude decrescente na estrada de chão.",
+        "Gráfico D: amplitude menor na estrada de chão do que no asfalto.",
+        "Gráfico E: amplitude menor na estrada de chão do que no asfalto."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-168-a.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de oscilação da alternativa A."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-168-b.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de oscilação da alternativa B."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-168-c.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de oscilação da alternativa C."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-168-d.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de oscilação da alternativa D."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-168-e.jpeg",
+          "legenda": "",
+          "alt": "Gráfico de oscilação da alternativa E."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024169,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 169,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A criptografia refere-se à construção e análise de protocolos que impedem terceiros de lerem mensagens privadas.\nJúlio César, imperador romano, utilizava um código para proteger as mensagens enviadas a seus generais. Assim,\nse a mensagem caísse em mãos inimigas, a informação não poderia ser compreendida. Nesse código, cada letra do\nalfabeto era substituída pela letra três posições à frente, ou seja, o “A” era substituído pelo “D”, o “B” pelo “E”, o “C”\npelo “F”, e assim sucessivamente.\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z A B C Letra do texto codificado\nA B C D E F G H I J K L M N O P Q R S T U V W X Y Z Letra do texto original\nDisponível em: www.codifica.ibict.br. Acesso em: 15 out. 2019.\nQualquer código que tenha um padrão de substituição de letras como o descrito é considerado uma Cifra de César\nou um Código de César. Note que, para decifrar uma Cifra de César, basta descobrir por qual letra o “A” foi substituído,\npois isso define todas as demais substituições a serem feitas.\nUma mensagem, em um alfabeto de 26 letras, foi codificada usando uma Cifra de César. Considere a probabilidade\nde se descobrir, aleatoriamente, o padrão utilizado nessa codificação, e que uma tentativa frustrada deverá ser eliminada\nnas tentativas seguintes.",
+      "enunciado": "A probabilidade de se descobrir o padrão dessa Cifra de César apenas na terceira tentativa é dada por",
+      "alternativas": [
+        "1/25 + 1/25 + 1/25",
+        "24/25 + 23/24 + 1/23",
+        "1/25 × 1/24 × 1/23",
+        "24/25 × 23/25 × 1/25",
+        "24/25 × 23/24 × 1/23"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-169-cifra.png",
+          "legenda": "",
+          "alt": "Correspondência das letras na cifra de César."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-169-alternativas.png",
+          "legenda": "",
+          "alt": "Produtos e somas de probabilidades das alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024170,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 170,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Em uma região com grande incidência de terremotos, observou-se que dois terremotos ocorridos apresentaram\nmagnitudes M₁ e M₂ , medidos segundo a escala Richter, e liberaram energias iguais a E₁ e E₂ , respectivamente. Entre\nos estudiosos do assunto, é conhecida uma expressão algébrica relacionando esses valores dada por\nM₂ − M₁ = (2/3) log(E₂/E₁)\nEstudos mais abrangentes observaram que o primeiro terremoto apresentou a magnitude M₁ = 6,9 e a energia\nliberada foi um décimo da observada no segundo terremoto.",
+      "enunciado": "O valor aproximado da magnitude M₂ do segundo terremoto, expresso com uma casa decimal, é igual a",
+      "alternativas": [
+        "5,4.",
+        "6,2.",
+        "7,6.",
+        "8,2.",
+        "8,4."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-170-formula.png",
+          "legenda": "",
+          "alt": "Fórmula da relação entre magnitudes e energias sísmicas."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024171,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 171,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um jardineiro dispõe de k metros lineares de cerca baixa para fazer um jardim ornamental. O jardim, delimitado\npor essa cerca, deve ter a forma de um triângulo equilátero, um quadrado ou um hexágono regular. A escolha será\npela forma que resulte na maior área.",
+      "enunciado": "O jardineiro escolherá a forma de",
+      "alternativas": [
+        "Hexágono regular; área = k²√3/24.",
+        "Hexágono regular; área = 3k²√3/2.",
+        "Quadrado; área = k²/16.",
+        "Triângulo equilátero; área = k²√3/36.",
+        "Triângulo equilátero; área = k²√3/4."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-171-alternativas.png",
+          "legenda": "",
+          "alt": "Áreas propostas para hexágono, quadrado e triângulo equilátero."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024172,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 172,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um aeroporto disponibiliza o serviço de transporte gratuito entre seus dois terminais utilizando os ônibus A e B, que\npartem simultaneamente, de hora em hora, de terminais diferentes. A distância entre os terminais é de 9000 metros,\ne o percurso total dos ônibus, de um terminal ao outro, é monitorado por um sistema de cinco câmeras que cobrem\ndiferentes partes do trecho, conforme o esquema.\nO alcance de cada uma das cinco câmeras é:\n• câmera I: 1/5 do percurso;\n• câmera II: 3/10 do percurso;\n• câmera III: 1/10 do percurso;\n• câmera IV: 1/10 do percurso;\n• câmera V: 3/10 do percurso.\nEm determinado horário, o ônibus A parte do terminal 1 e realiza o percurso total com velocidade constante de\n250 m/min; enquanto o ônibus B, que parte do terminal 2, realiza o percurso total com velocidade constante de 150 m/min.",
+      "enunciado": "Qual câmera registra o momento em que os ônibus A e B se encontram?",
+      "alternativas": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-172.jpeg",
+          "legenda": "",
+          "alt": "Mapa do percurso e campos de visão das câmeras I a V."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024173,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 173,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma empresa tem 400 funcionários, distribuídos em\ntrês setores: administrativo, logística e produção. O gráfico\napresenta a distribuição quantitativa desses funcionários,\npor setor e por faixa etária.\nUma viagem de férias será sorteada entre esses\nfuncionários, de forma que todos terão igual probabilidade\nde serem sorteados.",
+      "enunciado": "A maior probabilidade é que o funcionário sorteado esteja na faixa etária",
+      "alternativas": [
+        "entre 25 e 45 anos, pois é a faixa etária com maior quantidade de funcionários.",
+        "entre 25 e 45 anos, pois é a única faixa etária cujas porcentagens são maiores do que as porcentagens mínimas de cada setor.",
+        "até 25 anos, pois é a única faixa etária cujos percentuais associados aos setores aumentam com o aumento da quantidade de funcionários por setor.",
+        "até 25 anos, pois é a faixa etária que apresenta maior quantidade de funcionários no setor de produção, que é o setor que emprega metade dos funcionários dessa empresa.",
+        "a partir de 45 anos, pois a soma das porcentagens associadas a essa faixa etária é 110%, que é maior do que as respectivas somas associadas às outras faixas etárias, que são 105% e 85%."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-173.jpeg",
+          "legenda": "",
+          "alt": "Distribuição de empregados em setores e faixas etárias."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024174,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 174,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Em um jogo virtual para celular, um personagem pode\npercorrer trajetórias retilíneas voando ou se deslocando ao\nlongo de paredes. Considere que o personagem descreve\na trajetória ABCDEF, em que os pontos A, D e E estão em\num plano paralelo ao que contém os pontos B e C, sendo\nesses dois planos ortogonais ao plano da base que contém\no ponto F, conforme a figura.",
+      "enunciado": "A projeção ortogonal, sobre o plano da base, da trajetória ABCDEF descrita pelo personagem é",
+      "alternativas": [
+        "Projeção ortogonal A da trajetória ABCDEF, conforme a figura.",
+        "Projeção ortogonal B da trajetória ABCDEF, conforme a figura.",
+        "Projeção ortogonal C da trajetória ABCDEF, conforme a figura.",
+        "Projeção ortogonal D da trajetória ABCDEF, conforme a figura.",
+        "Projeção ortogonal E da trajetória ABCDEF, conforme a figura."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174.jpeg",
+          "legenda": "",
+          "alt": "Trajetória ABCDEF em paredes e plano da base."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174-a.jpeg",
+          "legenda": "",
+          "alt": "Projeção ortogonal proposta na alternativa A."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174-b.jpeg",
+          "legenda": "",
+          "alt": "Projeção ortogonal proposta na alternativa B."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174-c.jpeg",
+          "legenda": "",
+          "alt": "Projeção ortogonal proposta na alternativa C."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174-d.jpeg",
+          "legenda": "",
+          "alt": "Projeção ortogonal proposta na alternativa D."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-174-e.jpeg",
+          "legenda": "",
+          "alt": "Projeção ortogonal proposta na alternativa E."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024175,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 175,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma indústria faz uma parceria com uma distribuidora\nde sucos para lançar no mercado dois tipos de\nembalagens. Para a fabricação dessas embalagens,\na indústria dispõe de folhas de alumínio retangulares,\nde dimensões 10 cm por 20 cm. Cada uma dessas\nfolhas é utilizada para formar a superfície lateral da\nembalagem, em formato de cilindro circular reto, que\nposteriormente recebe fundo e tampa circulares. A figura\nilustra, dependendo de qual das duas extensões será\nutilizada como altura, as duas opções para formar a\npossível embalagem.",
+      "enunciado": "Dentre essas duas embalagens, a de maior capacidade apresentará volume, em centímetro cúbico, igual a",
+      "alternativas": [
+        "4 000π",
+        "2 000π",
+        "4 000/π",
+        "1 000/π",
+        "500/π"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-175.jpeg",
+          "legenda": "",
+          "alt": "Duas orientações de folha retangular para montagem de embalagens cilíndricas."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024176,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 176,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "As receitas anuais obtidas por uma indústria no período\nde 2014 a 2021, em milhão de reais, foram registradas, por\npontos, em um gráfico. Nele, também está representada a\nreta que descreve a tendência de evolução das receitas.\nEssa reta pode ser utilizada para estimar as receitas dos\nanos seguintes.",
+      "enunciado": "A estimativa da receita, em milhão de reais, dessa indústria, para o ano de 2026, obtida a partir dessa reta de tendência, é",
+      "alternativas": [
+        "7.",
+        "8.",
+        "9.",
+        "10.",
+        "11."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-176.jpeg",
+          "legenda": "",
+          "alt": "Pontos de receita anual e reta de tendência entre 2014 e 2021."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024177,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 177,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma empresa produz mochilas escolares sob\nencomenda. Essa empresa tem um custo total de produção,\ncomposto por um custo fixo, que não depende do número\nde mochilas, mais um custo variável, que é proporcional\nao número de mochilas produzidas. O custo total cresce\nde forma linear, e a tabela apresenta esse custo para três\nquantidades de mochilas produzidas.\nQuantidade de\nmochilas\n30 50 100\nCusto total (R$) 1050,00 1650,00 3150,00",
+      "enunciado": "O custo total, em real, para a produção de 80 mochilas será",
+      "alternativas": [
+        "2400,00.",
+        "2520,00.",
+        "2550,00.",
+        "2700,00.",
+        "2800,00."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-177-tabela.png",
+          "legenda": "",
+          "alt": "Tabela de quantidade de mochilas e custo total."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024178,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 178,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A umidade relativa do ar é um dos indicadores utilizados\nna meteorologia para fazer previsões sobre o clima.\nO quadro apresenta as médias mensais, em porcentagem,\nda umidade relativa do ar em um período de seis meses\nconsecutivos em uma cidade.\nMeses Maio Jun. Jul. Ago. Set. Out.\nMédia mensal da\numidade relativa\ndo ar (%)\n66 64 54 46 60 64",
+      "enunciado": "Nessa cidade, a mediana desses dados, em porcentagem, da umidade relativa do ar no período considerado foi",
+      "alternativas": [
+        "56.",
+        "58.",
+        "59.",
+        "60.",
+        "62."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-178-tabela.png",
+          "legenda": "",
+          "alt": "Tabela da umidade relativa em seis meses."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024179,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 179,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma empresa de engenharia foi contratada para\nrealizar um serviço no valor de R$ 71250,00. Os sócios da\nempresa decidiram que 40% desse valor seria destinado ao\npagamento de três engenheiros que gerenciaram o serviço.\nO pagamento para cada um deles será feito de forma\ndiretamente proporcional ao total de horas trabalhadas.\nO número de dias e o número de horas diárias\ntrabalhadas pelos engenheiros foram, respectivamente:\n• engenheiro I: 4 dias, numa jornada de 5 horas e\nmeia por dia;\n• engenheiro II: 5 dias, numa jornada de 4 horas por dia;\n• engenheiro III: 6 dias, numa jornada de 2 horas e\nmeia por dia.",
+      "enunciado": "Qual a maior diferença, em real, entre os valores recebidos por esse serviço entre dois desses engenheiros?",
+      "alternativas": [
+        "1000",
+        "1500",
+        "3500",
+        "3800",
+        "5250"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024180,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 180,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Matemática e suas Tecnologias",
+      "materia": "Matemática",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um hospital tem 7 médicos cardiologistas e 6 médicos\nneurologistas em seu quadro de funcionários. Para\nexecutar determinada atividade, a direção desse hospital\nformará uma equipe com 5 médicos, sendo, pelo menos,\n3 cardiologistas.",
+      "enunciado": "A expressão numérica que representa o número máximo de maneiras distintas de formar essa equipe é",
+      "alternativas": [
+        "(7!/4!) × (6!/4!)",
+        "[7!/(3! × 4!)] × [6!/(2! × 4!)]",
+        "[7!/(3! × 4!)] + [6!/(2! × 4!)] + [5!/(1! × 4!)]",
+        "([7!/(3! × 4!)] + [6!/(2! × 4!)]) × ([7!/(4! × 3!)] + [6!/(1! × 5!)]) × ([7!/(5! × 2!)] + [6!/(0! × 6!)])",
+        "[7!/(3! × 4!)] × [6!/(2! × 4!)] + [7!/(4! × 3!)] × [6!/(1! × 5!)] + [7!/(5! × 2!)] × [6!/(0! × 6!)]"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-180-alternativas.png",
+          "legenda": "",
+          "alt": "Cinco expressões combinatórias completas das alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    }
+  ]
+}

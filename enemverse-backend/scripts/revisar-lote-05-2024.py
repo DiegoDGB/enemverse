@@ -55,6 +55,8 @@ for q in questoes:
     if not separador:
         raise ValueError(f'Não localizei o enunciado da questão {numero}')
     q['texto_apoio'] = apoio.strip()
+    if numero == 41:
+        q['texto_apoio'] = re.sub(r'(?m)([1-4]\.)\s*\x07[^\n]*\n', r'\1 ', q['texto_apoio'])
     q['enunciado'] = enunciados[numero]
     q['alternativas'] = [re.sub(r'\s*\n\s*', ' ', a) for a in q['alternativas']]
     q['midias'] = [
