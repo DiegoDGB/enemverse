@@ -56,10 +56,9 @@
     </div>
 
     <!-- SCRIPT DE CONEXÃO DIRETA COM O SEU BACKEND NO RENDER -->
+    <script src="api-config.js"></script>
     <script>
-    const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
-        ? 'https://enemverse-api.onrender.com'
-        : 'https://enemverse-api-dev.onrender.com';
+    const API_BASE_URL = window.ENEMVERSE_API_BASE_URL;
 
     document.addEventListener('DOMContentLoaded', () => {
         const tabLogin = document.getElementById('tabLogin');
