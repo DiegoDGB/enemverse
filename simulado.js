@@ -24,10 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     const API_URL = 'https://enemverse-api.onrender.com/api';
     const tokenAtivo = localStorage.getItem('enemverse_token');
-    const emailAtivo = localStorage.getItem('enemverse_email_ativo');
 
     // Se o estudante tentar burlar a URL sem estar logado, barra na hora
-    if (!tokenAtivo || !emailAtivo) {
+    if (!tokenAtivo) {
         window.location.href = 'login.html';
         return;
     }
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Sincroniza os dados do header direto da API para evitar fraudes locais de XP
-            const respostaPerfil = await fetch(`${API_URL}/auth/perfil?email=${emailAtivo}`, {
+            const respostaPerfil = await fetch(`${API_URL}/auth/perfil`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -291,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Authorization': `Bearer ${tokenAtivo}`
                 },
                 body: JSON.stringify({
-                    email: emailAtivo, 
                     questaoId: q.id, 
                     alternativaSelecionada: selectedOption, 
                     tempoEsgotado: tempoEsgotadoStatus
