@@ -633,12 +633,12 @@ router.post('/importar', async (req, res) => {
 router.post('/responder', autenticarUsuario, async (req, res) => {
     const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
 
-    if (!Number.isInteger(Number(questaoId))) {
+    if (questaoId === null || questaoId === undefined || questaoId === '' || !Number.isInteger(Number(questaoId)) || Number(questaoId) <= 0) {
         return res.status(400).json({ erro: 'Questão inválida.' });
     }
 
     const alternativa = Number(alternativaSelecionada);
-    if (!Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
+    if (alternativaSelecionada === null || alternativaSelecionada === undefined || alternativaSelecionada === '' || !Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
         return res.status(400).json({ erro: 'Alternativa selecionada inválida.' });
     }
 
@@ -847,7 +847,7 @@ router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
                 { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
                 { $unwind: '$dadosQuestao' },
                 { $group: { _id: { $ifNull: ['$dadosQuestao.materia', 'Sem materia'] }, respondidas: { $sum: 1 },
-                    acertos: { $sum: { $cond: ['$correto', 1, 0] } } } },
+                    acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
                 { $sort: { _id: 1 } }
             ])
         ]);
