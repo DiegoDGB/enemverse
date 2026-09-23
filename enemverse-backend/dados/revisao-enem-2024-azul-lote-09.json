@@ -1,0 +1,509 @@
+{
+  "aviso": "Lote parcial, questões 91–105 revisadas visualmente. Não importar isoladamente.",
+  "questoes": [
+    {
+      "id": 2024091,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 91,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Muitas pessoas ainda se espantam com o fato de um\npassageiro sair ileso de um acidente de carro enquanto\no veículo onde estava teve perda total. Essas pessoas\ntalvez considerem, equivocadamente, que os carros mais\nseguros são os que têm as estruturas mais rígidas, ou seja,\nestruturas, que durante uma colisão, apresentam menor\ndeformação. Na verdade, o que ocorre é o contrário. Por isso,\na partir de 1958, passaram a ser produzidos carros com partes\nque se deformam facilmente.\nDAY, C. Crumple Zones. Disponível em: https://pubs.aip.org.\nAcesso em: 2 jul. 2024 (adaptado).\nAssim, além dos cintos de segurança e dos airbags,\nos carros modernos passaram a contar com o dispositivo\nde segurança conhecido como crumple zone (região\ndeformável, em inglês), conforme a figura.\nMomentum and Car safety. GCSE Physics Revision.\nDisponível em: www.shalom-education.com.\nAcesso em: 5 jul. 2024 (adaptado).",
+      "enunciado": "Considerando o carro, seus ocupantes e o muro da figura como um sistema isolado, o crumple zone aumenta a segurança dos passageiros porque, durante uma colisão, a deformação da estrutura do carro",
+      "alternativas": [
+        "aciona os airbags do veículo.",
+        "absorve a energia cinética do sistema.",
+        "consome a quantidade de movimento do sistema.",
+        "cria uma barreira de proteção para seus ocupantes.",
+        "diminui a velocidade do centro de massa do sistema."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-091.jpeg",
+          "legenda": "",
+          "alt": "Carro em colisão, com região deformável, airbags e cintos de segurança."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024092,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 92,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Células a combustível microbianas (CCM) são capazes\nde gerar eletricidade a partir de águas residuárias urbanas e\nagroindustriais. As CCM são compostas de duas câmaras.\nNuma delas, onde ocorre o tratamento da matéria orgânica,\nas bactérias eletrogênicas crescem formando um biofilme\ne se alimentam dos poluentes presentes no efluente. Ao se\nalimentarem, essas bactérias geram uma corrente elétrica\nque percorre o material sobre o qual elas formaram o biofilme.\nUm fio condutor externo possibilita a migração dessa corrente\npara uma segunda câmara, promovendo uma reação química.\nA figura esquematiza uma CCM e as reações envolvidas.\nCH₃COO⁻ (aq) + 2 H₂O (l) → 2 CO₂ (g) + 7 H⁺ (aq) + 8 e⁻\n4 H⁺ (aq) + O₂ (g) + 4 e⁻ → 2 H₂O (l)\nQUINTO, A. C. Biobaterias geram eletricidade a partir de\nesgoto sanitário e efluentes agroindustriais. Disponível em:\nhttps://jornal.usp.br. Acesso em: 1 dez. 2021 (adaptado).",
+      "enunciado": "Qual das equações representa a reação global que ocorre durante o funcionamento dessa CCM?",
+      "alternativas": [
+        "CH₃COO⁻ (aq) + O₂ (g) → 2 CO₂ (g) + 3 H⁺ (aq)",
+        "CO₂ (g) + O₂ (g) + H⁺ (aq) → H₂O (l) + CH₃COO⁻ (aq)",
+        "CH₃COO⁻ (aq) + H⁺ (aq) + 2 O₂ (g) → 2 CO₂ (g) + 2 H₂O (l)",
+        "CH₃COO⁻ (aq) + 6 H₂O (l) → 2 CO₂ (g) + 2 O₂ (g) + 15 H⁺ (aq)",
+        "2 CO₂ (g) + 11 H⁺ (aq) + O₂ (g) → CH₃COO⁻ (aq) + 4 H₂O (l)"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-092.jpeg",
+          "legenda": "",
+          "alt": "Esquema da célula a combustível microbiana com ânodo, membrana e cátodo."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-092-reacoes.png",
+          "legenda": "",
+          "alt": "Semirreações químicas indicadas na prova oficial."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024093,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 93,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "No senso comum, considera-se, ainda hoje, que\ncompostos orgânicos são substâncias presentes nos seres\nvivos. Na Química, a expressão “compostos orgânicos” tem\num uso histórico de mais de 200 anos, adquirindo diferentes\nconotações ao longo do desenvolvimento dessa ciência.\nAtualmente, atribui-se a essa expressão outro significado.",
+      "enunciado": "A concepção científica atual define esses compostos como substâncias",
+      "alternativas": [
+        "benéficas à saúde humana.",
+        "capazes de serem biodegradadas.",
+        "formadas a partir de gás carbônico.",
+        "produzidas sem o uso de agrotóxicos.",
+        "contendo carbono como elemento principal."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024094,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 94,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A nimesulida é um fármaco pouco solúvel em água,\nutilizado como anti-inflamatório, analgésico e antitérmico.\nEssa substância pode ser convertida em uma espécie\neletricamente carregada, de maior solubilidade em água,\nmediante o tratamento com uma base de Brönsted-Lowry,\nisto é, uma espécie química capaz de capturar um próton\n(H+\n). Na figura são apresentados os grupamentos presentes\nna estrutura química da nimesulida.\nNimesulida\nGONÇALVES, A. A. et al. Contextualizando reações ácido-base\nde acordo com a teoria protônica de Brönsted-Lowry\nusando comprimidos de propranolol e nimesulida.\nQuímica Nova, n. 3, 2013 (adaptado).",
+      "enunciado": "Na estrutura desse fármaco, o grupamento capaz de reagir com a base de Brönsted-Lowry é o grupo",
+      "alternativas": [
+        "sulfonamida.",
+        "metila.",
+        "fenila.",
+        "nitro.",
+        "éter."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-094.jpeg",
+          "legenda": "",
+          "alt": "Estrutura química da nimesulida e grupos funcionais identificados."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024095,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 95,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O desenvolvimento da biotecnologia e da clonagem\ngênica em procariotos fez com que a produção de proteínas\nse tornasse mais intensa, rápida e econômica. Para a\nprodução de hormônios, enzimas e proteínas de resistência\na drogas, uma variação da técnica de reação em cadeia\npela polimerase (PCR, na sigla em inglês) utiliza a enzima\ntranscriptase reversa (RT-PCR), que sintetiza moléculas\nde DNA complementares a partir de fitas de RNA.",
+      "enunciado": "Nesse contexto, essa técnica é importante para detectar genes",
+      "alternativas": [
+        "expressos.",
+        "plasmidiais.",
+        "bacterianos.",
+        "dominantes.",
+        "autossômicos."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024096,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 96,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Nos automóveis, é importante garantir que o centro de\nmassa (CM) de cada conjunto roda/pneu coincida com o\nseu centro geométrico. Esse processo é realizado em uma\nmáquina de balanceamento, na qual o conjunto roda e pneu\né colocado para girar a uma velocidade de valor constante.\nCom base nas oscilações medidas, a máquina indica a\nposição do centro de massa do conjunto, e pequenas\npeças de chumbo são fixadas em lugares específicos da\nroda até que as vibrações diminuam. Durante o treinamento\nde sua equipe, a fim de corrigir a posição do centro de\nmassa indicada pela máquina, um mecânico apresenta\no esquema a seguir, com cinco possíveis pontos da roda\npara posicionar uma peça de chumbo.",
+      "enunciado": "Em qual ponto deve ser fixada a peça de chumbo para corrigir a posição do centro de massa desse conjunto roda/pneu?",
+      "alternativas": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-096.jpeg",
+          "legenda": "",
+          "alt": "Roda com cinco pontos possíveis de fixação de uma peça de chumbo."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024097,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 97,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O soro caseiro serve para combater a desidratação por\nmeio da reposição da água e sais minerais perdidos,\npor exemplo, por diarreia. Uma receita simples para a sua\npreparação consiste em utilizar duas colheres grandes\n(de sopa) de açúcar e duas colheres pequenas (de café)\nde sal de cozinha, dissolvidos em 2 L de água fervida,\nobtendo-se uma solução com concentração de íon sódio\nde 1,4 mg/mL.\nConsidere as massas molares: NaCl = 58,5 g/mol;\nNa = 23 g/mol.",
+      "enunciado": "Qual é o valor mais próximo da massa, em grama, de cloreto de sódio presente em uma única colher pequena?",
+      "alternativas": [
+        "0,7 g",
+        "1,8 g",
+        "2,8 g",
+        "3,6 g",
+        "7,0 g"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024098,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 98,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Apesar de os animais representados no cladograma\ncompartilharem um mesmo ancestral, eles se caracterizam\npor distintos padrões de reprodução ou de nutrição dos\nembriões e descendentes.\nDIXSON, A. F. Mammalian Sexuality: The Act of Mating and the\nEvolution of Reproduction. Disponível em: www.cambridge.org.\nAcesso em: 2 jul. 2024 (adaptado).",
+      "enunciado": "Ao longo do processo evolutivo, percebem-se, entre esses animais, perdas e ganhos nos padrões citados que envolvem o(a)",
+      "alternativas": [
+        "aumento no número de descendentes por ninhada.",
+        "mudança no tipo de fecundação de externa para interna.",
+        "redução da versatilidade de reprodução, que se torna unicamente sexuada.",
+        "desenvolvimento embrionário, que passa do meio aquático para o terrestre.",
+        "diminuição da vesícula vitelínica, associada ao desenvolvimento da lactação."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-098.jpeg",
+          "legenda": "",
+          "alt": "Cladograma de mamíferos monotremados, marsupiais e placentários."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024099,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 99,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma ambulância em alta velocidade com a sirene ligada\ndesloca-se em direção a um radar operado por uma pessoa.\nO radar emite ondas de rádio com frequência f₀ que são\nrefletidas pela dianteira da ambulância, retornando para\no detector com frequência fᵣ . A percepção do operador do\nradar, em relação ao som emitido pela sirene, é de que\neste se altera à medida que a ambulância se aproxima\nou se afasta.",
+      "enunciado": "Durante a aproximação, como o operador percebe o som da sirene e qual é a relação entre as frequências fᵣ e f₀ medidas pelo radar?",
+      "alternativas": [
+        "Mais grave do que o som emitido e fᵣ < f₀.",
+        "Mais agudo do que o som emitido e fᵣ < f₀.",
+        "Mais agudo do que o som emitido e fᵣ = f₀.",
+        "Mais agudo do que o som emitido e fᵣ > f₀.",
+        "Mais grave do que o som emitido e fᵣ > f₀."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024100,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 100,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Mirascópio 3D: produtor de ilusão instantânea\nO equipamento ilustrado na figura, de dimensões\napresentadas no esquema, é composto por dois espelhos\ncôncavos E1\ne E2\n, apoiados um sobre o outro por suas\nbordas, de tal forma que o vértice de E1\ncoincide com\no foco de E2\ne vice-versa. Na abertura circular de\nE2\n, é formada uma imagem tridimensional de um objeto\nposicionado sobre o vértice de E1\n. Essa imagem é\nformada a partir dos raios procedentes do objeto, refletidos\npor E2\ne E1\n, respectivamente, conforme o esquema.\nOs observadores julgam visualizar o objeto quando estão,\nde fato, visualizando sua imagem. O efeito só é possível\nporque as superfícies de ambos os espelhos são de\nextrema qualidade.\nSALZMANN, W. Disponível em: https://wissenstexte.de.\nAcesso em: 27 jun. 2024 (adaptado).",
+      "enunciado": "A natureza da imagem formada e a distância vertical entre cada ponto objeto e seu correspondente ponto imagem são",
+      "alternativas": [
+        "real e 5 cm.",
+        "real e 3,8 cm.",
+        "real e 7,6 cm.",
+        "virtual e 7,6 cm.",
+        "virtual e 3,8 cm."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-100.jpeg",
+          "legenda": "",
+          "alt": "Mirascópio e esquema com raios refletidos, posições e medidas."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024101,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 101,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A saúde do professor: acústica arquitetônica\nDentre os parâmetros acústicos que afetam a\ninteligibilidade dos sons emitidos em ambientes fechados,\ndestacam-se o ruído de fundo do ambiente e o decréscimo\ndo nível sonoro com a distância da fonte emissora. Assim,\nsentar-se no fundo da sala de aula pode prejudicar a\naprendizagem dos estudantes, por impedir que eles\ndistingam, com precisão, os sons emitidos, diminuindo a\ninteligibilidade da fala de seus professores. Considere a\nsituação exemplificada pelo infográfico: à distância de\n1 metro, o nível sonoro da fala de um professor é de\n60 dB e diminui com a distância. Considere, ainda, que o\nruído de fundo nessa sala de aula pode chegar a 45 dB\ne que, para ser compreendida, o nível sonoro da fala do\nprofessor deve estar 5 dB acima desse ruído.\nDisponível em: www.ufrrj.br. Acesso em: 2 dez. 2021 (adaptado).",
+      "enunciado": "Para um valor máximo do ruído de fundo, a maior distância que um estudante pode estar do professor para que ainda consiga compreender sua fala é mais próxima de",
+      "alternativas": [
+        "3,0 m.",
+        "4,5 m.",
+        "6,5 m.",
+        "8,0 m.",
+        "9,5 m."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-101.jpeg",
+          "legenda": "",
+          "alt": "Gráfico do nível sonoro por distância em uma sala de aula."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024102,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 102,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma agricultora, com a intenção de comercializar o\nmilho recém-colhido, testou uma forma de preservar o\nsabor adocicado do seu produto. O melhor resultado foi\nobtido quando ela imergiu as espigas em água fervente\ndurante alguns minutos e, em seguida, em água gelada.\nCom esse procedimento, parte da glicose do milho não foi\ntransformada em amido, mantendo o seu sabor adocicado.",
+      "enunciado": "Utilizando esse procedimento, o sabor foi conservado porque houve",
+      "alternativas": [
+        "desnaturação enzimática pela alta temperatura.",
+        "conversão de nutrientes pela redução de temperatura.",
+        "degradação das reservas nutritivas pelo choque térmico.",
+        "impedimento da entrada de oxigênio pela fervura da água.",
+        "desidratação dos grãos por causa da alteração da temperatura."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024103,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 103,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Aquecedores solares são equipamentos utilizados para\no aquecimento de água pelo calor do Sol. São compostos\npor coletores solares, nos quais ocorre o aquecimento da\nágua, e por um reservatório térmico, em que é armazenada\na água quente para ser utilizada posteriormente. A figura\nilustra esquematicamente como funciona esse equipamento.\n5 dicas de instalação de aquecedor solar. Disponível em:\nhttps://instaline.com.br. Acesso em: 3 nov. 2023 (adaptado).",
+      "enunciado": "O processo pelo qual ocorre transferência de calor dos coletores solares para o reservatório térmico é a",
+      "alternativas": [
+        "difusão.",
+        "absorção.",
+        "condução.",
+        "irradiação.",
+        "convecção."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-103.jpeg",
+          "legenda": "",
+          "alt": "Esquema do aquecedor solar com reservatório e coletor."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024104,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 104,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "As autoridades sanitárias brasileiras têm se preocupado\nmuito nos últimos anos com o aumento da ocorrência\nde doenças transmitidas por mosquitos, principalmente\narboviroses como chikungunya e zika, que se tornaram\nepidêmicas ou endêmicas em áreas urbanas. Parte de\numa análise da relação entre a urbanização e a incidência\ndessas doenças está representada no fluxograma.\nALMEIDA, L. S.; COTA, A. L. S.; RODRIGUES, D. F. Saneamento,\narboviroses e determinantes ambientais: impactos na saúde urbana.\nCiência & Saúde Coletiva, v. 25, n. 10, 2020 (adaptado).",
+      "enunciado": "Nesse contexto, como a urbanização está causando riscos à saúde humana?",
+      "alternativas": [
+        "Disseminando verminoses.",
+        "Causando a eutrofização de lagoas.",
+        "Aumentando a chance de contato com coliformes.",
+        "Diminuindo a população de predadores aquáticos.",
+        "Aproximando as pessoas das áreas de ocorrência de mosquitos."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-104.jpeg",
+          "legenda": "",
+          "alt": "Fluxograma de urbanização, saneamento, água, biodiversidade e saúde."
+        }
+      ],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    },
+    {
+      "id": 2024105,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 105,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Impactos do microplástico\nA ação de fatores abióticos aliada à biodeterioração\ncontribuem para a formação de microplásticos, os quais se\naderem a outros poluentes orgânicos apolares persistentes,\ncomo os derivados de pesticidas lipossolúveis. Há uma\nproporcionalidade direta entre a solubilidade desses tipos de\npoluentes e sua concentração nos tecidos dos organismos\nexpostos a eles.\nDisponível em: www.ecycle.com.br.\nAcesso em: 9 dez. 2021 (adaptado).",
+      "enunciado": "Em animais vertebrados, essa associação de poluentes será preferencialmente acumulada no tecido",
+      "alternativas": [
+        "ósseo.",
+        "nervoso.",
+        "epitelial.",
+        "adiposo.",
+        "sanguíneo."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    }
+  ]
+}
