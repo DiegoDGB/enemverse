@@ -15,7 +15,7 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 ## Próximo lote de trabalho
 
 1. Baixar as duas provas oficiais para a pasta local `enemverse-backend/fontes-pdf/` com os nomes `2024_dia1_azul.pdf` e `2024_dia2_azul.pdf` (links no manifesto). Essa pasta é ignorada pelo Git.
-2. Executar `node scripts/extrair-rascunho-2024.js fontes-pdf/2024_dia1_azul.pdf fontes-pdf/2024_dia2_azul.pdf` dentro de `enemverse-backend`. O resultado fica em `fontes-pdf/rascunho-2024-azul.json`, **não pode ser importado** e aponta números ausentes e duplicados. O PDF contém questões de Inglês e Espanhol; selecionar somente Inglês para 1–5.
+2. Executar `node scripts/extrair-rascunho-2024.js fontes-pdf/2024_dia1_azul.pdf fontes-pdf/2024_dia2_azul.pdf` dentro de `enemverse-backend`. O resultado fica em `fontes-pdf/rascunho-2024-azul.json` e **não pode ser importado**. Com os PDFs recebidos, foram extraídos 180 marcadores exclusivos, sem números ausentes; nas questões 1–5 o script seleciona Inglês. Trechos com imagens e notação matemática precisam ser reconstruídos manualmente.
 3. Extrair e revisar os dois PDFs em registros com os mesmos campos de `enem-2025-azul.json`, acrescentando `origem: "ENEM_OFICIAL"` e `fonte_url` da prova respectiva.
 4. Usar `gabarito-2024-azul.json` como gabarito independente; a questão 129 traz `"ANULADA"`. Não inferir respostas a partir do texto da questão.
 5. Guardar as imagens referenciadas em `assets/enem/2024/azul/` e revisar texto, fórmulas, alternativas e imagens página a página.
