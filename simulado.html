@@ -166,7 +166,14 @@
 
                 gerarMenuDropdownMatriz(matrizOficialENEM);
                 configurarFiltroDificuldade();
-                await aplicarFiltros();
+
+                // DEV: ?questao=163 carrega diretamente a questão oficial informada.
+                const questaoTeste = new URLSearchParams(window.location.search).get('questao');
+                if (questaoTeste && window.location.hostname !== 'enemverse.vercel.app') {
+                    await carregarQuestaoTeste(questaoTeste);
+                } else {
+                    await aplicarFiltros();
+                }
 
             } catch (e) {
                 console.error("Erro ao carregar simulado:", e);
@@ -277,6 +284,39 @@
                     aplicarFiltros();
                 });
             });
+        }
+
+        async function carregarQuestaoTeste(numeroEnem) {
+            indiceAtual = 0;
+            selectedOption = null;
+            respondida = false;
+
+            if (btnVerify) {
+                btnVerify.disabled = true;
+                btnVerify.style.opacity = "0.5";
+                btnVerify.style.cursor = "not-allowed";
+            }
+            if (enunciado) enunciado.innerText = `Carregando questão ENEM ${numeroEnem} para teste...`;
+
+            try {
+                const resposta = await fetch(`${API_BASE_URL}/api/simulados/teste/questao/${encodeURIComponent(numeroEnem)}`);
+                const dados = await resposta.json();
+
+                if (!resposta.ok || !dados.questao) {
+                    throw new Error(dados.erro || ('Falha ao carregar questão de teste (HTTP ' + resposta.status + ')'));
+                }
+
+                bancoDadosOriginal = [dados.questao];
+                listaQuestoesFiltradas = [dados.questao];
+                atualizarBarraProgresso();
+                renderizarQuestao(0);
+            } catch (erro) {
+                console.error('Erro ao carregar questão direta para teste:', erro);
+                bancoDadosOriginal = [];
+                listaQuestoesFiltradas = [];
+                mostrarAvisoSemQuestoes();
+                if (enunciado) enunciado.innerText = 'Não foi possível carregar a questão solicitada para teste.';
+            }
         }
 
         async function aplicarFiltros() {
