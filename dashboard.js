@@ -1,185 +1,137 @@
 const API_BASE_URL = window.ENEMVERSE_API_BASE_URL;
 
 document.addEventListener('DOMContentLoaded', async () => {
-
-    // ============================================================
-    // 1. VERIFICAÇÃO DA SESSÃO
-    // ============================================================
-    const tokenAtivo = localStorage.getItem('enemverse_token');
-
-    if (!tokenAtivo) {
+    const token = localStorage.getItem('enemverse_token');
+    if (!token) {
         window.location.href = 'login.html';
         return;
     }
 
-    // ============================================================
-    // 2. BUSCAR DADOS DO USUÁRIO NO BACK-END
-    // ============================================================
-    async function buscarDadosUsuarioBanco() {
-        try {
-            const resposta = await fetch(`${API_BASE_URL}/api/auth/perfil`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${tokenAtivo}`
-                }
-            });
-
-            const dados = await resposta.json();
-            console.log('Resposta da API:', dados);
-
-            if (!resposta.ok) {
-                throw new Error(dados.erro || 'Falha ao buscar perfil do usuário.');
-            }
-
-            return dados;
-        } catch (erro) {
-            console.error('Erro na requisição de perfil:', erro);
-            return null;
+    document.getElementById('btnExit').addEventListener('click', event => {
+        event.preventDefault();
+        for (const chave of ['enemverse_token', 'enemverse_email_ativo', 'enemverse_username', 'enemverse_xp', 'enemverse_streak']) {
+            localStorage.removeItem(chave);
         }
-    }
+        window.location.href = 'login.html';
+    });
 
-    // ============================================================
-    // 3. CÁLCULO DA PATENTE
-    // ============================================================
-    function calcularPatenteUsuario(xpTotal) {
-        const nivelCalculado = Math.floor(xpTotal / 300) + 1;
-        let rankNome = 'Aspirante';
+    const headers = { Authorization: `Bearer ${token}` };
+    const status = document.getElementById('dashboardStatus');
+    const hoje = new Date();
+    const inicio = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    const fim = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 1);
 
-        if (nivelCalculado >= 10) {
-            rankNome = 'Mestre Supremo';
-        } else if (nivelCalculado >= 7) {
-            rankNome = 'Especialista Federal';
-        } else if (nivelCalculado >= 4) {
-            rankNome = 'Veterano das Bancas';
-        } else if (nivelCalculado >= 2) {
-            rankNome = 'Guerreiro Estudantil';
-        }
-
-        return `Nível ${nivelCalculado} • ${rankNome}`;
-    }
-
-    // ============================================================
-    // 4. SINCRONIZAÇÃO DO PAINEL
-    // ============================================================
-    try {
-        const usuario = await buscarDadosUsuarioBanco();
-
-        if (!usuario) {
-            alert('Erro de sincronização da conta. Faça login novamente.');
+    async function consultar(rota) {
+        const resposta = await fetch(`${API_BASE_URL}/api/${rota}`, { headers });
+        if (resposta.status === 401) {
             localStorage.removeItem('enemverse_token');
-            localStorage.removeItem('enemverse_email_ativo');
             window.location.href = 'login.html';
+            throw new Error('Sua sessão expirou. Entre novamente.');
+        }
+        if (!resposta.ok) throw new Error(`Consulta indisponível (HTTP ${resposta.status}).`);
+        return resposta.json();
+    }
+
+    function preencherPerfil(usuario) {
+        document.getElementById('dashName').textContent = usuario.nome || 'Estudante';
+        document.getElementById('profileName').textContent = usuario.nome || 'Estudante';
+        const xp = Number(usuario.xp) || 0;
+        document.getElementById('dashXP').textContent = xp.toLocaleString('pt-BR');
+        const nivel = Math.floor(xp / 300) + 1;
+        const nomeNivel = nivel >= 10 ? 'Mestre Supremo' : nivel >= 7 ? 'Especialista Federal'
+            : nivel >= 4 ? 'Veterano das Bancas' : nivel >= 2 ? 'Guerreiro Estudantil' : 'Aspirante';
+        document.querySelector('.user-tier').textContent = `Nível ${nivel} • ${nomeNivel}`;
+        const ofensiva = Number(usuario.ofensiva) || 0;
+        document.getElementById('dashStreak').textContent = `${ofensiva} ${ofensiva === 1 ? 'Dia' : 'Dias'}`;
+    }
+
+    function preencherResumo(resumo) {
+        document.getElementById('totalRespondidas').textContent = Number(resumo.respondidas || 0).toLocaleString('pt-BR');
+        document.getElementById('totalAcertos').textContent = Number(resumo.acertos || 0).toLocaleString('pt-BR');
+        document.getElementById('totalErros').textContent = Number(resumo.erros || 0).toLocaleString('pt-BR');
+        document.getElementById('taxaAcerto').textContent = `${Number(resumo.taxaAcerto || 0).toLocaleString('pt-BR')}%`;
+
+        const container = document.getElementById('desempenhoAreas');
+        container.replaceChildren();
+        const areas = Array.isArray(resumo.porArea) ? resumo.porArea : [];
+        if (!areas.length) {
+            container.textContent = 'Responda questões para ver seu desempenho por área.';
             return;
         }
-
-        console.log('Usuário carregado com sucesso:', usuario);
-
-        // ========================================================
-        // CAPTURA DOS ELEMENTOS CORRIGIDOS DO HTML (Alinhados com a árvore de nós)
-        // ========================================================
-        const topNavWelcome = document.getElementById('topNavWelcome'); // Boas-vindas na barra do topo
-        const sidebarNome = document.getElementById('sidebarNome') || document.querySelector('.auth-card h3') || document.querySelector('h3'); // Nome no Bloco de Perfil
-        const dashStreak = document.getElementById('dashStreak') || document.querySelector('.auth-card p:nth-of-type(1)'); // Ofensiva
-        const dashXP = document.getElementById('dashXP') || document.querySelector('.auth-card p:nth-of-type(2)'); // XP Total
-        const userTier = document.getElementById('userTier') || document.querySelector('.auth-card h3 + p') || document.querySelector('p'); // Nível / Patente
-
-        // Elementos de Meta do HTML
-        const goalPercent = document.getElementById('goalPercent') || document.querySelector('.meta-diaria span'); // Porcentagem de Texto
-        const goalCounter = document.getElementById('goalCounter') || document.querySelector('.meta-diaria p:last-of-type'); // Texto descritivo de progresso
-        const goalBarFill = document.getElementById('goalBarFill') || document.querySelector('.progress-bar-fill') || document.querySelector('.meta-diaria div div'); // Barra visual
-
-        // ========================================================
-        // INJEÇÃO SEGURA DOS DADOS DENTRO DAS TAGS
-        // ========================================================
-        
-        // Nome do Estudante
-        if (topNavWelcome) {
-            topNavWelcome.innerText = usuario.nome || 'Estudante';
-        }
-        if (sidebarNome) {
-            sidebarNome.innerText = usuario.nome || 'Estudante';
-        }
-
-        // Ofensiva formatada (Exemplo: "5 Dias Ofensiva" ou "5 Dias")
-        const ofensiva = Number(usuario.ofensiva || 0);
-        if (dashStreak) {
-            dashStreak.innerText = `🔥 ${ofensiva} ${ofensiva === 1 ? 'Dia Ofensiva' : 'Dias Ofensiva'}`;
-        }
-
-        // Pontuação de XP formatada com pontos (Exemplo: "1.240 XP Total")
-        const xp = Number(usuario.xp || 0);
-        if (dashXP) {
-            dashXP.innerText = `⚡ ${xp.toLocaleString('pt-BR')} XP Total`;
-        }
-
-        // Patente e Nível calculados
-        if (userTier) {
-            userTier.innerText = calcularPatenteUsuario(xp);
-        }
-
-        // Cálculo dinâmico da Meta Diária (Baseado na média de 15 XP por questão respondida)
-        const totalQuestoesRespondidas = Math.floor(xp / 15);
-        let questoesConcluidasHoje = totalQuestoesRespondidas % 10;
-
-        if (questoesConcluidasHoje === 0 && totalQuestoesRespondidas > 0) {
-            questoesConcluidasHoje = 10;
-        }
-
-        // Porcentagem exata da meta concluída hoje
-        const porcentagemMeta = Math.min((questoesConcluidasHoje / 10) * 100, 100);
-
-        // Injeção visual na barra e contadores da Meta Diária
-        if (goalPercent) {
-            goalPercent.innerText = `${Math.floor(porcentagemMeta)}%`;
-        }
-        if (goalCounter) {
-            goalCounter.innerText = `${questoesConcluidasHoje} de 10 concluídas`;
-        }
-        if (goalBarFill) {
-            goalBarFill.style.width = `${porcentagemMeta}%`;
-        }
-
-    } catch (erro) {
-        console.error('Erro ao sincronizar painel com o back-end:', erro);
-        const sidebarNome = document.getElementById('sidebarNome');
-        if (sidebarNome) {
-            sidebarNome.innerText = 'Erro ao carregar dados';
+        for (const area of areas) {
+            const linha = document.createElement('div');
+            linha.className = 'area-row';
+            const cabecalho = document.createElement('div');
+            cabecalho.className = 'area-heading';
+            const nome = document.createElement('span');
+            nome.textContent = area.nome || 'Sem área';
+            const taxa = document.createElement('strong');
+            taxa.textContent = `${Number(area.taxaAcerto || 0).toLocaleString('pt-BR')}% • ${area.acertos || 0}/${Math.max(0, (area.respondidas || 0) - (area.anuladas || 0))}`;
+            cabecalho.append(nome, taxa);
+            const barra = document.createElement('div');
+            barra.className = 'area-track';
+            const preenchimento = document.createElement('div');
+            preenchimento.className = 'area-fill';
+            preenchimento.style.width = `${Math.min(100, Math.max(0, Number(area.taxaAcerto) || 0))}%`;
+            barra.appendChild(preenchimento);
+            linha.append(cabecalho, barra);
+            container.appendChild(linha);
         }
     }
 
-    // ============================================================
-    // 5. REDIRECIONAMENTO DE CLIQUE: SIMULADO
-    // ============================================================
-    const cardSimulado = document.getElementById('cardSimulado') || document.querySelector('.atividades-grid div:nth-child(1)');
-    if (cardSimulado) {
-        cardSimulado.style.cursor = 'pointer';
-        cardSimulado.addEventListener('click', () => {
-            window.location.href = 'simulado.html';
-        });
+    function preencherMeta(dados) {
+        const feitas = Number(dados.respondidas) || 0;
+        const progresso = Math.min(100, Math.round(feitas / 10 * 100));
+        document.getElementById('goalCounter').textContent = `${feitas} de 10 concluídas`;
+        document.getElementById('goalPercent').textContent = `${progresso}%`;
+        document.querySelector('.goal-card .progress-bar-fill').style.width = `${progresso}%`;
+        if (feitas >= 10) document.querySelector('.goal-desc').textContent = 'Meta de 10 questões concluída hoje!';
     }
 
-    // ============================================================
-    // 6. REDIRECIONAMENTO DE CLIQUE: RANKING (LEADERBOARD)
-    // ============================================================
-    const cardRanking = document.getElementById('cardRanking') || document.querySelector('.atividades-grid div:nth-child(2)');
-    if (cardRanking) {
-        cardRanking.style.cursor = 'pointer';
-        cardRanking.addEventListener('click', () => {
-            window.location.href = 'ranking.html';
-        });
+    function preencherRecentes(dados) {
+        const lista = document.getElementById('atividadesRecentes');
+        lista.replaceChildren();
+        const registros = Array.isArray(dados.registros) ? dados.registros : [];
+        if (!registros.length) {
+            const item = document.createElement('li');
+            item.textContent = 'Nenhuma tentativa individual registrada ainda.';
+            lista.appendChild(item);
+            return;
+        }
+        for (const tentativa of registros) {
+            const item = document.createElement('li');
+            const estado = tentativa.anulada ? 'Anulada' : tentativa.correto ? 'Acerto' : 'Erro';
+            const data = new Date(tentativa.respondidaEm);
+            item.textContent = `Questão ${tentativa.questaoId} • ${estado} • ${Number.isNaN(data.getTime()) ? 'Data indisponível' : data.toLocaleString('pt-BR')}`;
+            lista.appendChild(item);
+        }
     }
 
-    // ============================================================
-    // 7. LOGOUT (Limpeza segura da sessão)
-    // ============================================================
-    const btnLogout = document.getElementById('btnLogout') || document.querySelector('a[href="login.html"]') || document.querySelector('.logout-btn');
-    if (btnLogout) {
-        btnLogout.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('enemverse_token');
-            localStorage.removeItem('enemverse_email_ativo');
-            window.location.href = 'login.html';
-        });
+    const resultados = await Promise.allSettled([
+        consultar('auth/perfil'),
+        consultar('questoes/historico/resumo'),
+        consultar(`questoes/historico/hoje?inicio=${encodeURIComponent(inicio.toISOString())}&fim=${encodeURIComponent(fim.toISOString())}`),
+        consultar('questoes/historico/tentativas?pagina=1&limite=5')
+    ]);
+    if (resultados[0].status === 'fulfilled') preencherPerfil(resultados[0].value);
+    if (resultados[1].status === 'fulfilled') preencherResumo(resultados[1].value);
+    if (resultados[2].status === 'fulfilled') preencherMeta(resultados[2].value);
+    if (resultados[3].status === 'fulfilled') preencherRecentes(resultados[3].value);
+
+    const mensagens = ['perfil', 'resumo', 'meta diária', 'atividades recentes']
+        .filter((_, indice) => resultados[indice].status === 'rejected');
+    if (mensagens.length) {
+        status.textContent = `Não foi possível carregar: ${mensagens.join(', ')}. Atualize a página para tentar novamente.`;
+        if (resultados[2].status === 'rejected') {
+            document.getElementById('goalCounter').textContent = 'Meta indisponível';
+            document.getElementById('goalPercent').textContent = '—';
+        }
+        if (resultados[3].status === 'rejected') {
+            document.getElementById('atividadesRecentes').textContent = 'Atividades indisponíveis.';
+        }
+    } else {
+        status.textContent = 'Atualizado com os dados da sua conta.';
     }
+
+
 });
