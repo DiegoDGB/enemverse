@@ -265,7 +265,7 @@ router.post('/admin/migrar-origem', async (req, res) => {
             $and: [
                 semOrigem,
                 { ano: 2026 },
-                { id: { $gte: 1, $lte: 18 } },
+                { id: { $gte: 1, $lte: 19 } },
                 { $or: [
                     { numero_enem: { $exists: false } },
                     { numero_enem: null }
