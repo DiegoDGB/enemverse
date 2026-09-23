@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
@@ -795,6 +796,74 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
 
         console.error('Erro ao processar resposta:', err);
         res.status(500).json({ erro: 'Erro ao processar computação de pontuação.' });
+    }
+});
+
+
+/**
+ * Histórico consolidado por questão. Uma linha representa o estado mais recente
+ * da questão; tentativas conta todos os envios recebidos para essa questão.
+ */
+router.get('/historico', autenticarUsuario, async (req, res) => {
+    const pagina = Number(req.query.pagina || 1);
+    const limite = Number(req.query.limite || 20);
+    if (!Number.isInteger(pagina) || pagina < 1 || !Number.isInteger(limite) || limite < 1 || limite > 100) {
+        return res.status(400).json({ erro: 'Pagina ou limite invalido (limite maximo: 100).' });
+    }
+    try {
+        const filtro = { usuario: req.usuario.id };
+        const [total, registros] = await Promise.all([
+            Resposta.countDocuments(filtro),
+            Resposta.find(filtro).select('-usuario -__v').sort({ ultimaRespostaEm: -1, _id: -1 })
+                .skip((pagina - 1) * limite).limit(limite).lean()
+        ]);
+        res.json({ pagina, limite, total, paginas: Math.ceil(total / limite), registros });
+    } catch (err) {
+        console.error('Erro ao consultar historico:', err);
+        res.status(500).json({ erro: 'Erro ao consultar historico.' });
+    }
+});
+
+router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
+    try {
+        const usuario = req.usuario.id;
+        const [totais, porArea, porMateria] = await Promise.all([
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $group: { _id: null, respondidas: { $sum: 1 }, acertos: { $sum: { $cond: ['$correto', 1, 0] } },
+                    anuladas: { $sum: { $cond: ['$anulada', 1, 0] } }, tentativas: { $sum: '$tentativas' },
+                    xpHistorico: { $sum: '$xpGanho' } } }
+            ]),
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
+                { $unwind: '$dadosQuestao' },
+                { $group: { _id: { $ifNull: ['$dadosQuestao.area_enem', 'Sem area'] }, respondidas: { $sum: 1 },
+                    acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
+                { $sort: { _id: 1 } }
+            ]),
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
+                { $unwind: '$dadosQuestao' },
+                { $group: { _id: { $ifNull: ['$dadosQuestao.materia', 'Sem materia'] }, respondidas: { $sum: 1 },
+                    acertos: { $sum: { $cond: ['$correto', 1, 0] } } } },
+                { $sort: { _id: 1 } }
+            ])
+        ]);
+        const t = totais[0] || { respondidas: 0, acertos: 0, anuladas: 0, tentativas: 0, xpHistorico: 0 };
+        const validas = t.respondidas - t.anuladas;
+        const formatar = lista => lista.map(({ _id, respondidas, acertos, anuladas }) => ({
+            nome: _id, respondidas, acertos, anuladas, erros: respondidas - anuladas - acertos,
+            taxaAcerto: respondidas - anuladas ? Math.round(acertos * 10000 / (respondidas - anuladas)) / 100 : 0
+        }));
+        res.json({ respondidas: t.respondidas, acertos: t.acertos, erros: validas - t.acertos,
+            anuladas: t.anuladas, tentativas: t.tentativas, xpHistorico: t.xpHistorico,
+            taxaAcerto: validas ? Math.round(t.acertos * 10000 / validas) / 100 : 0,
+            porArea: formatar(porArea), porMateria: formatar(porMateria) });
+    } catch (err) {
+        console.error('Erro ao consultar resumo:', err);
+        res.status(500).json({ erro: 'Erro ao consultar resumo.' });
     }
 });
 
