@@ -10,6 +10,7 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - O gabarito oficial foi transcrito em `gabarito-2024-azul.json`: 180 respostas, questões 1–5 em Inglês e questão 129 anulada. As duas tabelas foram conferidas visualmente contra os PDFs.
 - A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. **Os enunciados, alternativas, figuras e fórmulas ainda precisam de transcrição e revisão visual antes da importação.**
 - `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
+- Foram reconstruídas e armazenadas em dez lotes as questões 1–120, com imagens associadas e comparação dos índices de resposta ao gabarito oficial. Faltam 121–180 e a revisão final do caderno completo.
 - Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
 
 
@@ -19,20 +20,6 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - 57 registros contêm rodapés ou marcas da editoração anexados ao texto; 13 têm pelo menos uma alternativa cuja linha começa somente com a letra, comum em expressões matemáticas; 4 contêm caracteres de controle. As categorias se sobrepõem: 64 registros têm ao menos um desses sinais automáticos de revisão.
 - Conferência visual por amostragem: a questão 1 exige a imagem com as citações, ausente na extração textual; 177 e 178 trazem tabelas; as fórmulas das alternativas da 180 não são reconstruídas de forma legível pelo PDF em texto. A questão 154 inclui letras A–E dentro do próprio material da questão, de modo que separar alternativas pela primeira letra encontrada daria resultado errado.
 - Prioridade: recortar e associar imagens/tabelas aos números corretos, reconstruir fórmulas e alternativas, remover marcas editoriais e comparar cada registro com a página original. Depois executar o validador e testar apenas no banco DEV. A revisão visual permanece pendente.
-
-## Lotes em revisão
-
-- `dados/revisao-enem-2024-azul-lote-01.json`: questões 1–5, Inglês, três imagens oficiais associadas.
-- `dados/revisao-enem-2024-azul-lote-02.json`: questões 6–10, texto e alternativas separados.
-- `dados/revisao-enem-2024-azul-lote-03.json`: questões 11–20, páginas 6–9.
-- `dados/revisao-enem-2024-azul-lote-04.json`: questões 21–30, imagens oficiais de 21 e 25.
-- `dados/revisao-enem-2024-azul-lote-05.json`: questões 31–45, imagens oficiais de 33, 36 (duas) e 43.
-- `dados/revisao-enem-2024-azul-lote-06.json`: questões 46–60, gráfico oficial da 53.
-- `dados/revisao-enem-2024-azul-lote-07.json`: questões 61–75.
-- `dados/revisao-enem-2024-azul-lote-08.json`: questões 76–90, imagens oficiais de 77 e 86 (duas).
-- `dados/revisao-enem-2024-azul-lote-09.json`: questões 91–105, figuras oficiais de 91, 92, 94, 96, 98, 100, 101, 103, 104 e recorte das reações da 92. Fórmulas das alternativas 92 e 99 foram normalizadas a partir da página da prova.
-- Para reproduzir o trabalho local após gerar o rascunho bruto, execute `node scripts/montar-revisao-2024.js`, `python scripts/revisar-lote-01-2024.py`, `python scripts/revisar-lote-02-2024.py`, `python scripts/revisar-lote-03-2024.py`, `python scripts/revisar-lote-04-2024.py`, `python scripts/revisar-lote-05-2024.py`, `python scripts/revisar-lote-06-2024.py`, `python scripts/revisar-lote-07-2024.py`, `python scripts/revisar-lote-08-2024.py` e `python scripts/revisar-lote-09-2024.py`. Os scripts Python dependem do rascunho temporário em `fontes-pdf/` (ignorado pelo Git).
-- **Não importar os lotes isolados**; reunir 180 questões, conferir mídias e fórmulas, marcar a revisão apenas ao término e então rodar o validador.
 
 ## Próximo lote de trabalho
 
