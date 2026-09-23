@@ -8,12 +8,9 @@ function autenticarUsuario(req, res, next) {
     }
 
     const token = authorization.slice(7).trim();
-    const jwtSecret = process.env.JWT_SECRET;
-
-    if (!jwtSecret) {
-        console.error('JWT_SECRET não configurado no ambiente.');
-        return res.status(500).json({ erro: 'Configuração de autenticação indisponível.' });
-    }
+    // Mantém compatibilidade com o login atual nesta etapa.
+    // A remoção do fallback será feita junto da validação de JWT_SECRET no ambiente.
+    const jwtSecret = process.env.JWT_SECRET || 'CHAVE_TOKEN_ENEMVERSE';
 
     try {
         const decodificado = jwt.verify(token, jwtSecret);
