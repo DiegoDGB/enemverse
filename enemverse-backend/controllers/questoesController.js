@@ -694,6 +694,29 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
         const acertou = Number(questao.correta) === alternativa;
         let xpGanho = 0;
 
+        // Garante primeiro o registro único. Depois, a concessão de XP é feita
+        // por uma atualização condicional sem upsert, evitando duplicidade.
+        await Resposta.findOneAndUpdate(
+            { usuario: usuario._id, questaoId: questao.id },
+            {
+                $setOnInsert: {
+                    usuario: usuario._id,
+                    questao: questao._id,
+                    questaoId: questao.id,
+                    alternativaSelecionada: alternativa,
+                    correto: false,
+                    anulada: false,
+                    tempoEsgotado: Boolean(tempoEsgotado),
+                    xpGanho: 0,
+                    xpConcedido: false,
+                    tentativas: 0,
+                    primeiraRespostaEm: agora,
+                    ultimaRespostaEm: agora
+                }
+            },
+            { upsert: true, new: true, setDefaultsOnInsert: false }
+        );
+
         if (acertou) {
             const premio = tempoEsgotado ? 10 : 20;
 
@@ -703,7 +726,7 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                 {
                     usuario: usuario._id,
                     questaoId: questao.id,
-                    xpConcedido: { $ne: true }
+                    xpConcedido: false
                 },
                 {
                     $set: {
@@ -712,14 +735,9 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                         xpConcedido: true,
                         xpGanho: premio
                     },
-                    $setOnInsert: {
-                        usuario: usuario._id,
-                        questaoId: questao.id,
-                        primeiraRespostaEm: agora
-                    },
                     $inc: { tentativas: 1 }
                 },
-                { upsert: true, new: true, setDefaultsOnInsert: false }
+                { new: true }
             );
 
             if (respostaPremiada) {
