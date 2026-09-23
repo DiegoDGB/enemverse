@@ -1,0 +1,541 @@
+{
+  "aviso": "Lote parcial, questões 121–135 revisadas visualmente. Não importar isoladamente.",
+  "questoes": [
+    {
+      "id": 2024121,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 121,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Na tirinha, Calvin se divertia em um balanço antes de\nsoltar-se dele e cair ao chão. Em sua fala, ele demonstra ter\nimaginado que permaneceria em movimento circular. Porém,\na força gravitacional, que permanece atuando no garoto,\nmodifica a direção de sua velocidade, fazendo com que ele\nchegue ao chão da maneira ilustrada no último quadrinho.\nWATTERSON, B. Disponível em: https://tiras-do-calvin.tumblr.com.\nAcesso em: 19 nov. 2021 (adaptado).",
+      "enunciado": "Qual vetor representa a força resultante exercida pelo chão sobre Calvin no exato momento em que ele toca o chão?",
+      "alternativas": [
+        "Vetor diagonal para cima e para a direita.",
+        "Vetor horizontal para a esquerda.",
+        "Vetor diagonal para cima e para a esquerda.",
+        "Vetor vertical para cima.",
+        "Vetor horizontal para a direita."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-121.jpeg",
+          "legenda": "",
+          "alt": "Tirinha de Calvin e Haroldo sobre queda do balanço."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-121-alternativas.png",
+          "legenda": "",
+          "alt": "Cinco vetores desenhados nas alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024122,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 122,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A tirinha ilustra esquimós dentro de um iglu, habitação\nde formato hemisférico construída durante o inverno a partir de\nneve ou blocos de gelo. Essa estrutura de construção se justifica\npelo fato de esse povo habitar as regiões mais setentrionais\nda Groenlândia, Canadá e Alasca.\nLAERTE. Disponível em: https://artedafisicapibid.blogspot.com.\nAcesso em: 4 dez. 2021 (adaptado).",
+      "enunciado": "Na tirinha, a geladeira é necessária para fazer gelo porque",
+      "alternativas": [
+        "a temperatura interna do iglu é maior que a de solidificação da água.",
+        "a umidade dentro do iglu dificulta o processo de mudança de fase da água.",
+        "o ar dentro do iglu é isolante térmico, dificultando a perda de calor pela água.",
+        "a temperatura uniforme no interior do iglu impede as correntes de convecção.",
+        "a pressão do ar no interior do iglu é baixa, dificultando a solidificação da água."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-122.jpeg",
+          "legenda": "",
+          "alt": "Tirinha sobre a geladeira no interior de um iglu."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024123,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 123,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Os pesticidas naturais vêm sendo utilizados no controle\nde pragas e doenças agrícolas como substituintes de\npesticidas sintéticos tradicionais, por serem menos nocivos\nao ambiente, biodegradáveis e minimizarem custos e riscos\nrelativos à lavoura. Por exemplo, os compostos 1 e 2 estão\nenvolvidos nas respostas de defesa das plantas. Os grupos\nfuncionais presentes nesses compostos são importantes\npara suas propriedades no controle de pragas.\nPINTO-ZEVALLOS, D. M.; ZARBIN, P. H. G. A química na agricultura:\nperspectivas para o desenvolvimento de tecnologias sustentáveis.\nQuímica Nova, n. 10, 2013 (adaptado).",
+      "enunciado": "Qual é a função orgânica correspondente ao grupo funcional comum presente nesses dois compostos?",
+      "alternativas": [
+        "Ácido carboxílico.",
+        "Cetona.",
+        "Alceno.",
+        "Álcool.",
+        "Fenol."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-123.jpeg",
+          "legenda": "",
+          "alt": "Estruturas químicas dos compostos 1 e 2."
+        }
+      ],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024124,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 124,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Utilizando-se um mesmo meio nutritivo, três gêneros\nbacterianos diferentes foram submetidos ao cultivo em\ntubos de ensaio. Após certo período de crescimento da\ncultura bacteriana em condições físico-químicas ideais,\nobservou-se que o padrão de distribuição das células\n(representadas por pontos na figura) ao longo dos tubos\nera diferente em cada um dos casos.",
+      "enunciado": "Em relação ao metabolismo energético, os microrganismos presentes nos tubos 1, 2 e 3 são classificados, respectivamente, como",
+      "alternativas": [
+        "anaeróbio facultativo, anaeróbio estrito e aeróbio estrito.",
+        "anaeróbio facultativo, aeróbio estrito e anaeróbio estrito.",
+        "aeróbio estrito, anaeróbio estrito e anaeróbio facultativo.",
+        "anaeróbio estrito, aeróbio estrito e anaeróbio facultativo.",
+        "aeróbio estrito, anaeróbio facultativo e anaeróbio estrito."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-124.jpeg",
+          "legenda": "",
+          "alt": "Distribuição das bactérias nos tubos numerados de 1 a 3."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024125,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 125,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "As placas que indicam saída de emergência brilham no\nescuro, pois apresentam substâncias que fosforecem na\ncor amarelo-esverdeada após exposição à luz ambiente,\nconforme a figura.\nEsse fenômeno ocorre pela presença do sulfeto de\nzinco (ZnS), dopado com prata ou cobre, na superfície\nda placa.\nZinc Sulphide Phosphorescence. Disponível em:\nhttps://physicsopenlab.org. Acesso em: 8 nov. 2023 (adaptado).",
+      "enunciado": "O aparecimento do brilho nessas condições ocorre como consequência de",
+      "alternativas": [
+        "colisões interatômicas.",
+        "coloração dos átomos.",
+        "transições eletrônicas.",
+        "reações nucleares.",
+        "reflexão da luz."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-125.jpeg",
+          "legenda": "",
+          "alt": "Placa de saída de emergência fosforescente."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024126,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 126,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Indústrias farmacêuticas e instituições científicas têm\ntrabalhado no desenvolvimento de diferentes vacinas\ncontra a covid-19. Em algumas dessas vacinas, a principal\nestrutura antigênica é uma proteína de superfície viral\nchamada espícula (spike, em inglês). Essa proteína só\nexiste em coronavírus, incluindo o SARS-CoV-2. Ela se\nliga a receptores de membrana específicos das células\nhumanas por um mecanismo do tipo “chave-fechadura”.\nDessa forma, os vírus entram nas células, podendo se\nmultiplicar e acarretar a doença.\nO que são vacinas? Disponível em: www.cienciaviva.pt.\nAcesso em: 30 nov. 2021 (adaptado).",
+      "enunciado": "Nessas vacinas, essa proteína viral induz a",
+      "alternativas": [
+        "produção de anticorpos específicos contra os vírus.",
+        "imunidade passiva contra o desenvolvimento da doença.",
+        "alteração genômica para formação da memória imunológica.",
+        "neutralização direta dos vírus presentes na circulação sanguínea.",
+        "modificação dos receptores de membrana específicos para o vírus."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 0,
+      "explicacao": ""
+    },
+    {
+      "id": 2024127,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 127,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Em um experimento de laboratório, duas barras\nmetálicas, A e B, são carregadas com cargas opostas e\nimersas em óleo. Farelo de milho é jogado sobre o óleo e,\napós um certo tempo, o farelo assume o formato das linhas\nde campo elétrico entre as barras. A figura representa a\nvista superior desse experimento.\nALMEIDA, M. A. T. Introdução às ciências físicas 2 — volume 4:\nmódulo 4. Rio de Janeiro: Fundação CECIERJ, 2007 (adaptado).",
+      "enunciado": "Ao repetir o experimento colocando um cilindro metálico oco entre as placas, o esquema que representa o formato das linhas de campo assumido pelo farelo é:",
+      "alternativas": [
+        "Linhas da placa A para B atravessam o cilindro sem desvio.",
+        "Linhas da placa B para A atravessam o cilindro sem desvio.",
+        "Linhas da placa B para A se desviam nas bordas, mas também atravessam o cilindro.",
+        "Linhas da placa A para B se desviam nas bordas e também atravessam o cilindro.",
+        "Linhas da placa A para B se desviam ao redor do cilindro, sem atravessar seu interior."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-127.jpeg",
+          "legenda": "",
+          "alt": "Placas elétricas com linhas de campo na ausência do cilindro."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-127-alternativas.png",
+          "legenda": "",
+          "alt": "Cinco desenhos das linhas de campo nas alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024128,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 128,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Placas solares comuns dependem de dias ensolarados\npara gerar energia. Mas podemos gerar eletricidade com\na ajuda de gotas de chuva, revestindo placas solares\ncom uma fina camada de grafeno. Os íons dissociados a\npartir da água da chuva (Am+\ne Bn−\n) tornam a combinação\ngrafeno e água da chuva um par perfeito para geração\nde energia. O processo requer apenas uma camada de\ngrafeno para que grande quantidade de elétrons (e−\n)\nse movimente ao longo da superfície.\nTANG, Q. et al. A Solar Cell that is Triggered by Sun and Rain.\nAngewandte Chemie International Edition, n. 55, 2016 (adaptado).",
+      "enunciado": "Ao produzir eletricidade em dias chuvosos, o grafeno",
+      "alternativas": [
+        "oxida os cátions dissolvidos na água da chuva.",
+        "impede a difusão da água através das placas solares.",
+        "diminui a energia de ativação da reação no pseudocapacitor.",
+        "forma um compósito não metálico com os íons na água da chuva.",
+        "gera uma diferença de potencial pela interação dos elétrons com os cátions."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-128.jpeg",
+          "legenda": "",
+          "alt": "Esquema da célula solar com grafeno e gotas de chuva."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024129,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 129,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Um estudante comprou uma cafeteira elétrica de 700 W\nde potência e com capacidade de 0,5 L de água (500 g).\nEnquanto o café estava em preparação na capacidade\nmáxima da cafeteira, ele marcou que demorou 3 minutos\npara a cafeteira ferver toda a água (100 °C) a partir da\ntemperatura ambiente de 20 °C. Em seguida, para avaliar a\neficiência da cafeteira, ele calculou esse tempo desprezando\nquaisquer perdas energéticas. É necessária 1 cal (4,2 J)\npara elevar em 1 °C a temperatura de 1 grama de água.",
+      "enunciado": "Qual a eficiência energética calculada pelo estudante?",
+      "alternativas": [
+        "100%",
+        "75%",
+        "60%",
+        "7,5%",
+        "5,1%"
+      ],
+      "midias": [],
+      "anulada": true,
+      "correta": null,
+      "explicacao": ""
+    },
+    {
+      "id": 2024130,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 130,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O diagrama P-V a seguir representa o ciclo de Otto\npara um motor de combustão interna, como os motores a\ngasolina ou a etanol, utilizados nos automóveis.\nAs etapas representadas no diagrama estão descritas\nno quadro.\nEtapa Processo Descrição\nI 0 a 1\nAdmissão isobárica da mistura\nar-combustível no cilindro do motor.\nII 1 a 2 Compressão adiabática da mistura.\nIII 2 a 3\nIntrodução de energia na forma\nde calor da combustão.\nIV 3 a 4 Expansão adiabática.\nV 4 a 1\nLiberação de energia\nna forma de calor.\nVI 1 a 0\nLiberação dos gases\nresultantes da combustão.\nDisponível em: www.mspc.eng.br.\nAcesso em: 24 fev. 2013 (adaptado).",
+      "enunciado": "A transformação da energia térmica em energia útil ocorre na etapa",
+      "alternativas": [
+        "II.",
+        "III.",
+        "IV.",
+        "V.",
+        "VI."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-130.jpeg",
+          "legenda": "",
+          "alt": "Diagrama pressão-volume do ciclo de Otto."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-130-tabela.png",
+          "legenda": "",
+          "alt": "Tabela das seis etapas do ciclo de Otto."
+        }
+      ],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024131,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 131,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O LED é um dispositivo eletrônico que conduz corrente\nelétrica em um único sentido, sendo caracterizado por uma\ntensão e uma corrente máxima de funcionamento, Imáx\n. Um LED\nacende apenas se a corrente que o percorre está no sentido\npermitido e se a diferença de potencial à qual está submetido\né igual ou superior à sua tensão de funcionamento. A figura\nilustra o símbolo do LED usado na representação de circuitos.\nUm estudante de física analisa as propriedades do LED\nem um circuito simples de corrente contínua. Ele dispõe dos\nseguintes materiais: uma bateria ideal de 4,5 V; dois LEDs\nde tensão 3,0 V e Imáx\n= 1,0 mA cada; e dois resistores de\n1,5 kΩ cada.",
+      "enunciado": "O circuito que o estudante pode montar, para que ambos os LEDs fiquem acesos e cada um seja percorrido por Iₘáₓ, é",
+      "alternativas": [
+        "Um resistor em série com dois LEDs ligados em paralelo no sentido direto.",
+        "Dois ramos em paralelo, cada um com um resistor e um LED em série no sentido direto.",
+        "Dois ramos em paralelo, cada um com um resistor e um LED em série no sentido inverso.",
+        "Dois resistores e dois LEDs todos em série no sentido direto.",
+        "Um resistor em série com dois LEDs ligados em paralelo no sentido inverso."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-131-simbolo.jpeg",
+          "legenda": "",
+          "alt": "Símbolo e sentido permitido da corrente no LED."
+        },
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-131-alternativas.png",
+          "legenda": "",
+          "alt": "Cinco circuitos elétricos das alternativas A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024132,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 132,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Uma caixa decorativa utiliza duas pequenas lâmpadas,\nL1\n(6 V – 9 W) e L2\n(12 V – 18 W), ligadas em série a\numa bateria de tensão VQR\n. Um fio resistivo QR, de\n48 centímetros, está ligado em paralelo à bateria. Cinco\npontos, A, B, C, D e E, dividem o fio QR em seis segmentos\nde comprimentos iguais. O circuito também tem um\namperímetro com dois terminais. Um dos terminais (P) está\nligado ao fio entre as duas lâmpadas. O outro terminal (S)\nestá livre e será ligado ao fio QR. Dependendo do ponto em\nque esse terminal livre for conectado, ocorrerá a mudança\nna tensão à qual as lâmpadas são submetidas. Os demais\nfios do circuito têm resistências elétricas desprezíveis.\nA figura ilustra esse circuito.",
+      "enunciado": "Em qual desses pontos o amperímetro deve ser conectado para que as lâmpadas acendam exatamente segundo as especificações de tensão e potência elétricas fornecidas?",
+      "alternativas": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-132.jpeg",
+          "legenda": "",
+          "alt": "Circuito com duas lâmpadas, amperímetro e pontos de conexão A a E."
+        }
+      ],
+      "anulada": false,
+      "correta": 1,
+      "explicacao": ""
+    },
+    {
+      "id": 2024133,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 133,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "O biogás é uma alternativa energética muito importante,\npois, além de reduzir a dependência por combustíveis\nfósseis, sua obtenção pode ser realizada a partir de\nresíduos da produção agroindustrial. Considere que o\nbiogás produzido em um empreendimento de suinocultura\ncontém 70% em volume de metano (massa molar 16 g/mol;\nvolume molar 22 L/mol). Ele será utilizado para geração de\nenergia em substituição ao etanol (massa molar 46 g/mol)\nem um gerador no qual 1 m³\nde biogás de origem suína\nsubstitui 0,59 L de etanol anidro (densidade 0,78 g/mL).",
+      "enunciado": "Nessas condições, a massa de metano necessária para substituir 10 mol de etanol na produção de energia é mais próxima de",
+      "alternativas": [
+        "300 g.",
+        "400 g.",
+        "510 g.",
+        "590 g.",
+        "720 g."
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 2,
+      "explicacao": ""
+    },
+    {
+      "id": 2024134,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 134,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "A fitorremediação é uma técnica que utiliza plantas para a remediação de ambientes contaminados. A descontaminação\nde solos pode ocorrer por descarte, absorção e metabolização, imobilização, extração ou volatilização do poluente,\nconforme representado na figura.\nLUIZ, E. P. Avaliação dos métodos de fitorremediação [...] na remoção de chumbo, cobre e zinco. São Paulo: UFABC, 2016 (adaptado).",
+      "enunciado": "O método que retira o mercúrio de uma área contaminada, impedindo sua entrada na cadeia alimentar, é a",
+      "alternativas": [
+        "fitoestabilização, ficando o mercúrio disponível sob a superfície das raízes das plantas.",
+        "fitovolatilização, permitindo a retirada do mercúrio por plantas e a sua transferência para uma forma volátil.",
+        "fitodegradação, com a degradação do mercúrio promovida por enzimas, contidas nas raízes, formando espécies menos tóxicas.",
+        "fitoestimulação, com a remoção do mercúrio pela ação de microrganismos presentes nas raízes que absorvem e imobilizam o metal.",
+        "fitoextração, em que as plantas que acumulam o mercúrio são cultivadas nesses locais, e a biomassa rica no metal é retirada após o crescimento."
+      ],
+      "midias": [
+        {
+          "tipo": "imagem",
+          "url": "/assets/enem/2024/azul/questao-134.jpeg",
+          "legenda": "",
+          "alt": "Figura e definições dos métodos de fitorremediação."
+        }
+      ],
+      "anulada": false,
+      "correta": 4,
+      "explicacao": ""
+    },
+    {
+      "id": 2024135,
+      "origem": "ENEM_OFICIAL",
+      "ano": 2024,
+      "numero_enem": 135,
+      "dia": 2,
+      "caderno": "7 Azul",
+      "aplicacao": "Regular",
+      "lingua_estrangeira": "Não se aplica",
+      "fonte": "ENEM 2024 - INEP",
+      "fonte_url": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "area_enem": "Ciências da Natureza e suas Tecnologias",
+      "materia": "Ciências da Natureza",
+      "subtopico": "",
+      "dificuldade": "Média",
+      "texto_apoio": "Brasil fecha 2020 entre os maiores recicladores de latas de alumínio\nA bauxita contém alumina (Al₂O₃), que é a matéria-prima para produção do alumínio (Al). De forma geral, são\nnecessários 50 kg de bauxita para produzir 10 kg de alumínio. O Brasil fechou 2020 como um dos principais líderes\nmundiais em reciclagem de latas de alumínio. De acordo com levantamento da Associação Brasileira dos Fabricantes\nde Latas de Alumínio (Abralatas), o país obteve um índice de reciclagem de 97,4%, de um total de 4,0 × 10⁵\ntoneladas\nde latas vendidas. Considere que a lata é constituída de alumínio puro.\nDisponível em: https://agenciabrasil.ebc.com.br. Acesso em: 30 nov. 2021 (adaptado).",
+      "enunciado": "Levando em conta apenas a reciclagem de latas, qual é o valor mais próximo da massa de bauxita, em tonelada, que deixou de ser extraída da natureza em 2020 no Brasil?",
+      "alternativas": [
+        "1,0 × 10⁴ ton",
+        "3,9 × 10⁵ ton",
+        "5,0 × 10⁵ ton",
+        "1,9 × 10⁶ ton",
+        "2,0 × 10⁷ ton"
+      ],
+      "midias": [],
+      "anulada": false,
+      "correta": 3,
+      "explicacao": ""
+    }
+  ]
+}
