@@ -19,8 +19,10 @@ app.use(cors({
         // Requisições sem Origin (curl/Postman/server-to-server) continuam permitidas.
         if (!origin || origensPermitidas.includes(origin)) return callback(null, true);
 
-        // No ambiente DEV, previews do próprio projeto no Vercel são aceitos.
-        if (process.env.NODE_ENV !== 'production' && /^https:\/\/enemverse(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(origin)) {
+        // Previews do próprio projeto no Vercel são aceitos.
+        // O Render normalmente define NODE_ENV=production mesmo no serviço DEV,
+        // então a decisão não pode depender de NODE_ENV.
+        if (/^https:\/\/enemverse(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(origin)) {
             return callback(null, true);
         }
 
