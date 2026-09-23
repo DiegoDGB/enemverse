@@ -11,6 +11,7 @@ conectarBanco();
 // Middlewares Globais
 const origensPermitidas = [
     'https://enemverse.vercel.app',
+    'https://enemverse-api-dev.onrender.com',
     ...(process.env.CORS_ORIGINS || '').split(',').map(origem => origem.trim()).filter(Boolean)
 ];
 
