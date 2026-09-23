@@ -1,7 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
+const Resposta = require('../models/resposta');
+const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -532,44 +535,90 @@ router.post('/importar', async (req, res) => {
     }
 });
 
-// Valida a resposta e computa a premiação de XP no banco
-router.post('/responder', async (req, res) => {
-    const { email, questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
+// O JWT identifica o aluno. Resposta e XP são gravados juntos para evitar prêmio duplicado.
+router.post('/responder', autenticarUsuario, async (req, res) => {
+    const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
+    const id = Number(questaoId);
+    const alternativa = Number(alternativaSelecionada);
+    if (questaoId == null || questaoId === '' || !Number.isInteger(id) || id <= 0) {
+        return res.status(400).json({ erro: 'Questão inválida.' });
+    }
+    if (alternativaSelecionada == null || alternativaSelecionada === '' ||
+        !Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
+        return res.status(400).json({ erro: 'Alternativa selecionada inválida.' });
+    }
 
     try {
-        const questao = await Questao.findOne({ id: questaoId });
-        const usuario = await Usuario.findOne({ email });
+        // O índice único deve existir antes de atender tentativas concorrentes.
+        await Resposta.init();
+        const questao = await Questao.findOne({ id });
+        if (!questao) return res.status(404).json({ erro: 'Questão não encontrada.' });
 
-        if (!questao || !usuario) {
-            return res.status(404).json({
-                erro: 'Dados cadastrais ou questão não encontrados.'
-            });
+        for (let n = 0; n < 4; n++) {
+            const session = await mongoose.startSession();
+            try {
+                let resultado;
+                await session.withTransaction(async () => {
+                    const usuario = await Usuario.findById(req.usuario.id).session(session);
+                    if (!usuario) {
+                        const erro = new Error('Usuário autenticado não encontrado.');
+                        erro.status = 401;
+                        throw erro;
+                    }
+                    const agora = new Date();
+                    const resumo = await Resposta.findOneAndUpdate(
+                        { usuario: usuario._id, questaoId: questao.id },
+                        { $setOnInsert: {
+                            usuario: usuario._id, questao: questao._id, questaoId: questao.id,
+                            alternativaSelecionada: alternativa, correto: false, anulada: false,
+                            tempoEsgotado: false, xpGanho: 0, xpConcedido: false,
+                            tentativas: 0, primeiraRespostaEm: agora, ultimaRespostaEm: agora
+                        } },
+                        { upsert: true, new: true, setDefaultsOnInsert: false, session }
+                    );
+                    const anulada = Boolean(questao.anulada);
+                    const acertou = !anulada && Number(questao.correta) === alternativa;
+                    const xpGanho = acertou && !resumo.xpConcedido ? (tempoEsgotado ? 10 : 20) : 0;
+                    await Resposta.updateOne(
+                        { _id: resumo._id },
+                        {
+                            $set: {
+                                questao: questao._id, alternativaSelecionada: alternativa,
+                                correto: acertou, anulada, tempoEsgotado: Boolean(tempoEsgotado),
+                                xpConcedido: Boolean(resumo.xpConcedido || xpGanho),
+                                xpGanho: (resumo.xpGanho || 0) + xpGanho,
+                                ultimaRespostaEm: agora
+                            },
+                            $inc: { tentativas: 1 }
+                        },
+                        { session }
+                    );
+                    let novoXP = usuario.xp;
+                    if (xpGanho) {
+                        const atualizado = await Usuario.findByIdAndUpdate(
+                            usuario._id, { $inc: { xp: xpGanho } }, { new: true, session }
+                        );
+                        novoXP = atualizado.xp;
+                    }
+                    resultado = {
+                        correto: anulada ? null : acertou, anulada,
+                        gabarito: anulada ? null : questao.correta,
+                        novoXP, xpGanho,
+                        explicacao: questao.explicacao || (anulada ? 'Questão anulada no gabarito oficial.' : '')
+                    };
+                });
+                return res.json(resultado);
+            } catch (err) {
+                if (err.status) return res.status(err.status).json({ erro: err.message });
+                const conflito = err.code === 11000 || err.hasErrorLabel?.('TransientTransactionError');
+                if (!conflito || n === 3) throw err;
+            } finally {
+                await session.endSession();
+            }
         }
-
-        if (questao.anulada) {
-            return res.json({ correto: null, anulada: true, gabarito: null, novoXP: usuario.xp, xpGanho: 0, explicacao: questao.explicacao || 'Questão anulada no gabarito oficial.' });
-        }
-
-        const acertou = Number(questao.correta) === Number(alternativaSelecionada);
-        let xpGanho = 0;
-
-        if (acertou) {
-            xpGanho = tempoEsgotado ? 10 : 20;
-            usuario.xp += xpGanho;
-            await usuario.save();
-        }
-
-        res.json({
-            correto: acertou,
-            anulada: false,
-            gabarito: questao.correta,
-            novoXP: usuario.xp,
-            xpGanho,
-            explicacao: questao.explicacao
-        });
     } catch (err) {
         console.error('Erro ao processar resposta:', err);
-        res.status(500).json({ erro: 'Erro ao processar computação de pontuação.' });
+        res.status(500).json({ erro: 'Erro ao processar resposta. Tente novamente.' });
     }
 });
 
