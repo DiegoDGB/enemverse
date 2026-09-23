@@ -472,7 +472,7 @@
       "materia": "Matemática",
       "subtopico": "",
       "dificuldade": "Média",
-      "texto_apoio": "A prefeitura de uma cidade planeja construir três postos\nde saúde. Esses postos devem ser construídos em locais\nequidistantes entre si e de forma que as distâncias desses\ntrês postos ao hospital dessa cidade sejam iguais. Foram\nconseguidos três locais para a construção dos postos de\nsaúde que apresentam as características desejadas, e\nque distam 10 km entre si, conforme o esquema, no qual o\nponto H representa o local onde está construído o hospital;\nos pontos P1\n, P2\ne P3\n, os postos de saúde; e esses quatro\npontos estão em um mesmo plano.",
+      "texto_apoio": "A prefeitura de uma cidade planeja construir três postos\nde saúde. Esses postos devem ser construídos em locais\nequidistantes entre si e de forma que as distâncias desses\ntrês postos ao hospital dessa cidade sejam iguais. Foram\nconseguidos três locais para a construção dos postos de\nsaúde que apresentam as características desejadas, e\nque distam 10 km entre si, conforme o esquema, no qual o\nponto H representa o local onde está construído o hospital;\nos pontos P₁ , P₂ e P₃ , os postos de saúde; e esses quatro\npontos estão em um mesmo plano.",
       "enunciado": "A distância, em quilômetro, entre o hospital e cada um dos postos de saúde, é um valor entre",
       "alternativas": [
         "2 e 3.",

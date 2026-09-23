@@ -68,6 +68,8 @@ for q in questoes:
   q['texto_apoio']=q['texto_apoio'].replace('Al2\nO3\n)', 'Al₂O₃)').replace('4,0 × 105','4,0 × 10⁵')
  if n==129:
   q['texto_apoio']=q['texto_apoio'].replace('100 °\n°C','100 °C').replace('20 °\n°C','20 °C').replace('1 °\n°C','1 °C')
+ if n==132:
+  for original, corrigido in [('L1\n','L₁ '),('L2\n','L₂ '),('VQR\n','V(QR) ')]:q['texto_apoio']=q['texto_apoio'].replace(original,corrigido)
  if n==133:q['texto_apoio']=q['texto_apoio'].replace('1 m3','1 m³')
  q['midias']=[{'tipo':'imagem','url':f'/assets/enem/2024/azul/{nome}','legenda':'','alt':alt} for nome,alt in imagens.get(n,[])]
  q.pop('_revisao')

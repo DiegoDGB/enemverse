@@ -63,6 +63,8 @@ for q in questoes:
  if n==151:q['texto_apoio']=q['texto_apoio'].replace('1672 m2\n','1 672 m²\n')
  if n==152:q['texto_apoio']=re.sub(r'S([123])\n',lambda m:'S'+('₁','₂','₃')[int(m.group(1))-1]+' ',q['texto_apoio'])
  if n==155:q['texto_apoio']=q['texto_apoio'].replace('°\n°','°').replace('70 m2\n','70 m²\n')
+ if n==164:
+  for original,corrigido in [('P1\n','P₁ '),('P2\n','P₂ '),('P3\n','P₃ ')]:q['texto_apoio']=q['texto_apoio'].replace(original,corrigido)
  if n==165:
   q['texto_apoio']=(
    'Para melhorar o fluxo de ônibus em uma avenida que tem dois semáforos, a prefeitura reduzirá o tempo em que cada sinal ficará vermelho, '

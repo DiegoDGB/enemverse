@@ -67,6 +67,11 @@ for q in questoes:
  if n==114:
   q['texto_apoio']=q['texto_apoio'].replace('CO2\n)', 'CO₂)').replace('O2\n)', 'O₂)')
   q['alternativas']=[a.replace('O2','O₂').replace('CO2','CO₂') for a in q['alternativas']]
+ if n==118:
+  inicio=q['texto_apoio'].index('\nCa5\n(PO4')
+  fim=q['texto_apoio'].index('O uso de creme dental',inicio)
+  q['texto_apoio']=q['texto_apoio'][:inicio]+'\nCa₅(PO₄)₃OH (s) + H⁺ (aq) ⇌ 5 Ca²⁺ (aq) + 3 PO₄³⁻ (aq) + H₂O (l)\nDesmineralização / Mineralização\n'+q['texto_apoio'][fim:]
+  q['texto_apoio']=q['texto_apoio'].replace('Ca5\n(PO4\n)3\nOH,', 'Ca₅(PO₄)₃OH,')
  if n==116:
   q['texto_apoio']=q['texto_apoio'].replace('Mg2+\ne','Mg²⁺ e').replace('Ca(OH)2\n,','Ca(OH)₂,').replace('Ca2+\n,','Ca²⁺,')
   start=q['texto_apoio'].index('Mg2+\n(aq)')

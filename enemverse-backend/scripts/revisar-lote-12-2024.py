@@ -62,7 +62,7 @@ for q in questoes:
  q['texto_apoio']=apoio.strip()
  q['enunciado']=enunciados[n]
  q['alternativas']=formulas.get(n) or [re.sub(r'\s*\n\s*',' ',a).strip() for a in q['alternativas']]
- if n==136:q['texto_apoio']=q['texto_apoio'].replace('10−3','10⁻³')
+ if n==136:q['texto_apoio']=q['texto_apoio'].replace('10−3','10⁻³').replace('10-3\n','10⁻³ ')
  if n==142:q['texto_apoio']=q['texto_apoio'].replace('figuras\ndo tipo no visor','figuras do tipo 🙂 no visor')
  if n==144:q['texto_apoio']=q['texto_apoio'].replace('360°\n°','360°')
  if n==148:q['texto_apoio']=q['texto_apoio'].replace('T(t) = a + 80 bt\n','T(t) = a + 80 bᵗ')

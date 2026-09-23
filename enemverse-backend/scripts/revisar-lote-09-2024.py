@@ -86,6 +86,8 @@ for q in questoes:
             + '4 H⁺ (aq) + O₂ (g) + 4 e⁻ → 2 H₂O (l)\n'
             + q['texto_apoio'][fim:]
         )
+    if numero == 100:
+        q['texto_apoio'] = q['texto_apoio'].replace('E1\n', 'E₁ ').replace('E2\n', 'E₂ ')
     if numero == 99:
         q['texto_apoio'] = q['texto_apoio'].replace('f0\n', 'f₀ ').replace('fr\n', 'fᵣ ')
     q['enunciado'] = enunciados[numero]
