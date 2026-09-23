@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     // 2. CONFIGURAÇÃO DE SESSÃO E API_URL UNIFICADA
     // ============================================================
-    const API_URL = 'https://enemverse-api.onrender.com/api';
+    const API_URL = location.hostname === 'enemverse.vercel.app'
+        ? 'https://enemverse-api.onrender.com/api'
+        : 'https://enemverse-api-dev.onrender.com/api';
     const tokenAtivo = localStorage.getItem('enemverse_token');
 
     // Se o estudante tentar burlar a URL sem estar logado, barra na hora
