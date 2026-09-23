@@ -1,3 +1,7 @@
+const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
+    ? 'https://enemverse-api.onrender.com'
+    : 'https://enemverse-api-dev.onrender.com';
+
 document.addEventListener('DOMContentLoaded', async () => {
 
     // ============================================================
@@ -15,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ============================================================
     async function buscarDadosUsuarioBanco() {
         try {
-            const resposta = await fetch('https://enemverse-api.onrender.com/api/auth/perfil', {
+            const resposta = await fetch(`${API_BASE_URL}/api/auth/perfil`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
