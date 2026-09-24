@@ -355,9 +355,12 @@
             // registros legados ainda não têm o campo origem preenchido.
             if (!(ambienteDev && filtroAno.value === '2026')) payload.origem = 'ENEM_OFICIAL';
             if (filtroAno.value) payload.ano = Number(filtroAno.value);
-            if (filtroAreaAtual !== 'Todas') payload.area = filtroAreaAtual;
-            if (filtroMateriaAtual !== 'Todas') payload.materia = filtroMateriaAtual;
-            if (filtroDificuldadeAtual !== 'Todas') payload.dificuldade = filtroDificuldadeAtual;
+            const teste2026 = ambienteDev && filtroAno.value === '2026';
+            if (!teste2026) {
+                if (filtroAreaAtual !== 'Todas') payload.area = filtroAreaAtual;
+                if (filtroMateriaAtual !== 'Todas') payload.materia = filtroMateriaAtual;
+                if (filtroDificuldadeAtual !== 'Todas') payload.dificuldade = filtroDificuldadeAtual;
+            }
 
             try {
                 const resposta = await fetch(`${API_BASE_URL}/api/simulados`, {
@@ -382,7 +385,14 @@
                 }
 
                 bancoDadosOriginal = dados.questoes;
-                listaQuestoesFiltradas = dados.questoes;
+                // As questões autorais legadas de 2026 possuem matéria, mas
+                // algumas não possuem area_enem. O lote de 19 é filtrado aqui.
+                listaQuestoesFiltradas = teste2026 ? dados.questoes.filter(q =>
+                    (filtroAreaAtual === 'Todas' || q.area_enem === filtroAreaAtual ||
+                        macroareasPorMateria[filtroAreaAtual]?.includes(q.materia)) &&
+                    (filtroMateriaAtual === 'Todas' || q.materia === filtroMateriaAtual) &&
+                    (filtroDificuldadeAtual === 'Todas' || (q.dificuldade || 'Média') === filtroDificuldadeAtual)
+                ) : dados.questoes;
                 atualizarBarraProgresso();
 
                 if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
