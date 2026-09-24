@@ -113,6 +113,7 @@
         const userNameDisplay = document.querySelector('.user-name');
         const navStreakDisplay = document.getElementById('navStreak');
         const filtroAno = document.getElementById('filtroAno');
+        const ambienteDev = window.location.hostname !== 'enemverse.vercel.app';
 
         let bancoDadosOriginal = [];
         let listaQuestoesFiltradas = [];
@@ -154,10 +155,10 @@
                 }
 
                 const filtrosDisponiveis = await respostaFiltros.json();
-                (filtrosDisponiveis.anos || []).filter(Number.isInteger).forEach(ano => {
+                (filtrosDisponiveis.anos || []).filter(Number.isInteger).filter(ano => ambienteDev || ano !== 2026).forEach(ano => {
                     const option = document.createElement('option');
                     option.value = String(ano);
-                    option.textContent = String(ano);
+                    option.textContent = ano === 2026 ? '2026 (questões de teste)' : String(ano);
                     filtroAno.appendChild(option);
                 });
                 filtroAno.addEventListener('change', aplicarFiltros);
@@ -349,10 +350,10 @@
             }
             if (enunciado) enunciado.innerText = "Carregando questões selecionadas...";
 
-            const payload = {
-                origem: 'ENEM_OFICIAL',
-                quantidade: 90
-            };
+            const payload = { quantidade: 90 };
+            // O lote autoral de 2026 é usado apenas para testes no DEV. Alguns
+            // registros legados ainda não têm o campo origem preenchido.
+            if (!(ambienteDev && filtroAno.value === '2026')) payload.origem = 'ENEM_OFICIAL';
             if (filtroAno.value) payload.ano = Number(filtroAno.value);
             if (filtroAreaAtual !== 'Todas') payload.area = filtroAreaAtual;
             if (filtroMateriaAtual !== 'Todas') payload.materia = filtroMateriaAtual;
@@ -436,7 +437,7 @@
             }
             if(feedbackBox) feedbackBox.classList.add('hidden');
 
-            if(labelYear) labelYear.innerText = `ENEM ${q.ano}`;
+            if(labelYear) labelYear.innerText = ambienteDev && q.ano === 2026 ? 'Questão de teste 2026' : `ENEM ${q.ano}`;
             if(labelMateria) labelMateria.innerText = q.materia + (q.subtopico ? ' • ' + q.subtopico : '');
             if(labelDificuldade) { labelDificuldade.innerText = q.dificuldade || 'Média'; labelDificuldade.dataset.nivel = q.dificuldade || 'Média'; }
             if(textoApoio) textoApoio.innerHTML = q.texto_apoio || '';
