@@ -685,6 +685,8 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
     }
 
     try {
+        // O índice único deve existir antes de atender tentativas concorrentes.
+        await Resposta.init();
         const questao = await Questao.findOne({ id });
         if (!questao) return res.status(404).json({ erro: 'Questão não encontrada.' });
 
