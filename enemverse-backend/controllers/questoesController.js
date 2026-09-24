@@ -4,6 +4,7 @@ const router = express.Router();
 const Questao = require('../models/questao');
 const Usuario = require('../models/usuario');
 const Resposta = require('../models/resposta');
+const Tentativa = require('../models/tentativa');
 const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
@@ -570,29 +571,31 @@ router.post('/importar', async (req, res) => {
     }
 });
 
-// O JWT identifica o aluno. Resposta e XP são gravados juntos para evitar prêmio duplicado.
+// Valida a resposta, registra o histórico e computa XP com identidade vinda do JWT.
 router.post('/responder', autenticarUsuario, async (req, res) => {
     const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
     const id = Number(questaoId);
     const alternativa = Number(alternativaSelecionada);
-    if (questaoId == null || questaoId === '' || !Number.isInteger(id) || id <= 0) {
+    if (questaoId === null || questaoId === undefined || questaoId === '' ||
+        !Number.isInteger(id) || id <= 0) {
         return res.status(400).json({ erro: 'Questão inválida.' });
     }
-    if (alternativaSelecionada == null || alternativaSelecionada === '' ||
+    if (alternativaSelecionada === null || alternativaSelecionada === undefined || alternativaSelecionada === '' ||
         !Number.isInteger(alternativa) || alternativa < 0 || alternativa > 4) {
         return res.status(400).json({ erro: 'Alternativa selecionada inválida.' });
     }
 
     try {
-        // O índice único deve existir antes de atender tentativas concorrentes.
-        await Resposta.init();
+        await Promise.all([Resposta.init(), Tentativa.init()]);
         const questao = await Questao.findOne({ id });
         if (!questao) return res.status(404).json({ erro: 'Questão não encontrada.' });
 
-        for (let n = 0; n < 4; n++) {
+        // O resumo, a tentativa e o saldo de XP são gravados na mesma transação.
+        // Em caso de conflito no índice único, recomeça em uma nova transação.
+        let resultado;
+        for (let tentativaTransacao = 0; tentativaTransacao < 4; tentativaTransacao++) {
             const session = await mongoose.startSession();
             try {
-                let resultado;
                 await session.withTransaction(async () => {
                     const usuario = await Usuario.findById(req.usuario.id).session(session);
                     if (!usuario) {
@@ -600,6 +603,7 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                         erro.status = 401;
                         throw erro;
                     }
+
                     const agora = new Date();
                     const resumo = await Resposta.findOneAndUpdate(
                         { usuario: usuario._id, questaoId: questao.id },
@@ -614,20 +618,29 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                     const anulada = Boolean(questao.anulada);
                     const acertou = !anulada && Number(questao.correta) === alternativa;
                     const xpGanho = acertou && !resumo.xpConcedido ? (tempoEsgotado ? 10 : 20) : 0;
+                    const numero = resumo.tentativas + 1;
+
                     await Resposta.updateOne(
                         { _id: resumo._id },
                         {
                             $set: {
                                 questao: questao._id, alternativaSelecionada: alternativa,
                                 correto: acertou, anulada, tempoEsgotado: Boolean(tempoEsgotado),
+                                ultimaRespostaEm: agora,
                                 xpConcedido: Boolean(resumo.xpConcedido || xpGanho),
-                                xpGanho: (resumo.xpGanho || 0) + xpGanho,
-                                ultimaRespostaEm: agora
+                                xpGanho: (resumo.xpGanho || 0) + xpGanho
                             },
                             $inc: { tentativas: 1 }
                         },
                         { session }
                     );
+                    await Tentativa.create([{
+                        usuario: usuario._id, questao: questao._id, questaoId: questao.id,
+                        numero, alternativaSelecionada: alternativa, correto: acertou,
+                        anulada, tempoEsgotado: Boolean(tempoEsgotado), xpGanho,
+                        respondidaEm: agora
+                    }], { session });
+
                     let novoXP = usuario.xp;
                     if (xpGanho) {
                         const atualizado = await Usuario.findByIdAndUpdate(
@@ -636,8 +649,8 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                         novoXP = atualizado.xp;
                     }
                     resultado = {
-                        correto: anulada ? null : acertou, anulada,
-                        gabarito: anulada ? null : questao.correta,
+                        correto: anulada ? null : acertou,
+                        anulada, gabarito: anulada ? null : questao.correta,
                         novoXP, xpGanho,
                         explicacao: questao.explicacao || (anulada ? 'Questão anulada no gabarito oficial.' : '')
                     };
@@ -645,8 +658,8 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                 return res.json(resultado);
             } catch (err) {
                 if (err.status) return res.status(err.status).json({ erro: err.message });
-                const conflito = err.code === 11000 || err.hasErrorLabel?.('TransientTransactionError');
-                if (!conflito || n === 3) throw err;
+                const concorrente = err.code === 11000 || err.hasErrorLabel?.('TransientTransactionError');
+                if (!concorrente || tentativaTransacao === 3) throw err;
             } finally {
                 await session.endSession();
             }
@@ -654,6 +667,121 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
     } catch (err) {
         console.error('Erro ao processar resposta:', err);
         res.status(500).json({ erro: 'Erro ao processar resposta. Tente novamente.' });
+    }
+});
+
+
+/** Tentativas individuais registradas a partir desta versão, em ordem recente. */
+router.get('/historico/tentativas', autenticarUsuario, async (req, res) => {
+    const pagina = Number(req.query.pagina || 1);
+    const limite = Number(req.query.limite || 20);
+    const questaoId = req.query.questaoId === undefined ? null : Number(req.query.questaoId);
+    if (!Number.isInteger(pagina) || pagina < 1 || !Number.isInteger(limite) || limite < 1 ||
+        limite > 100 || (questaoId !== null && (!Number.isInteger(questaoId) || questaoId <= 0))) {
+        return res.status(400).json({ erro: 'Filtros de paginação ou questão inválidos.' });
+    }
+    try {
+        const filtro = { usuario: req.usuario.id };
+        if (questaoId !== null) filtro.questaoId = questaoId;
+        const [total, registros] = await Promise.all([
+            Tentativa.countDocuments(filtro),
+            Tentativa.find(filtro).select('-usuario -__v').sort({ respondidaEm: -1, _id: -1 })
+                .skip((pagina - 1) * limite).limit(limite).lean()
+        ]);
+        res.json({ pagina, limite, total, paginas: Math.ceil(total / limite), registros });
+    } catch (err) {
+        console.error('Erro ao consultar tentativas:', err);
+        res.status(500).json({ erro: 'Erro ao consultar tentativas.' });
+    }
+});
+
+/**
+ * Histórico consolidado por questão. Uma linha representa o estado mais recente
+ * da questão; tentativas conta todos os envios recebidos para essa questão.
+ */
+router.get('/historico', autenticarUsuario, async (req, res) => {
+    const pagina = Number(req.query.pagina || 1);
+    const limite = Number(req.query.limite || 20);
+    if (!Number.isInteger(pagina) || pagina < 1 || !Number.isInteger(limite) || limite < 1 || limite > 100) {
+        return res.status(400).json({ erro: 'Pagina ou limite invalido (limite maximo: 100).' });
+    }
+    try {
+        const filtro = { usuario: req.usuario.id };
+        const [total, registros] = await Promise.all([
+            Resposta.countDocuments(filtro),
+            Resposta.find(filtro).select('-usuario -__v').sort({ ultimaRespostaEm: -1, _id: -1 })
+                .skip((pagina - 1) * limite).limit(limite).lean()
+        ]);
+        res.json({ pagina, limite, total, paginas: Math.ceil(total / limite), registros });
+    } catch (err) {
+        console.error('Erro ao consultar historico:', err);
+        res.status(500).json({ erro: 'Erro ao consultar historico.' });
+    }
+});
+
+// Conta questões distintas respondidas no dia local informado pelo navegador.
+// Usa as tentativas: a última resposta de uma questão pode ter sido em outro dia.
+router.get('/historico/hoje', autenticarUsuario, async (req, res) => {
+    const inicio = new Date(req.query.inicio);
+    const fim = new Date(req.query.fim);
+    const duracao = fim.getTime() - inicio.getTime();
+    if (!Number.isFinite(inicio.getTime()) || !Number.isFinite(fim.getTime()) ||
+        duracao <= 0 || duracao > 26 * 60 * 60 * 1000) {
+        return res.status(400).json({ erro: 'Intervalo do dia inválido.' });
+    }
+    try {
+        const questoes = await Tentativa.distinct('questaoId', {
+            usuario: req.usuario.id,
+            anulada: { $ne: true },
+            respondidaEm: { $gte: inicio, $lt: fim }
+        });
+        res.json({ respondidas: questoes.length, meta: 10 });
+    } catch (err) {
+        console.error('Erro ao consultar atividade diária:', err);
+        res.status(500).json({ erro: 'Erro ao consultar atividade diária.' });
+    }
+});
+
+router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
+    try {
+        const usuario = req.usuario.id;
+        const [totais, porArea, porMateria] = await Promise.all([
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $group: { _id: null, respondidas: { $sum: 1 }, acertos: { $sum: { $cond: ['$correto', 1, 0] } },
+                    anuladas: { $sum: { $cond: ['$anulada', 1, 0] } }, tentativas: { $sum: '$tentativas' },
+                    xpHistorico: { $sum: '$xpGanho' } } }
+            ]),
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
+                { $unwind: '$dadosQuestao' },
+                { $group: { _id: { $ifNull: ['$dadosQuestao.area_enem', 'Sem area'] }, respondidas: { $sum: 1 },
+                    acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
+                { $sort: { _id: 1 } }
+            ]),
+            Resposta.aggregate([
+                { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
+                { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
+                { $unwind: '$dadosQuestao' },
+                { $group: { _id: { $ifNull: ['$dadosQuestao.materia', 'Sem materia'] }, respondidas: { $sum: 1 },
+                    acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
+                { $sort: { _id: 1 } }
+            ])
+        ]);
+        const t = totais[0] || { respondidas: 0, acertos: 0, anuladas: 0, tentativas: 0, xpHistorico: 0 };
+        const validas = t.respondidas - t.anuladas;
+        const formatar = lista => lista.map(({ _id, respondidas, acertos, anuladas }) => ({
+            nome: _id, respondidas, acertos, anuladas, erros: respondidas - anuladas - acertos,
+            taxaAcerto: respondidas - anuladas ? Math.round(acertos * 10000 / (respondidas - anuladas)) / 100 : 0
+        }));
+        res.json({ respondidas: t.respondidas, acertos: t.acertos, erros: validas - t.acertos,
+            anuladas: t.anuladas, tentativas: t.tentativas, xpHistorico: t.xpHistorico,
+            taxaAcerto: validas ? Math.round(t.acertos * 10000 / validas) / 100 : 0,
+            porArea: formatar(porArea), porMateria: formatar(porMateria) });
+    } catch (err) {
+        console.error('Erro ao consultar resumo:', err);
+        res.status(500).json({ erro: 'Erro ao consultar resumo.' });
     }
 });
 
