@@ -549,7 +549,9 @@
                     localStorage.setItem('enemverse_xp', currentXP);
                     if(navXP) navXP.innerText = `${currentXP.toLocaleString()} XP total`;
                     feedbackBox.className = "feedback-message success-text";
-                    feedbackBox.innerHTML = `🎉 <span><strong>Resposta Correta!</strong> +${dadosBack.xpGanho} XP sincronizados.</span>`;
+                    const avisoNivel = dadosBack.subiuNivel && dadosBack.nivel
+                        ? ` Você chegou ao nível ${dadosBack.nivel.numero} (${dadosBack.nivel.titulo})!` : '';
+                    feedbackBox.innerHTML = `🎉 <span><strong>Resposta Correta!</strong> +${dadosBack.xpGanho} XP sincronizados.${avisoNivel}</span>`;
                 } else {
                     const letraCerta = ['A', 'B', 'C', 'D', 'E'][dadosBack.gabarito];
                     feedbackBox.className = "feedback-message error-text";

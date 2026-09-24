@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario'); 
 const { ofensivaVisivel } = require('../utils/ofensiva');
+const { nivelPorXP } = require('../utils/niveis');
 
 // ==========================================
 // 1. ROTA DE CADASTRO
@@ -56,7 +57,8 @@ router.post('/login', async (req, res) => {
             nome: usuario.nome, 
             email: usuario.email, 
             xp: usuario.xp, 
-            ofensiva: ofensivaVisivel(usuario)
+            ofensiva: ofensivaVisivel(usuario),
+            nivel: nivelPorXP(usuario.xp)
         });
     } catch (err) {
         res.status(500).json({ erro: 'Erro ao autenticar estudante.' });
@@ -71,7 +73,8 @@ router.get('/perfil', require('../middlewares/autenticarUsuario'), async (req, r
     try {
         const usuario = await Usuario.findById(req.usuario.id).select('-senha');
         if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado.' });
-        res.json({ ...usuario.toObject(), ofensiva: ofensivaVisivel(usuario) });
+        res.json({ ...usuario.toObject(), ofensiva: ofensivaVisivel(usuario),
+            nivel: nivelPorXP(usuario.xp) });
     } catch (err) {
         console.error('Erro ao consultar perfil:', err);
         res.status(500).json({ erro: 'Erro ao consultar perfil.' });

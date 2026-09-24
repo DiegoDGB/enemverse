@@ -37,10 +37,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('profileName').textContent = usuario.nome || 'Estudante';
         const xp = Number(usuario.xp) || 0;
         document.getElementById('dashXP').textContent = xp.toLocaleString('pt-BR');
-        const nivel = Math.floor(xp / 300) + 1;
-        const nomeNivel = nivel >= 10 ? 'Mestre Supremo' : nivel >= 7 ? 'Especialista Federal'
-            : nivel >= 4 ? 'Veterano das Bancas' : nivel >= 2 ? 'Guerreiro Estudantil' : 'Aspirante';
-        document.querySelector('.user-tier').textContent = `Nível ${nivel} • ${nomeNivel}`;
+        const nivel = usuario.nivel;
+        if (nivel && Number.isInteger(nivel.numero)) {
+            document.querySelector('.user-tier').textContent = `Nível ${nivel.numero} • ${nivel.titulo}`;
+            document.getElementById('levelProgressFill').style.width = `${nivel.progresso}%`;
+            document.getElementById('levelProgressText').textContent =
+                `${nivel.xpNoNivel}/${nivel.xpPorNivel} XP neste nível • faltam ${nivel.xpProximoNivel} XP`;
+        }
         const ofensiva = Number(usuario.ofensiva) || 0;
         document.getElementById('dashStreak').textContent = `${ofensiva} ${ofensiva === 1 ? 'Dia' : 'Dias'}`;
     }

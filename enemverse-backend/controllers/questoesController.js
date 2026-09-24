@@ -9,6 +9,7 @@ const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
 const { ofensivaVisivel, proximaOfensiva } = require('../utils/ofensiva');
+const { nivelPorXP } = require('../utils/niveis');
 
 // Lista todas as questões disponíveis para o simulado
 router.get('/', async (req, res) => {
@@ -753,6 +754,8 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                         correto: anulada ? null : acertou,
                         anulada, gabarito: anulada ? null : questao.correta,
                         novoXP, xpGanho, ofensiva,
+                        nivel: nivelPorXP(novoXP),
+                        subiuNivel: xpGanho > 0 && nivelPorXP(novoXP).numero > nivelPorXP(usuario.xp).numero,
                         explicacao: questao.explicacao || (anulada ? 'Questão anulada no gabarito oficial.' : '')
                     };
                 });
