@@ -43,7 +43,8 @@
 
         <!-- SEÇÃO DE FILTROS DINÂMICOS (MATRIZ DO ENEM) -->
         <section class="filters-container">
-            <span class="filters-title">📚 Escolha Área ENEM → Matéria → Dificuldade:</span>
+            <span class="filters-title">📚 Escolha Ano → Área ENEM → Matéria → Dificuldade:</span>
+            <div class="year-filter"><label for="filtroAno">Ano do ENEM:</label> <select id="filtroAno"><option value="">Todos os anos</option></select></div>
             <div class="macro-areas-group" id="macroAreasGroup">
                 <button class="macro-btn active">Todas as Áreas</button>
             </div>
@@ -111,6 +112,7 @@
         const timerWrapper = document.querySelector('.timer-wrapper');
         const userNameDisplay = document.querySelector('.user-name');
         const navStreakDisplay = document.getElementById('navStreak');
+        const filtroAno = document.getElementById('filtroAno');
 
         let bancoDadosOriginal = [];
         let listaQuestoesFiltradas = [];
@@ -151,6 +153,13 @@
                 }
 
                 const filtrosDisponiveis = await respostaFiltros.json();
+                (filtrosDisponiveis.anos || []).filter(Number.isInteger).forEach(ano => {
+                    const option = document.createElement('option');
+                    option.value = String(ano);
+                    option.textContent = String(ano);
+                    filtroAno.appendChild(option);
+                });
+                filtroAno.addEventListener('change', aplicarFiltros);
                 const incidencias = {
                     "Ciências da Natureza e suas Tecnologias": ["Ecologia", "Genética", "Cinemática", "Eletricidade", "pH"],
                     "Matemática e suas Tecnologias": ["Estatística", "Porcentagem"],
@@ -335,6 +344,7 @@
                 origem: 'ENEM_OFICIAL',
                 quantidade: 90
             };
+            if (filtroAno.value) payload.ano = Number(filtroAno.value);
             if (filtroAreaAtual !== 'Todas') payload.area = filtroAreaAtual;
             if (filtroMateriaAtual !== 'Todas') payload.materia = filtroMateriaAtual;
             if (filtroDificuldadeAtual !== 'Todas') payload.dificuldade = filtroDificuldadeAtual;
