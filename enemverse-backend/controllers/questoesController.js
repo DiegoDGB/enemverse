@@ -817,6 +817,7 @@ router.get('/historico', autenticarUsuario, async (req, res) => {
 });
 
 // Conta questões distintas respondidas no dia local informado pelo navegador.
+// Usa as tentativas: a última resposta de uma questão pode ter sido em outro dia.
 router.get('/historico/hoje', autenticarUsuario, async (req, res) => {
     const inicio = new Date(req.query.inicio);
     const fim = new Date(req.query.fim);
@@ -826,12 +827,12 @@ router.get('/historico/hoje', autenticarUsuario, async (req, res) => {
         return res.status(400).json({ erro: 'Intervalo do dia inválido.' });
     }
     try {
-        const respondidas = await Resposta.countDocuments({
+        const questoes = await Tentativa.distinct('questaoId', {
             usuario: req.usuario.id,
             anulada: { $ne: true },
-            ultimaRespostaEm: { $gte: inicio, $lt: fim }
+            respondidaEm: { $gte: inicio, $lt: fim }
         });
-        res.json({ respondidas, meta: 10 });
+        res.json({ respondidas: questoes.length, meta: 10 });
     } catch (err) {
         console.error('Erro ao consultar atividade diária:', err);
         res.status(500).json({ erro: 'Erro ao consultar atividade diária.' });
