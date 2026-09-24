@@ -1,0 +1,26 @@
+{
+  "ano": 2024,
+  "edicao": "ENEM 2024 — aplicação regular — cadernos azuis",
+  "questoesEsperadas": 180,
+  "idiomaQuestoes1a5": "Inglês",
+  "fonteOficial": "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos/2024",
+  "dias": [
+    {
+      "dia": 1,
+      "caderno": "1 Azul",
+      "numeroInicial": 1,
+      "numeroFinal": 90,
+      "prova": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabarito": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf"
+    },
+    {
+      "dia": 2,
+      "caderno": "7 Azul",
+      "numeroInicial": 91,
+      "numeroFinal": 180,
+      "prova": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD7.pdf",
+      "gabarito": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D2_CD7.pdf"
+    }
+  ],
+  "revisaoVisualAprovada": true
+}
