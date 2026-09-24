@@ -160,6 +160,10 @@ body {
     margin-bottom: 16px;
 }
 
+.year-filter { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.year-filter label { font-size: .85rem; font-weight: 700; color: var(--text-muted); }
+.year-filter select { padding: 9px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text-main); font: inherit; }
+
 .macro-areas-group {
     display: flex;
     gap: 10px;
