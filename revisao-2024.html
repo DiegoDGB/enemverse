@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revisão ENEM 2024 — EnemVerse DEV</title>
+  <style>
+    :root { font-family: Inter, Arial, sans-serif; color: #172033; background: #f1f5f9; }
+    body { margin: 0; }
+    header { background: #0f172a; color: white; padding: 25px max(20px, calc((100vw - 900px)/2)); }
+    h1 { margin: 0 0 8px; font-size: 1.6rem; }
+    header p { margin: 0; color: #cbd5e1; }
+    main { max-width: 900px; margin: 28px auto; padding: 0 20px; }
+    .card { background: white; border-radius: 12px; padding: 18px; margin-bottom: 12px; box-shadow: 0 2px 12px #0001; }
+    .card h2 { margin: 0 0 6px; font-size: 1.15rem; }
+    .card p { margin: 0 0 16px; color: #475569; }
+    .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
+    a.button { display: inline-block; padding: 11px 15px; background: #2563eb; border-radius: 8px; color: white; font-weight: 700; text-decoration: none; }
+    a.button:hover { background: #1d4ed8; }
+    label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    input { width: 18px; height: 18px; }
+    #aviso { padding: 16px; background: #fff1f2; border-radius: 8px; color: #9f1239; }
+    #progresso { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header><h1>Revisão das questões ENEM 2024</h1><p>Prévia DEV · primeiro e segundo dias · questões escolhidas, sem sorteio</p></header>
+  <main>
+    <p id="aviso" hidden>Esta revisão funciona somente no preview DEV. Abra o endereço do deploy mais recente da branch develop.</p>
+    <div id="conteudo" hidden>
+      <p>Abra uma questão, confira o texto, as cinco alternativas e as imagens. Volte a esta página para marcar a revisão.</p>
+      <p id="progresso" aria-live="polite"></p>
+      <div id="questoes"></div>
+    </div>
+  </main>
+  <script>
+    const isPreview = location.hostname !== 'enemverse.vercel.app' &&
+      (location.hostname.endsWith('.vercel.app') || location.hostname === 'localhost');
+    document.getElementById(isPreview ? 'conteudo' : 'aviso').hidden = false;
+    if (isPreview) {
+      const itens = [
+        [21, 'Primeiro dia · imagem e texto'],
+        [43, 'Primeiro dia · figura'],
+        [91, 'Segundo dia · primeira questão'],
+        [139, 'Segundo dia · tabela das duas lojas'],
+        [161, 'Segundo dia · tanque e alternativas ilustradas'],
+        [180, 'Segundo dia · última questão']
+      ];
+      const container = document.getElementById('questoes');
+      const chave = 'enemverse-revisao-2024-amostra';
+      const revistos = new Set(JSON.parse(localStorage.getItem(chave) || '[]'));
+      function atualizar() {
+        document.getElementById('progresso').textContent = `${itens.filter(([n]) => revistos.has(n)).length} de ${itens.length} conferidas`;
+        localStorage.setItem(chave, JSON.stringify([...revistos]));
+      }
+      for (const [numero, descricao] of itens) {
+        const card = document.createElement('section');
+        card.className = 'card';
+        const titulo = document.createElement('h2');
+        titulo.textContent = `Questão ${numero}`;
+        const detalhes = document.createElement('p');
+        detalhes.textContent = descricao;
+        const acoes = document.createElement('div');
+        acoes.className = 'actions';
+        const link = document.createElement('a');
+        link.className = 'button';
+        link.href = `simulado.html?ano=2024&questao=${numero}`;
+        link.textContent = `Abrir questão ${numero}`;
+        const label = document.createElement('label');
+        const check = document.createElement('input');
+        check.type = 'checkbox';
+        check.checked = revistos.has(numero);
+        check.addEventListener('change', () => {
+          if (check.checked) revistos.add(numero);
+          else revistos.delete(numero);
+          atualizar();
+        });
+        label.append(check, 'Conferida');
+        acoes.append(link, label);
+        card.append(titulo, detalhes, acoes);
+        container.append(card);
+      }
+      atualizar();
+    }
+  </script>
+</body>
+</html>
