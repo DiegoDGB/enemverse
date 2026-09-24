@@ -127,7 +127,7 @@
         const tokenAtivo = localStorage.getItem('enemverse_token');
         const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
         let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
-        let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 1;
+        let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak'), 10) || 0;
 
         let tempoRestante = 180;
         let cronometroInterval = null;
@@ -507,13 +507,21 @@
                     body: JSON.stringify({
                         questaoId: q.id,
                         alternativaSelecionada: selectedOption,
-                        tempoEsgotado: tempoEsgotadoStatus
+                        tempoEsgotado: tempoEsgotadoStatus,
+                        fusoHorario: Intl.DateTimeFormat().resolvedOptions().timeZone
                     })
                 });
                 const dadosBack = await resposta.json();
 
                 if (!resposta.ok) {
                     throw new Error(dadosBack.erro || ('Falha ao validar resposta (HTTP ' + resposta.status + ')'));
+                }
+
+                if (Number.isInteger(dadosBack.ofensiva)) {
+                    ofensivaReal = dadosBack.ofensiva;
+                    localStorage.setItem('enemverse_streak', ofensivaReal);
+                    if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1
+                        ? '1 dia seguido' : `${ofensivaReal} dias seguidos`;
                 }
 
                 if (dadosBack.anulada) {

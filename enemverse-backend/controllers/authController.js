@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario'); 
+const { ofensivaVisivel } = require('../utils/ofensiva');
 
 // ==========================================
 // 1. ROTA DE CADASTRO
@@ -40,25 +41,8 @@ router.post('/login', async (req, res) => {
         const senhaValida = await bcrypt.compare(senha, usuario.senha);
         if (!senhaValida) return res.status(400).json({ erro: 'Senha incorreta.' });
 
-        // Gerenciamento de Ofensiva
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-
-        if (!usuario.ultimo_acesso) {
-            usuario.ofensiva = 1;
-        } else {
-            const dataUltimoAcesso = new Date(usuario.ultimo_acesso);
-            dataUltimoAcesso.setHours(0, 0, 0, 0);
-            const diferencaTempo = hoje.getTime() - dataUltimoAcesso.getTime();
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-
-            if (diferencaDias === 1) {
-                usuario.ofensiva += 1;
-            } else if (diferencaDias > 1) {
-                usuario.ofensiva = 1;
-            }
-        }
-        usuario.ultimo_acesso = hoje;
+        // Acesso não conta como estudo: a ofensiva muda apenas após responder.
+        usuario.ultimo_acesso = new Date();
         await usuario.save();
 
         const token = jwt.sign(
@@ -72,7 +56,7 @@ router.post('/login', async (req, res) => {
             nome: usuario.nome, 
             email: usuario.email, 
             xp: usuario.xp, 
-            ofensiva: usuario.ofensiva 
+            ofensiva: ofensivaVisivel(usuario)
         });
     } catch (err) {
         res.status(500).json({ erro: 'Erro ao autenticar estudante.' });
@@ -87,7 +71,7 @@ router.get('/perfil', require('../middlewares/autenticarUsuario'), async (req, r
     try {
         const usuario = await Usuario.findById(req.usuario.id).select('-senha');
         if (!usuario) return res.status(404).json({ erro: 'Usuário não encontrado.' });
-        res.json(usuario);
+        res.json({ ...usuario.toObject(), ofensiva: ofensivaVisivel(usuario) });
     } catch (err) {
         console.error('Erro ao consultar perfil:', err);
         res.status(500).json({ erro: 'Erro ao consultar perfil.' });

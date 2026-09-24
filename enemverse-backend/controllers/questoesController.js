@@ -8,6 +8,7 @@ const Tentativa = require('../models/tentativa');
 const autenticarUsuario = require('../middlewares/autenticarUsuario');
 const fs = require('fs/promises');
 const path = require('path');
+const { ofensivaVisivel, proximaOfensiva } = require('../utils/ofensiva');
 
 // Lista todas as questões disponíveis para o simulado
 router.get('/', async (req, res) => {
@@ -671,7 +672,7 @@ router.post('/importar', async (req, res) => {
 
 // Valida a resposta, registra o histórico e computa XP com identidade vinda do JWT.
 router.post('/responder', autenticarUsuario, async (req, res) => {
-    const { questaoId, alternativaSelecionada, tempoEsgotado } = req.body;
+    const { questaoId, alternativaSelecionada, tempoEsgotado, fusoHorario } = req.body;
     const id = Number(questaoId);
     const alternativa = Number(alternativaSelecionada);
     if (questaoId === null || questaoId === undefined || questaoId === '' ||
@@ -739,16 +740,19 @@ router.post('/responder', autenticarUsuario, async (req, res) => {
                     }], { session });
 
                     let novoXP = usuario.xp;
-                    if (xpGanho) {
-                        const atualizado = await Usuario.findByIdAndUpdate(
-                            usuario._id, { $inc: { xp: xpGanho } }, { new: true, session }
-                        );
+                    let ofensiva = ofensivaVisivel(usuario, agora);
+                    if (!anulada) {
+                        const estudo = proximaOfensiva(usuario, agora, fusoHorario);
+                        const atualizado = await Usuario.findByIdAndUpdate(usuario._id,
+                            { $set: estudo, ...(xpGanho ? { $inc: { xp: xpGanho } } : {}) },
+                            { new: true, session });
                         novoXP = atualizado.xp;
+                        ofensiva = atualizado.ofensiva;
                     }
                     resultado = {
                         correto: anulada ? null : acertou,
                         anulada, gabarito: anulada ? null : questao.correta,
-                        novoXP, xpGanho,
+                        novoXP, xpGanho, ofensiva,
                         explicacao: questao.explicacao || (anulada ? 'Questão anulada no gabarito oficial.' : '')
                     };
                 });
