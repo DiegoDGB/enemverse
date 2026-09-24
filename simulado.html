@@ -176,10 +176,13 @@
                 gerarMenuDropdownMatriz(matrizOficialENEM);
                 configurarFiltroDificuldade();
 
-                // DEV: ?questao=163 carrega diretamente a questão oficial informada.
-                const questaoTeste = new URLSearchParams(window.location.search).get('questao');
+                // DEV: ?ano=2024&questao=129 carrega diretamente a questão oficial informada.
+                const parametrosTeste = new URLSearchParams(window.location.search);
+                const questaoTeste = parametrosTeste.get('questao');
                 if (questaoTeste && window.location.hostname !== 'enemverse.vercel.app') {
-                    await carregarQuestaoTeste(questaoTeste);
+                    const anoTeste = parametrosTeste.get('ano') || '2025';
+                    if ([...filtroAno.options].some(option => option.value === anoTeste)) filtroAno.value = anoTeste;
+                    await carregarQuestaoTeste(questaoTeste, anoTeste);
                 } else {
                     await aplicarFiltros();
                 }
@@ -295,7 +298,7 @@
             });
         }
 
-        async function carregarQuestaoTeste(numeroEnem) {
+        async function carregarQuestaoTeste(numeroEnem, ano) {
             indiceAtual = 0;
             selectedOption = null;
             respondida = false;
@@ -305,10 +308,10 @@
                 btnVerify.style.opacity = "0.5";
                 btnVerify.style.cursor = "not-allowed";
             }
-            if (enunciado) enunciado.innerText = `Carregando questão ENEM ${numeroEnem} para teste...`;
+            if (enunciado) enunciado.innerText = `Carregando questão ${numeroEnem} do ENEM ${ano} para teste...`;
 
             try {
-                const resposta = await fetch(`${API_BASE_URL}/api/simulados/teste/questao/${encodeURIComponent(numeroEnem)}`);
+                const resposta = await fetch(`${API_BASE_URL}/api/simulados/teste/questao/${encodeURIComponent(numeroEnem)}?ano=${encodeURIComponent(ano)}`);
                 const dados = await resposta.json();
 
                 if (!resposta.ok || !dados.questao) {
