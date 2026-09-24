@@ -29,10 +29,14 @@ router.get('/teste/questao/:numeroEnem', async (req, res) => {
     if (!Number.isInteger(numeroEnem) || numeroEnem < 1 || numeroEnem > 180) {
         return res.status(400).json({ erro: 'Número ENEM inválido.' });
     }
+    const ano = req.query.ano === undefined ? 2025 : Number(req.query.ano);
+    if (![2024, 2025].includes(ano)) {
+        return res.status(400).json({ erro: 'Ano ENEM inválido para teste.' });
+    }
 
     try {
         const questao = await Questao.findOne({
-            ano: 2025,
+            ano,
             numero_enem: numeroEnem,
             $or: [
                 { origem: 'ENEM_OFICIAL' },
