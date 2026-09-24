@@ -31,20 +31,20 @@
             <div class="profile-card-premium">
                 <div class="avatar-large">👤</div>
                 <h3 id="profileName">Estudante</h3>
-                <span class="user-tier">Nível 4 • Aspirante</span>
+                <span class="user-tier">Nível 1 • Aspirante</span>
                 
                 <div class="stats-grid-dash">
                     <div class="stat-box-dash streak-box">
                         <span class="stat-emoji">🔥</span>
                         <div class="stat-text-group">
-                            <span class="stat-value">5 Dias</span>
-                            <span class="stat-label">Ofensiva</span>
+                            <span class="stat-value" id="dashStreak">0 Dias</span>
+                            <span class="stat-label">Ofensiva de acessos</span>
                         </div>
                     </div>
                     <div class="stat-box-dash xp-box">
                         <span class="stat-emoji">⚡</span>
                         <div class="stat-text-group">
-                            <span class="stat-value" id="dashXP">1.240</span>
+                            <span class="stat-value" id="dashXP">0</span>
                             <span class="stat-label">XP Total</span>
                         </div>
                     </div>
@@ -55,20 +55,20 @@
             <div class="goal-card">
                 <div class="goal-header">
                     <h4>🎯 Meta Diária</h4>
-                    <span class="goal-percent">30%</span>
+                    <span class="goal-percent" id="goalPercent">0%</span>
                 </div>
-                <p class="goal-desc">Responda 10 questões hoje para manter sua ofensiva.</p>
+                <p class="goal-desc">Responda 10 questões válidas hoje.</p>
                 <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: 30%;"></div>
+                    <div class="progress-bar-fill" style="width: 0%;"></div>
                 </div>
-                <span class="goal-counter">3 de 10 concluídas</span>
+                <span class="goal-counter" id="goalCounter">0 de 10 concluídas</span>
             </div>
         </aside>
 
         <!-- SEÇÃO 2: ÁREA DE AÇÕES PRINCIPAIS -->
         <main class="main-dashboard">
             <h2 class="welcome-heading">O que vamos conquistar hoje?</h2>
-            <p class="welcome-sub">Selecione uma atividade para acumular pontos e subir no ranking estadual.</p>
+            <p class="welcome-sub">Continue seus estudos e acompanhe seu desempenho nas questões.</p>
 
             <div class="actions-grid-dash">
                 <!-- Card: Ir para o Simulado -->
@@ -86,84 +86,40 @@
                     <div class="card-icon-dash">🏆</div>
                     <div class="card-body-dash">
                         <h3>Leaderboard Estadual</h3>
-                        <p>Compare seu desempenho de acertos e XP com estudantes de todo o estado em tempo real.</p>
+                        <p>Compare sua pontuação com outros estudantes.</p>
                         <span class="action-link-dash">Ver Classificação →</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Bloco de Avisos/Dicas da Matriz -->
-            <div class="tip-box-dash">
-                <h4>💡 Dica de Inteligência do EnemVerse:</h4>
-                <p>Muitos estudantes perdem pontos preciosos por falta de gerenciamento de tempo em <strong>Matemática Básica</strong>. Use o cronômetro do simulado para treinar a média estável de 3 minutos por questão!</p>
-            </div>
+            <section class="performance-section" aria-labelledby="performanceTitle">
+                <h3 id="performanceTitle">Seu desempenho</h3>
+                <p id="dashboardStatus" role="status">Carregando seu histórico...</p>
+                <div class="performance-grid">
+                    <div class="performance-metric"><strong id="totalRespondidas">0</strong><span>Questões respondidas</span></div>
+                    <div class="performance-metric"><strong id="totalAcertos">0</strong><span>Acertos</span></div>
+                    <div class="performance-metric"><strong id="totalErros">0</strong><span>Erros</span></div>
+                    <div class="performance-metric"><strong id="taxaAcerto">0%</strong><span>Taxa de acerto</span></div>
+                </div>
+                <p class="performance-note">Questões anuladas ficam fora da taxa de acerto. Cada questão conta uma vez; a última resposta define o resultado.</p>
+            </section>
+
+            <section class="performance-section" aria-labelledby="areasTitle">
+                <h3 id="areasTitle">Desempenho por área</h3>
+                <div id="desempenhoAreas"><p>Carregando áreas...</p></div>
+            </section>
+
+            <section class="performance-section" aria-labelledby="recentesTitle">
+                <h3 id="recentesTitle">Atividade recente</h3>
+                <ul id="atividadesRecentes" class="recent-list"><li>Carregando respostas...</li></ul>
+                <p class="performance-note">A lista individual começa com as respostas registradas após a implantação do histórico.</p>
+            </section>
         </main>
 
     </div>
     <!-- VÍNCULO DO BANCO DE DADOS REAL ANTES DO SCRIPT INTERNO -->
     <script src="api-config.js"></script>
     <script src="dashboard.js"></script>
-
-    <!-- Script Avançado Conectado ao Perfil Real do Usuário -->
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            // 1. Puxa os dados reais da sessão gravada no login/cadastro
-            const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
-            const emailAtivo = localStorage.getItem('enemverse_email_ativo');
-            
-            // Lê o XP e a Ofensiva reais. Se não achar nada, define como 0 (estaca zero!)
-            const xpReal = parseInt(localStorage.getItem('enemverse_xp')) || 0;
-            const ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 0;
-
-            // 2. Captura os elementos visuais do Dashboard
-            const dashXP = document.getElementById('dashXP');
-            const dashName = document.getElementById('dashName');
-            const profileName = document.getElementById('profileName');
-            
-            // Elementos da Ofensiva e das Metas Diárias
-            const streakDisplay = document.querySelector('.streak-box .stat-value');
-            const goalCounter = document.getElementById('goalCounter') || document.querySelector('.goal-counter');
-            const goalPercent = document.getElementById('goalPercent') || document.querySelector('.goal-percent');
-            const progressFill = document.querySelector('.goal-card .progress-bar-fill');
-
-            // 3. Injeta o Nome e o XP real nos cartões do painel
-            if (dashName) dashName.innerText = nomeReal;
-            if (profileName) profileName.innerText = nomeReal;
-            if (dashXP) dashXP.innerText = xpReal.toLocaleString();
-
-            // 4. Injeta a Ofensiva Real Dinâmica (🔥)
-            if (streakDisplay) {
-                streakDisplay.innerText = ofensivaReal === 1 ? "1 Dia" : `${ofensivaReal} Dias`;
-            }
-
-            // 5. SISTEMA DE METAS DINÂMICAS: Calcula o progresso real (CORRIGIDO: porcentagemMeta definida corretamente)
-            const questoesFeitasHoje = Math.min(Math.floor(xpReal / 20), 10); 
-            const porcentagemMeta = (questoesFeitasHoje / 10) * 100;
-
-            if (goalCounter) goalCounter.innerText = `${questoesFeitasHoje} de 10 concluídas`;
-            if (goalPercent) goalPercent.innerText = `${porcentagemMeta}%`;
-            if (progressFill) progressFill.style.width = `${porcentagemMeta}%`;
-
-            // Muda o texto da meta caso ele já tenha batido o objetivo do dia
-            if (questoesFeitasHoje >= 10) {
-                const goalDesc = document.querySelector('.goal-desc');
-                if (goalDesc) goalDesc.innerText = "🏆 Meta batida! Sua ofensiva está garantida por hoje.";
-                if (goalPercent) goalPercent.style.color = "var(--success)";
-            }
-
-            // 6. Configura o botão de Sair (Logout) de forma limpa
-            const btnExit = document.getElementById('btnExit');
-            if (btnExit) {
-                btnExit.addEventListener('click', () => {
-                    // Limpa os dados de sessão para que o próximo usuário não veja os seus pontos
-                    localStorage.removeItem('enemverse_username');
-                    localStorage.removeItem('enemverse_xp');
-                    localStorage.removeItem('enemverse_streak');
-                    localStorage.removeItem('enemverse_email_ativo');
-                });
-            }
-        });
-    </script>
 
 </body>
 </html>
