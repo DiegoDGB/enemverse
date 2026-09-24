@@ -11,7 +11,8 @@ Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 
 - A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. Os enunciados, alternativas, figuras e fórmulas foram reconstruídos em lotes; **a revisão final de fidelidade ao PDF ainda é necessária antes da importação**.
 - `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
 - Foram reconstruídas e armazenadas em catorze lotes as questões 1–180, com imagens associadas, fórmulas recuperadas e comparação dos índices de resposta ao gabarito oficial. O arquivo `enem-2024-azul.json` reúne os lotes.
-- O validador estrutural encontra os 180 registros, imagens existentes e gabaritos coincidentes; a execução de aprovação continua bloqueada por `revisaoVisualAprovada: false`. Ainda falta a revisão visual final de fidelidade das 180 questões e o teste no banco DEV antes de considerar a importação.
+- O validador estrutural encontra os 180 registros, imagens existentes e gabaritos coincidentes; a execução de aprovação continua bloqueada por `revisaoVisualAprovada: false`.
+- A comparação automatizada adicional contra os quatro PDFs oficiais está documentada em `AUDITORIA-ENEM2024-AZUL.md`; corrigiu-se a alternativa E da questão 45. A revisão visual integral continua pendente. Ainda falta a revisão visual final de fidelidade das 180 questões e o teste no banco DEV antes de considerar a importação.
 - Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
 
 

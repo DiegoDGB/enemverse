@@ -59,6 +59,8 @@ for q in questoes:
         q['texto_apoio'] = re.sub(r'(?m)([1-4]\.)\s*\x07[^\n]*\n', r'\1 ', q['texto_apoio'])
     q['enunciado'] = enunciados[numero]
     q['alternativas'] = [re.sub(r'\s*\n\s*', ' ', a) for a in q['alternativas']]
+    if numero == 45:
+        q['alternativas'][4] = 'propagação de mensagens com objetivos políticos.'
     q['midias'] = [
         {'tipo': 'imagem', 'url': f'/assets/enem/2024/azul/{nome}', 'legenda': '', 'alt': alt}
         for nome, alt in imagens.get(numero, [])
