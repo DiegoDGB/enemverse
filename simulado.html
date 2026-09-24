@@ -43,7 +43,8 @@
 
         <!-- SEÇÃO DE FILTROS DINÂMICOS (MATRIZ DO ENEM) -->
         <section class="filters-container">
-            <span class="filters-title">📚 Escolha Área ENEM → Matéria → Dificuldade:</span>
+            <span class="filters-title">📚 Escolha Ano → Área ENEM → Matéria → Dificuldade:</span>
+            <div class="year-filter"><label for="filtroAno">Ano do ENEM:</label> <select id="filtroAno"><option value="">Todos os anos</option></select></div>
             <div class="macro-areas-group" id="macroAreasGroup">
                 <button class="macro-btn active">Todas as Áreas</button>
             </div>
@@ -88,7 +89,11 @@
     <!-- MOTOR DE CONTROLE INJETADO DIRETO NO HTML  -->
     <!-- ========================================== -->
     <script>
+    const API_BASE_URL = window.location.hostname === 'enemverse.vercel.app'
+        ? 'https://enemverse-api.onrender.com'
+        : 'https://enemverse-api-dev.onrender.com';
     document.addEventListener('DOMContentLoaded', () => {
+        const filtroAno = document.getElementById('filtroAno');
         const labelYear = document.querySelector('.label-year');
         const labelMateria = document.querySelector('.label-materia');
         const labelDificuldade = document.querySelector('.label-dificuldade');
@@ -149,7 +154,7 @@
 
             try {
                 // ROTA INTEGRADA DA API DO RENDER
-                const respostaQuestoes = await fetch('https://enemverse-api.onrender.com/api/questoes');
+                const respostaQuestoes = await fetch(`${API_BASE_URL}/api/questoes`);
 
                 if (!respostaQuestoes.ok) {
                     let detalhe = '';
@@ -166,6 +171,16 @@
                 }
 
                 bancoDadosOriginal = dadosQuestoes;
+                const anos = [...new Set(dadosQuestoes.map(q => q.ano).filter(Number.isInteger))].sort((a, b) => b - a);
+                for (const ano of anos) {
+                    const option = document.createElement('option');
+                    option.value = String(ano);
+                    option.textContent = String(ano);
+                    filtroAno.append(option);
+                }
+                // O piloto continua abrindo 2025 por padrão; 2024 exige escolha explícita.
+                filtroAno.value = anos.includes(2025) ? '2025' : '';
+                filtroAno.addEventListener('change', aplicarFiltros);
                 
                 const matrizOficialENEM = [
                     { "nome": "Ciências da Natureza e suas Tecnologias", "topicos_incidencia": ["Ecologia", "Genética", "Cinemática", "Eletricidade", "pH"], "subareas": ["Biologia", "Física", "Química"] },
@@ -292,6 +307,7 @@
         function aplicarFiltros() {
             indiceAtual = 0;
             let filtradas = [...bancoDadosOriginal];
+            if (filtroAno.value) filtradas = filtradas.filter(q => q.ano === Number(filtroAno.value));
 
             if (filtroAreaAtual !== 'Todas') {
                 filtradas = filtradas.filter(q =>
@@ -416,7 +432,7 @@
             const itens = alternativesList.querySelectorAll('.alternative-btn');
 
             try {
-                const resposta = await fetch('https://enemverse-api.onrender.com/api/questoes/responder', {
+                const resposta = await fetch(`${API_BASE_URL}/api/questoes/responder`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -486,6 +486,9 @@ body {
 }
 
 /* Filtro por dificuldade */
+.year-filter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.year-filter label{font-size:.85rem;font-weight:700;color:var(--text-muted)}
+.year-filter select{padding:9px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text-main);font:inherit}
 .difficulty-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
 .difficulty-label{font-size:.85rem;font-weight:700;color:var(--text-muted);margin-right:4px}
 .difficulty-btn{padding:9px 14px;border-radius:999px;border:1px solid #cbd5e1;background:var(--surface);color:var(--text-main);font-weight:700;cursor:pointer;transition:.2s}
