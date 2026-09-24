@@ -755,7 +755,7 @@ router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
             Resposta.aggregate([
                 { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
                 { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
-                { $unwind: '$dadosQuestao' },
+                { $unwind: { path: '$dadosQuestao', preserveNullAndEmptyArrays: true } },
                 { $group: { _id: { $ifNull: ['$dadosQuestao.area_enem', 'Sem area'] }, respondidas: { $sum: 1 },
                     acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
                 { $sort: { _id: 1 } }
@@ -763,7 +763,7 @@ router.get('/historico/resumo', autenticarUsuario, async (req, res) => {
             Resposta.aggregate([
                 { $match: { usuario: new mongoose.Types.ObjectId(usuario) } },
                 { $lookup: { from: Questao.collection.name, localField: 'questao', foreignField: '_id', as: 'dadosQuestao' } },
-                { $unwind: '$dadosQuestao' },
+                { $unwind: { path: '$dadosQuestao', preserveNullAndEmptyArrays: true } },
                 { $group: { _id: { $ifNull: ['$dadosQuestao.materia', 'Sem materia'] }, respondidas: { $sum: 1 },
                     acertos: { $sum: { $cond: ['$correto', 1, 0] } }, anuladas: { $sum: { $cond: ['$anulada', 1, 0] } } } },
                 { $sort: { _id: 1 } }
