@@ -25,8 +25,6 @@ const UsuarioSchema = new mongoose.Schema({
         type: Number,
         default: 0 // Inicia zerado automaticamente
     },
-    ultimo_estudo_dia: { type: String, default: null },
-    fuso_horario: { type: String, default: 'UTC' },
     ultimo_acesso: {
         type: Date,
         default: null

@@ -127,11 +127,12 @@
         const tokenAtivo = localStorage.getItem('enemverse_token');
         const nomeReal = localStorage.getItem('enemverse_username') || "Estudante";
         let currentXP = parseInt(localStorage.getItem('enemverse_xp')) || 0;
-        let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak'), 10) || 0;
+        let ofensivaReal = parseInt(localStorage.getItem('enemverse_streak')) || 1;
 
         let tempoRestante = 180;
         let cronometroInterval = null;
         let tempoEsgotadoStatus = false;
+        let versaoBusca = 0;
 
         async function iniciarPlataforma() {
             if (userNameDisplay) userNameDisplay.innerText = nomeReal;
@@ -189,7 +190,7 @@
 
             } catch (e) {
                 console.error("Erro ao carregar simulado:", e);
-                if(enunciado) enunciado.innerText = "Erro ao conectar com o servidor de produção.";
+                if(enunciado) enunciado.innerText = `Não foi possível carregar o simulado: ${e.message}`;
             }
         }
 
@@ -299,6 +300,7 @@
         }
 
         async function carregarQuestaoTeste(numeroEnem, ano) {
+            ++versaoBusca;
             indiceAtual = 0;
             selectedOption = null;
             respondida = false;
@@ -332,9 +334,13 @@
         }
 
         async function aplicarFiltros() {
+            const buscaAtual = ++versaoBusca;
             indiceAtual = 0;
             selectedOption = null;
             respondida = false;
+            clearInterval(cronometroInterval);
+            if (feedbackBox) feedbackBox.classList.add('hidden');
+            if (alternativesList) alternativesList.innerHTML = '';
 
             if (btnVerify) {
                 btnVerify.disabled = true;
@@ -359,6 +365,7 @@
                     body: JSON.stringify(payload)
                 });
                 const dados = await resposta.json();
+                if (buscaAtual !== versaoBusca) return;
 
                 if (resposta.status === 404) {
                     bancoDadosOriginal = [];
@@ -380,11 +387,12 @@
                 if (listaQuestoesFiltradas.length > 0) renderizarQuestao(0);
                 else mostrarAvisoSemQuestoes();
             } catch (erro) {
+                if (buscaAtual !== versaoBusca) return;
                 console.error('Erro ao aplicar filtros no servidor:', erro);
                 bancoDadosOriginal = [];
                 listaQuestoesFiltradas = [];
                 mostrarAvisoSemQuestoes();
-                if (enunciado) enunciado.innerText = 'Erro ao carregar questões com os filtros selecionados.';
+                if (enunciado) enunciado.innerText = `Não foi possível carregar as questões: ${erro.message}`;
             }
         }
 
@@ -483,6 +491,11 @@
             const q = listaQuestoesFiltradas[indiceAtual];
             if (!q || q.id === undefined || q.id === null) {
                 console.warn('Tentativa de responder sem uma questão carregada.');
+                if (feedbackBox) {
+                    feedbackBox.className = 'feedback-message error-text';
+                    feedbackBox.innerText = 'Esta questão não tem identificador válido. Escolha outro filtro e tente novamente.';
+                    feedbackBox.classList.remove('hidden');
+                }
                 respondida = false;
                 selectedOption = null;
                 if (btnVerify) {
@@ -507,21 +520,13 @@
                     body: JSON.stringify({
                         questaoId: q.id,
                         alternativaSelecionada: selectedOption,
-                        tempoEsgotado: tempoEsgotadoStatus,
-                        fusoHorario: Intl.DateTimeFormat().resolvedOptions().timeZone
+                        tempoEsgotado: tempoEsgotadoStatus
                     })
                 });
                 const dadosBack = await resposta.json();
 
                 if (!resposta.ok) {
                     throw new Error(dadosBack.erro || ('Falha ao validar resposta (HTTP ' + resposta.status + ')'));
-                }
-
-                if (Number.isInteger(dadosBack.ofensiva)) {
-                    ofensivaReal = dadosBack.ofensiva;
-                    localStorage.setItem('enemverse_streak', ofensivaReal);
-                    if (navStreakDisplay) navStreakDisplay.innerText = ofensivaReal === 1
-                        ? '1 dia seguido' : `${ofensivaReal} dias seguidos`;
                 }
 
                 if (dadosBack.anulada) {
