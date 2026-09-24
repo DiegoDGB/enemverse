@@ -1,37 +1,28 @@
 # Fase 3 — ENEM 2024, cadernos azuis
 
-Fonte: página [Provas e Gabaritos de 2024 do INEP](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos/2024).
+Fonte: [Provas e Gabaritos de 2024 do INEP](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos/2024).
 
-Este lote usará caderno **1 Azul** (dia 1, questões 1–90) e **7 Azul** (dia 2, questões 91–180), aplicação regular, idioma **Inglês** nas questões 1–5. Os quatro PDFs estão identificados em `fontes-enem-2024-azul.json`.
+O arquivo `enem-2024-azul.json` contém as 180 questões da aplicação regular: caderno **1 Azul** (primeiro dia, questões 1–90, Inglês nas 1–5) e caderno **7 Azul** (segundo dia, questões 91–180). A questão 129 está anulada. As quatro fontes constam em `fontes-enem-2024-azul.json`.
 
-## Estado
+## Estado em 24/09/2026
 
-- As quatro fontes oficiais foram recebidas; o validador está pronto.
-- O gabarito oficial foi transcrito em `gabarito-2024-azul.json`: 180 respostas, questões 1–5 em Inglês e questão 129 anulada. As duas tabelas foram conferidas visualmente contra os PDFs.
-- A extração preliminar das provas encontra todos os 180 números; o dia 1 também contém uma segunda versão das questões 1–5 em Espanhol. Os enunciados, alternativas, figuras e fórmulas foram reconstruídos em lotes; **a revisão final de fidelidade ao PDF ainda é necessária antes da importação**.
-- `revisaoVisualAprovada` permanece `false` para bloquear a aprovação prematura.
-- Foram reconstruídas e armazenadas em catorze lotes as questões 1–180, com imagens associadas, fórmulas recuperadas e comparação dos índices de resposta ao gabarito oficial. O arquivo `enem-2024-azul.json` reúne os lotes.
-- O validador estrutural encontra os 180 registros, imagens existentes e gabaritos coincidentes; a execução de aprovação continua bloqueada por `revisaoVisualAprovada: false`.
-- A comparação automatizada adicional contra os quatro PDFs oficiais está documentada em `AUDITORIA-ENEM2024-AZUL.md`; corrigiu-se a alternativa E da questão 45. A revisão visual integral continua pendente. Ainda falta a revisão visual final de fidelidade das 180 questões e o teste no banco DEV antes de considerar a importação.
-- Nenhuma alteração foi feita na `main` nem nos bancos por esta etapa.
+- A reconstrução e a revisão visual estão concluídas. A auditoria, os achados e as correções estão documentados em `AUDITORIA-ENEM2024-AZUL.md`.
+- O manifesto marca `revisaoVisualAprovada: true`; o validador aprovou os 180 registros, as cinco alternativas por questão, o gabarito e as 96 referências de imagem.
+- A comparação automatizada com os quatro PDFs oficiais localizou os 180 enunciados e textos de apoio, as 450 alternativas textuais do primeiro dia e as 180 respostas, sem divergências. Fórmulas e imagens foram conferidas visualmente.
+- Nenhuma questão de 2024 foi importada ao banco por esta etapa. A `main` e o banco de produção não foram alterados.
 
+## Validação local
 
-## Auditoria do rascunho extraído
+Com os quatro PDFs oficiais disponíveis localmente, executar `scripts/auditar-caderno-2024-pdf.py` com os caminhos das duas provas e depois dos dois gabaritos. Os PDFs não são versionados. Em seguida, na pasta `enemverse-backend`:
 
-- Cobertura: 180 números exclusivos (1–180), sem ausência; o gabarito tem 180 entradas e marca a 129 como anulada. Isso **não equivale a 180 questões conferidas**.
-- 57 registros contêm rodapés ou marcas da editoração anexados ao texto; 13 têm pelo menos uma alternativa cuja linha começa somente com a letra, comum em expressões matemáticas; 4 contêm caracteres de controle. As categorias se sobrepõem: 64 registros têm ao menos um desses sinais automáticos de revisão.
-- Conferência visual por amostragem: a questão 1 exige a imagem com as citações, ausente na extração textual; 177 e 178 trazem tabelas; as fórmulas das alternativas da 180 não são reconstruídas de forma legível pelo PDF em texto. A questão 154 inclui letras A–E dentro do próprio material da questão, de modo que separar alternativas pela primeira letra encontrada daria resultado errado.
-- Prioridade: recortar e associar imagens/tabelas aos números corretos, reconstruir fórmulas e alternativas, remover marcas editoriais e comparar cada registro com a página original. Depois executar o validador e testar apenas no banco DEV. A revisão visual permanece pendente.
+```bash
+node scripts/validar-caderno-2024.js dados/enem-2024-azul.json dados/gabarito-2024-azul.json
+```
 
-## Próximo lote de trabalho
+O validador verifica IDs exclusivos 2024001–2024180, dias, cadernos, áreas, origem, cinco alternativas, respostas, arquivos de imagem e aprovação visual.
 
-1. Baixar as duas provas oficiais para a pasta local `enemverse-backend/fontes-pdf/` com os nomes `2024_dia1_azul.pdf` e `2024_dia2_azul.pdf` (links no manifesto). Essa pasta é ignorada pelo Git.
-2. Executar `node scripts/extrair-rascunho-2024.js fontes-pdf/2024_dia1_azul.pdf fontes-pdf/2024_dia2_azul.pdf` dentro de `enemverse-backend`. O resultado fica em `fontes-pdf/rascunho-2024-azul.json` e **não pode ser importado**. Com os PDFs recebidos, foram extraídos 180 marcadores exclusivos, sem números ausentes; nas questões 1–5 o script seleciona Inglês. Trechos com imagens e notação matemática precisam ser reconstruídos manualmente.
-3. Extrair e revisar os dois PDFs em registros com os mesmos campos de `enem-2025-azul.json`, acrescentando `origem: "ENEM_OFICIAL"` e `fonte_url` da prova respectiva.
-4. Usar `gabarito-2024-azul.json` como gabarito independente; a questão 129 traz `"ANULADA"`. Não inferir respostas a partir do texto da questão.
-5. Guardar as imagens referenciadas em `assets/enem/2024/azul/` e revisar texto, fórmulas, alternativas e imagens página a página.
-6. Após conferência independente, marcar `revisaoVisualAprovada: true` no manifesto e executar, dentro de `enemverse-backend`:
-   `node scripts/validar-caderno-2024.js dados/enem-2024-azul.json dados/gabarito-2024-azul.json`
-7. Importar somente no MongoDB DEV após a validação completa; conferir contagens, filtros, enunciados e respostas no Preview. A promoção para a produção exigirá uma etapa posterior.
+## Próxima etapa: serviço e banco DEV
 
-O validador verifica IDs exclusivos 2024001–2024180, dias/cadernos/áreas, origem, 5 alternativas, gabarito correspondente, imagens presentes e revisão visual aprovada. A revisão humana continua necessária para confirmar a fidelidade ao PDF.
+A rota `POST /api/questoes/admin/importar-enem-2024` exige a chave administrativa no cabeçalho `x-admin-key` **e** `ENEM2024_IMPORT_ENABLED=true` no serviço DEV. Sem essa variável a rota retorna 403. A rota valida novamente os 180 itens contra o manifesto e gabarito antes de qualquer escrita e usa upsert por ID, para permitir repetição sem duplicar questões.
+
+Configure a liberação apenas no Render DEV depois de confirmar que o serviço aponta para o banco DEV. Execute uma importação única, verifique `total2024: 180`, a questão 129 anulada, filtros, textos, figuras e respostas no Preview. A promoção para a `main` e produção é uma etapa posterior, condicionada aos testes em DEV.

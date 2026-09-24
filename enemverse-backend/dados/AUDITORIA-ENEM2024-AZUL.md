@@ -11,8 +11,8 @@ Data da auditoria: 24/09/2026. Fontes: cadernos impressos 1 Azul (primeiro dia, 
 - A alternativa E da questão 45 continha por engano o título da seção seguinte; foi conferida visualmente no PDF e corrigida para “propagação de mensagens com objetivos políticos.”
 - O script `scripts/auditar-caderno-2024-pdf.py` reproduz a comparação com quatro caminhos locais de PDFs, na ordem prova do dia 1, prova do dia 2, gabarito do dia 1 e gabarito do dia 2. Resultado atual: zero divergências automáticas.
 
-## Revisão visual pendente
+## Revisão visual concluída
 
-A extração textual não confirma fidelidade de fórmulas, desenhos, gráficos e tabelas. O segundo dia contém alternativas desenhadas (112, 121, 127, 131, 161, 168 e 174) e expressões matemáticas recuperadas manualmente (por exemplo, 148, 166, 169, 171, 175 e 180). A existência dos recortes e sua identificação foram conferidas durante a reconstrução; falta uma passagem final integral de fidelidade visual antes de marcar `revisaoVisualAprovada: true`.
+A conferência das páginas confirmou fórmulas, gráficos, tabelas e alternativas desenhadas. Os 72 JPEGs referenciados são idênticos aos objetos de imagem embutidos nos PDFs oficiais. Os 24 arquivos PNG foram inspecionados como recortes de figuras ou tabelas; a tabela da questão 139 estava truncada e foi substituída pelo recorte completo das duas lojas. Também foram ajustados os recortes das questões 121, 169, 170 e 171 para manter todas as alternativas legíveis. As questões 112, 121, 127, 131, 161, 168 e 174 preservam as alternativas ilustradas com seus rótulos A–E.
 
-O resultado desta auditoria **não autoriza importação**. O manifesto permanece com `revisaoVisualAprovada: false`. Testes no banco DEV e no Preview vêm depois dessa revisão; a `main` e a produção não foram alteradas.
+A revisão visual foi aprovada no manifesto. A importação continua dependendo de operação separada e de testes no serviço e no banco DEV. Nenhuma escrita em banco foi feita por esta auditoria; a `main` e a produção não foram alteradas.

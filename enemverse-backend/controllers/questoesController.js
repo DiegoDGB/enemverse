@@ -527,6 +527,45 @@ router.post('/admin/importar-enem-2025', async (req, res) => {
     }
 });
 
+// Importa o caderno 2024 somente quando habilitado explicitamente no serviço DEV.
+router.post('/admin/importar-enem-2024', async (req, res) => {
+    if (!validarAdmin(req, res)) return;
+    if (process.env.ENEM2024_IMPORT_ENABLED !== 'true') {
+        return res.status(403).json({ erro: 'Importação ENEM 2024 não habilitada neste serviço.' });
+    }
+    try {
+        const base = path.join(__dirname, '../dados');
+        const [manifesto, dados, gabarito] = await Promise.all([
+            fs.readFile(path.join(base, 'fontes-enem-2024-azul.json'), 'utf8').then(JSON.parse),
+            fs.readFile(path.join(base, 'enem-2024-azul.json'), 'utf8').then(JSON.parse),
+            fs.readFile(path.join(base, 'gabarito-2024-azul.json'), 'utf8').then(JSON.parse)
+        ]);
+        const { validarLote } = require('../scripts/validar-caderno-2024');
+        const erros = validarLote(manifesto, dados, gabarito, path.join(__dirname, '../..'));
+        if (erros.length) {
+            return res.status(400).json({ erro: 'Caderno 2024 reprovado na validação.', erros });
+        }
+        const normalizadas = dados.questoes.map(q => ({ ...normalizarQuestao(q), origem: 'ENEM_OFICIAL' }));
+        for (const q of normalizadas) {
+            const erro = erroValidacao(q);
+            if (erro) return res.status(400).json({ erro: `Questão ${q.id}: ${erro}` });
+        }
+        const resultado = await Questao.bulkWrite(normalizadas.map(q => ({
+            updateOne: { filter: { id: q.id }, update: { $set: q }, upsert: true }
+        })), { ordered: false });
+        const total2024 = await Questao.countDocuments({ id: { $gte: 2024001, $lte: 2024180 }, ano: 2024 });
+        res.json({
+            sucesso: true, recebidas: normalizadas.length,
+            inseridas: resultado.upsertedCount, atualizadas: resultado.modifiedCount,
+            total2024, anuladas: [129],
+            mensagem: 'Caderno ENEM 2024 importado no serviço DEV.'
+        });
+    } catch (err) {
+        console.error('Erro ao importar ENEM 2024:', err);
+        res.status(500).json({ erro: 'Erro ao importar caderno ENEM 2024.' });
+    }
+});
+
 // Importação em lote.
 // Segurança: exige a variável ADMIN_API_KEY configurada no Render
 // e o header: x-admin-key: SUA_CHAVE.
