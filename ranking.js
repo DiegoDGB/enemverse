@@ -1,71 +1,83 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const podiumContainer = document.getElementById('podiumContainer');
-    const leaderboardList = document.getElementById('leaderboardList');
-    const emailLogado = localStorage.getItem('enemverse_email_ativo');
-
-    async function buscarTodosUsuarios() {
-        // CONEXÃO CORRETA COM O RENDER
-        const resposta = await fetch(`${window.ENEMVERSE_API_BASE_URL}/api/ranking`);
-        return await resposta.json();
+document.addEventListener('DOMContentLoaded', () => {
+    const podium = document.getElementById('podiumContainer');
+    const lista = document.getElementById('leaderboardList');
+    const resumo = document.getElementById('meuRanking');
+    const status = document.getElementById('rankingStatus');
+    const retry = document.getElementById('retryRanking');
+    const token = localStorage.getItem('enemverse_token');
+    if (!token) { window.location.href = 'login.html'; return; }
+    const numero = n => Number(n).toLocaleString('pt-BR');
+    function elemento(tag, classe, texto) {
+        const el = document.createElement(tag);
+        if (classe) el.className = classe;
+        if (texto !== undefined) el.textContent = texto;
+        return el;
     }
-
-    try {
-        const usuarios = await buscarTodosUsuarios();
-
-        if (!usuarios || usuarios.length === 0) {
-            if (leaderboardList) leaderboardList.innerHTML = '<div>Nenhum estudante cadastrado ainda.</div>';
+    function mostrar(dados) {
+        podium.replaceChildren();
+        lista.replaceChildren();
+        const meu = dados.meuRanking;
+        resumo.textContent = 'Sua posição: #' + numero(meu.posicao) + ' de ' +
+            numero(dados.total) + ' estudantes · ' + numero(meu.xp) + ' XP · Nível ' + meu.nivel.numero;
+        resumo.hidden = false;
+        if (!dados.ranking.length) {
+            status.textContent = 'Nenhum estudante no ranking ainda.';
             return;
         }
-
-        const top3 = [usuarios[0] || null, usuarios[1] || null, usuarios[2] || null];
-
-        if (podiumContainer) {
-            podiumContainer.innerHTML = '';
-            const ordemPodio = [
-                { pos: 2, classe: 'second-place', dados: top3[1], emoji: '👩‍💻' },
-                { pos: 1, classe: 'first-place', dados: top3[0], emoji: '👑' },
-                { pos: 3, classe: 'third-place', dados: top3[2], emoji: '👩‍🎨' }
-            ];
-
-            ordemPodio.forEach(degrau => {
-                if (degrau.dados) {
-                    podiumContainer.innerHTML += `
-                        <div class="podium-card ${degrau.classe}">
-                            <div class="avatar-circle">${degrau.emoji}</div>
-                            <h3>${degrau.dados.nome}</h3>
-                            <span>${degrau.dados.xp.toLocaleString()} XP</span>
-                            <small>🔥 ${degrau.dados.ofensiva} dias</small>
-                        </div>`;
-                } else {
-                    podiumContainer.innerHTML += `
-                        <div class="podium-card ${degrau.classe} empty-podium">
-                            <div class="avatar-circle">?</div>
-                            <span class="empty-text">Vaga #${degrau.pos}</span>
-                        </div>`;
-                }
-            });
+        status.textContent = 'Top 100 · ' + dados.criterio;
+        for (const index of [1, 0, 2]) {
+            const user = dados.ranking[index];
+            if (!user) continue;
+            const card = elemento('div', 'podium-card ' +
+                ['first-place', 'second-place', 'third-place'][index]);
+            card.append(elemento('div', 'avatar-circle', ['🥇', '🥈', '🥉'][index]),
+                elemento('h3', 'podium-name', user.nome),
+                elemento('span', 'podium-xp', numero(user.xp) + ' XP'),
+                elemento('small', 'podium-meta', '#' + user.posicao + ' · Nível ' + user.nivel.numero));
+            podium.append(card);
         }
-        if (leaderboardList) {
-            leaderboardList.innerHTML = '';
-            usuarios.forEach((user, index) => {
-                const posicao = index + 1;
-                const questoesFeitas = Math.floor(user.xp / 20);
-                const eOUsuarioLogado = user.email === emailLogado ? 'current-user' : '';
-                const tagLogado = user.email === emailLogado ? '<span>(Você)</span>' : '';
-
-                leaderboardList.innerHTML += `
-                    <div class="leaderboard-item ${eOUsuarioLogado}">
-                        <span>#${posicao}</span>
-                        <div>
-                            <strong>${user.nome}</strong> ${tagLogado}
-                        </div>
-                        <span>🔥 ${user.ofensiva} dias</span>
-                        <span>${questoesFeitas} feitas</span>
-                        <span>${user.xp.toLocaleString()} XP</span>
-                    </div>`;
-            });
+        for (const user of dados.ranking) {
+            const row = elemento('div', 'leaderboard-item' + (user.voce ? ' current-user' : ''));
+            const nome = elemento('div', 'student-name-group');
+            nome.append(elemento('strong', 'student-name', user.nome));
+            if (user.voce) nome.append(elemento('span', 'student-tag', 'Você'));
+            row.append(elemento('span', 'position-number', '#' + user.posicao), nome,
+                elemento('span', 'student-stat', 'Nível ' + user.nivel.numero),
+                elemento('span', 'student-xp', numero(user.xp) + ' XP'));
+            lista.append(row);
         }
-    } catch (erro) {
-        console.error(erro);
     }
+    async function carregar() {
+        retry.hidden = true;
+        resumo.hidden = true;
+        status.textContent = 'Carregando ranking…';
+        lista.setAttribute('aria-busy', 'true');
+        try {
+            const resposta = await fetch(window.ENEMVERSE_API_BASE_URL + '/api/ranking/meu-ranking', {
+                headers: { Authorization: 'Bearer ' + token }
+            });
+            if (resposta.status === 401) {
+                status.textContent = 'Sua sessão expirou. Faça login novamente.';
+                const link = elemento('a', 'btn-back', 'Entrar');
+                link.href = 'login.html';
+                lista.replaceChildren(link);
+                return;
+            }
+            if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+            const dados = await resposta.json();
+            if (!Array.isArray(dados.ranking) || !dados.meuRanking ||
+                !dados.meuRanking.nivel || !Number.isFinite(dados.total)) {
+                throw new Error('Resposta de ranking inválida.');
+            }
+            mostrar(dados);
+        } catch (err) {
+            console.error('Erro ao carregar ranking:', err);
+            podium.replaceChildren();
+            lista.replaceChildren();
+            status.textContent = 'Não foi possível carregar o ranking. Tente novamente.';
+            retry.hidden = false;
+        } finally { lista.setAttribute('aria-busy', 'false'); }
+    }
+    retry.addEventListener('click', carregar);
+    carregar();
 });

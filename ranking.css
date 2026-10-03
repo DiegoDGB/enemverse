@@ -322,3 +322,17 @@
     color: #64748b;
     font-size: 1rem;
 }
+
+/* Ranking por XP e posição pessoal. */
+.table-header, .leaderboard-item { grid-template-columns: 80px minmax(0, 1fr) 100px 120px; gap: 12px; }
+.student-name, .podium-name { overflow-wrap: anywhere; }
+.ranking-summary { padding: 20px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; font-weight: 700; }
+#rankingStatus { color: #64748b; margin: 16px 0; }
+#retryRanking { cursor: pointer; margin-bottom: 16px; }
+[hidden] { display: none !important; }
+@media (max-width: 700px) {
+    .ranking-nav { padding: 16px; }
+    .ranking-nav .nav-container { flex-wrap: wrap; gap: 12px; }
+    .leaderboard-item { grid-template-columns: 40px minmax(0, 1fr) 90px; gap: 8px; }
+    .podium-card { box-sizing: border-box; gap: 12px; flex-wrap: wrap; }
+}
